@@ -1,8 +1,8 @@
 <template>
 <div>
     <el-form ref="form" :model="form" label-width="80px" :rules="rules">
-        <el-form-item label="选择板块" prop="card" class="select">
-            <el-select v-model="form.card" placeholder="请选择">
+        <el-form-item label="选择板块" prop="card" class="select" >
+            <el-select v-model="form.card" placeholder="请选择" style="width: 360px">
                 <el-option-group v-for="group in groups" :key="group.label" :label="group.label">
                     <el-option v-for="item in group.cards" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
@@ -10,17 +10,17 @@
             </el-select>
         </el-form-item>
         <el-form-item label="上传文件">
-            <el-upload class="upload-demo" drag action :on-change="getData" :file-list="fileList" :accept="docx">
+            <el-upload class="upload-demo" drag action :on-change="getData" :file-list="fileList">
                 <i class="el-icon-upload"></i>
                 <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 <div class="el-upload__tip" slot="tip">只能上传docx文件，且不超过500kb</div>
             </el-upload>
         </el-form-item>
         <el-form-item label="预览效果">
-            <el-card class="box-card" :body-style="{ padding: '0px' }" style="width: 1000px">
+            <el-card class="box-card" :body-style="{ padding: '0px' }">
                 <img src="~assets/news_top.png" class="image">
                 <div class="article-box" v-html="article"></div>
-                <img src="~assets/news_bottom.png" class="image">
+                <img src="~assets/news_bottom.png" class="image bottom-img">
             </el-card>
         </el-form-item>
         <el-form-item>
@@ -112,14 +112,17 @@ export default {
 
 <style>
 .box-card {
-    padding: 0;
+    width: 1000px;
+}
+.bottom-img {
+    margin-bottom: -15px;
 }
 
 .article-box {
     width: 800px;
-    height: 500px;
     overflow-y: auto;
-    padding: 30px;
+    overflow-x: hidden;
+    margin: 0 auto;
 }
 
 .article-box h1,
