@@ -12,7 +12,7 @@ export default new Router({
 		component: resolve => require(['../components/common/Home.vue'], resolve),
 		children: [{
 			path: '/',
-			component: resolve => require(['../components/page/BaseTable.vue'],
+			component: resolve => require(['../components/page/News.vue'],
 				resolve)
 		}, {
 			path: '/basetable',
@@ -21,7 +21,7 @@ export default new Router({
 		}, {
 			path: '/vuetable',
 			component: resolve => require(['../components/page/VueTable.vue'],
-					resolve) // vue-datasource组件
+				resolve) // vue-datasource组件
 		}, {
 			path: '/baseform',
 			component: resolve => require(['../components/page/BaseForm.vue'],
@@ -29,23 +29,23 @@ export default new Router({
 		}, {
 			path: '/vueeditor',
 			component: resolve => require(['../components/page/VueEditor.vue'],
-					resolve) // Vue-Quill-Editor组件
+				resolve) // Vue-Quill-Editor组件
 		}, {
 			path: '/markdown',
 			component: resolve => require(['../components/page/Markdown.vue'],
-					resolve) // Vue-Quill-Editor组件
+				resolve) // Vue-Quill-Editor组件
 		}, {
 			path: '/upload',
 			component: resolve => require(['../components/page/Upload.vue'],
-					resolve) // Vue-Core-Image-Upload组件
+				resolve) // Vue-Core-Image-Upload组件
 		}, {
 			path: '/basecharts',
 			component: resolve => require(['../components/page/BaseCharts.vue'],
-					resolve) // vue-schart组件
+				resolve) // vue-schart组件
 		}, {
 			path: '/drag',
 			component: resolve => require(['../components/page/DragList.vue'],
-					resolve) // 拖拽列表组件
+				resolve) // 拖拽列表组件
 		}, {
 			path: '/news',
 			component: resolve => require(['../components/page/News.vue'], resolve) // 新闻页面
