@@ -41,7 +41,7 @@
 export default {
     data() {
         return {
-            url: './static/vuetable.json',
+            // url: './static/vuetable.json',
             tableData: [],
             cur_page: 1,
             multipleSelection: [],
@@ -121,12 +121,74 @@ export default {
             // if (process.env.NODE_ENV === 'development') {
             //     self.url = '/ms/table/list';
             // };
-            self.$axios.get(self.url, {
-                page: self.cur_page
-            }).then((res) => {
-                self.tableData = res.data.list;
-                self.total = res.data.total;
-            })
+            // self.$axios.get(self.url, {
+            //     page: self.cur_page
+            // }).then((res) => {
+                // self.tableData = res.data.list;
+                // self.total = res.data.total;
+            // })
+            self.total = 10;
+            self.tableData = [{
+                "date": "2017-11-11",
+                "name": "建瓯市人大常委会关于批准2016年地方政府债务限额及财政预算调整的议案的决议",
+                "image": "img.png",
+                "type": "1_1",
+                "typeName": "代表大会会议"
+            }, {
+                "date": "2017-09-24",
+                "name": "建瓯市人大常委会关于授予建瓯市国家税务局“人民满意单位”荣誉称号的决定",
+                "image": "img2.png",
+                "type": "1_2",
+                "typeName": "常委会会议"
+            }, {
+                "date": "2017-08-08",
+                "name": "2016年8月29日建瓯市第十五届人大常委会第36次会议通过",
+                "image": "img.png",
+                "type": "1_1",
+                "typeName": "代表大会会议"
+            }, {
+                "date": "1978-06-18",
+                "name": "城区殡葬“一条龙”服务点改革情况的调研报告",
+                "image": "img.png",
+                "type": "2_1",
+                "typeName": "决定决议"
+            }, {
+                "date": "1977-07-09",
+                "name": "建瓯市人大常委会关于批准2016年地方政府债务限额及财政预算调整的议案的决议",
+                "image": "img.png",
+                "type": "2_4",
+                "typeName": "代表工作"
+            }, {
+                "date": "1994-09-20",
+                "name": "关于吴慧艳等同志职务任免的通知",
+                "image": "img.png",
+                "type": "2_1",
+                "typeName": "决定决议"
+            }, {
+                "date": "1980-01-22",
+                "name": "建瓯市人大常委会关于批准2016年地方政府债务限额及财政预算调整的议案的决议",
+                "image": "img.png",
+                "type": "2_2",
+                "typeName": "监督公开"
+            }, {
+                "date": "1985-10-10",
+                "name": "龙村乡人大代表王菊英风采",
+                "image": "img.png",
+                "type": "3_1",
+                "typeName": "自身建设"
+            }, {
+                "date": "1975-09-08",
+                "name": "建瓯市人大常委会关于批准2016年地方政府债务限额及财政预算调整的议案的决议",
+                "image": "img.png",
+                "type": "1_1",
+                "typeName": "代表大会会议"
+            }, {
+                "date": "1970-06-07",
+                "name": "建瓯市人大常委会关于授予建瓯市国家税务局“人民满意单位”荣誉称号的决定",
+                "image": "img.png",
+                "type": "1_2",
+                "typeName": "常委会会议"
+            }];
         },
         clear() {
             this.select_word = '';
