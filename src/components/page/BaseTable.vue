@@ -8,16 +8,18 @@
             </el-option-group>
         </el-select>
         <el-input v-model="select_word" placeholder="筛选关键词" class="handle-input"></el-input>
-        <el-button type="primary" icon="search" @click="search">搜索</el-button>
-        <el-button type="primary" icon="delete" class="handle-del" @click="delAll">批量删除</el-button>
+        <el-button type="primary" icon="el-icon-close" @click="clear">清空条件</el-button>
+        <el-button type="primary" icon="el-icon-delete" class="handle-del" @click="delAll">批量删除</el-button>
     </div>
     <el-table :data="data" border style="width: 100%" ref="multipleTable" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column prop="date" label="日期" sortable width="150">
         </el-table-column>
-        <el-table-column prop="name" label="姓名" width="120">
+        <el-table-column prop="name" label="标题">
         </el-table-column>
-        <el-table-column prop="address" label="地址" :formatter="formatter">
+        <el-table-column prop="typeName" label="所属板块" width="150">
+        </el-table-column>
+        <el-table-column prop="image" label="图片">
         </el-table-column>
         <el-table-column label="操作" width="180">
             <template scope="scope">
@@ -29,7 +31,7 @@
         </el-table-column>
     </el-table>
     <div class="pagination">
-        <el-pagination @current-change="handleCurrentChange" layout="prev, pager, next" :total="1000">
+        <el-pagination @current-change="handleCurrentChange" layout="prev, pager, next" :total="total">
         </el-pagination>
     </div>
 </div>
@@ -47,6 +49,7 @@ export default {
             select_word: '',
             del_list: [],
             is_search: false,
+            total: 0,
             groups: [{
                 label: '会议专题',
                 cards: [{
@@ -98,9 +101,9 @@ export default {
                     }
                 }
                 if (!is_del) {
-                    if (d.address.indexOf(self.select_cate) > -1 &&
+                    if (d.type.indexOf(self.select_cate) > -1 &&
                         (d.name.indexOf(self.select_word) > -1 ||
-                            d.address.indexOf(self.select_word) > -1)
+                            d.typeName.indexOf(self.select_word) > -1)
                     ) {
                         return d;
                     }
@@ -115,17 +118,19 @@ export default {
         },
         getData() {
             let self = this;
-            if (process.env.NODE_ENV === 'development') {
-                self.url = '/ms/table/list';
-            };
-            self.$axios.post(self.url, {
+            // if (process.env.NODE_ENV === 'development') {
+            //     self.url = '/ms/table/list';
+            // };
+            self.$axios.get(self.url, {
                 page: self.cur_page
             }).then((res) => {
                 self.tableData = res.data.list;
+                self.total = res.data.total;
             })
         },
-        search() {
-            this.is_search = true;
+        clear() {
+            this.select_word = '';
+            this.select_cate = '';
         },
         formatter(row, column) {
             return row.address;

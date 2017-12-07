@@ -16,7 +16,7 @@
                 <div class="el-upload__tip" slot="tip">只能上传docx文件，且不超过500kb</div>
             </el-upload>
         </el-form-item>
-        <el-form-item label="预览效果">
+        <el-form-item label="预览效果" :class="{ hidden: isHidden }">
             <el-card class="box-card" :body-style="{ padding: '0px' }">
                 <img src="~assets/news_top.png" class="image">
                 <div class="article-box" v-html="article"></div>
@@ -41,6 +41,7 @@ export default {
         return {
             fileList: [],
             article: '',
+            isHidden: true,
             form: {
                 card: ''
             },
@@ -97,6 +98,7 @@ export default {
                         arrayBuffer: arrayBuffer
                     })
                     .then(function(result) {
+                        self.isHidden = false;
                         self.article = result.value;
                     })
                     .done();
@@ -111,6 +113,9 @@ export default {
 </script>
 
 <style>
+.hidden {
+    display: none;
+}
 .box-card {
     width: 1000px;
 }

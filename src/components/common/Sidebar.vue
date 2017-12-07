@@ -30,7 +30,7 @@ export default {
                 },
                 {
                     icon: 'el-icon-picture',
-                    index: 'upload',
+                    index: 'images',
                     title: '图片管理'
                 },
                 {
@@ -40,7 +40,7 @@ export default {
                 },
                 {
                     icon: 'el-icon-setting',
-                    index: 'baseform',
+                    index: 'person',
                     title: '账号信息'
                 }
                 // {

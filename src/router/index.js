@@ -49,6 +49,12 @@ export default new Router({
 		}, {
 			path: '/news',
 			component: resolve => require(['../components/page/News.vue'], resolve) // 新闻页面
+		}, {
+			path: '/person',
+			component: resolve => require(['../components/page/Person.vue'], resolve) // 账号信息
+		}, {
+			path: '/images',
+			component: resolve => require(['../components/page/Images.vue'], resolve) // 账号信息
 		}]
 	}, {
 		path: '/login',
