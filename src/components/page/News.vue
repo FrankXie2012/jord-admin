@@ -127,7 +127,7 @@ export default {
     width: 800px;
     overflow-y: auto;
     overflow-x: hidden;
-    margin: 0 auto;
+    margin: 30px auto;
 }
 
 .article-box h1,

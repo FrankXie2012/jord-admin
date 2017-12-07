@@ -2,7 +2,7 @@
 <div>
     <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="标题" prop="name">
-            <el-input v-model="form.name"></el-input>
+            <el-input v-model="form.name" class="input"></el-input>
         </el-form-item>
         <el-form-item label="上传图片">
             <el-upload class="upload-demo" drag action multiple :on-change="getData" :file-list="fileList">
@@ -52,7 +52,7 @@ export default {
 </script>
 
 <style scoped>
-.form {
+.input {
     width: 360px;
 }
 
