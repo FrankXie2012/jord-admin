@@ -31,12 +31,12 @@ export default {
                 {
                     icon: 'el-icon-picture',
                     index: 'images',
-                    title: '图片管理'
+                    title: '图片新闻'
                 },
                 {
                     icon: 'el-icon-edit',
                     index: 'news',
-                    title: '发布新闻'
+                    title: '发布文章'
                 },
                 {
                     icon: 'el-icon-setting',

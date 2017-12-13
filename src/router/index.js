@@ -55,8 +55,12 @@ export default new Router({
 					resolve) // 账号信息
 		}, {
 			path: '/images',
-			component: resolve => require(['../components/page/Images.vue'],
-					resolve) // 账号信息
+			component: resolve => require(['../components/page/ImgTable.vue'],
+					resolve) // 图片新闻列表
+		}, {
+			path: '/addImgs',
+			component: resolve => require(['../components/page/AddImgs.vue'],
+					resolve) // 编辑图片新闻
 		}]
 	}, {
 		path: '/login',

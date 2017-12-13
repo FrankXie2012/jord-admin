@@ -1,8 +1,11 @@
 <template>
 <div>
     <el-form ref="form" :model="form" label-width="80px" :rules="rules">
-        <el-form-item label="选择板块" prop="card" class="select" >
-            <el-select v-model="form.card" placeholder="请选择" style="width: 360px">
+        <el-form-item label="文章名称" prop="name">
+            <el-input v-model="form.name" class="item-width"></el-input>
+        </el-form-item>
+        <el-form-item label="选择板块" prop="card" class="select">
+            <el-select v-model="form.card" placeholder="请选择" class="item-width">
                 <el-option-group v-for="group in groups" :key="group.label" :label="group.label">
                     <el-option v-for="item in group.cards" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
@@ -31,7 +34,7 @@
 </template>
 
 <script>
-import mammoth from 'mammoth/mammoth.browser.js'
+import mammoth from 'mammoth/mammoth.browser'
 
 export default {
     components: {
@@ -46,9 +49,14 @@ export default {
                 card: ''
             },
             rules: {
+                name: [{
+                    required: true,
+                    message: '请选择输入文章标题',
+                    trigger: 'blur'
+                }],
                 card: [{
                     required: true,
-                    message: '请选择新闻板块',
+                    message: '请选择所属板块',
                     trigger: 'change'
                 }]
             },
@@ -116,11 +124,17 @@ export default {
 .hidden {
     display: none;
 }
+
 .box-card {
     width: 1000px;
 }
+
 .bottom-img {
     margin-bottom: -15px;
+}
+
+.item-width {
+    width: 360px;
 }
 
 .article-box {
