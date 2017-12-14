@@ -4,18 +4,17 @@
         <el-form-item label="标题" prop="name">
             <el-input v-model="form.name" class="input"></el-input>
         </el-form-item>
-        <el-form-item label="上传图片">
-            <el-upload class="upload-demo" drag action multiple :on-change="getData" :file-list="fileList">
-                <i class="el-icon-upload"></i>
-                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+        <el-form-item label="图片">
+            <el-upload action="uploadImgNews" multiple list-type="picture-card" :on-preview="preview" :on-remove="handleRemove" :file-list="fileList">
+                <i class="el-icon-plus"></i>
             </el-upload>
         </el-form-item>
-        <el-form-item label="预览效果" :class="{ hidden: isHidden }">
-            <img :src="preview" class="image">
-        </el-form-item>
+        <el-dialog :title="dialogImageName" :visible.sync="dialogVisible" size="tiny">
+            <img width="100%" :src="dialogImageUrl" alt="">
+        </el-dialog>
         <el-form-item>
             <el-button type="primary" @click="onSubmit">立即发布</el-button>
+            <el-button @click="onBack">返回列表</el-button>
         </el-form-item>
     </el-form>
 </div>
@@ -28,24 +27,33 @@ export default {
             form: {
                 name: ''
             },
-            fileList: [],
-            preview: '',
-            isHidden: true
+            dialogImageUrl: '',
+            dialogVisible: false,
+            dialogImageName: '',
+            fileList:  []
         }
     },
+    created() {
+        var self = this;
+        self.$axios.post('getImgNews').then((res) => {
+            self.fileList = res.data.newsImgs;
+            self.form.name = res.data.newsName;
+        });
+    },
     methods: {
-        getData(file, fileList) {
-            var self = this;
-            var reader = new FileReader();
-            reader.onload = function(loadEvent) {
-                var _src = loadEvent.target.result;
-                self.preview = _src;
-                self.isHidden = false;
-            };
-            reader.readAsDataURL(file.raw);
+        handleRemove(file, fileList) {
+            console.log(file, fileList);
+        },
+        preview(file) {
+            this.dialogImageUrl = file.url;
+            this.dialogVisible = true;
+            this.dialogImageName = file.name;
         },
         onSubmit() {
             console.info(this.form);
+        },
+        onBack() {
+            this.$router.push('/images');
         }
     }
 }
@@ -54,11 +62,5 @@ export default {
 <style scoped>
 .input {
     width: 360px;
-}
-
-.image {
-    width: 360px;
-    height: 250px;
-    border: 1px solid #ccc;
 }
 </style>
