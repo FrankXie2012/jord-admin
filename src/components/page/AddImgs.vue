@@ -50,7 +50,15 @@ export default {
             this.dialogImageName = file.name;
         },
         onSubmit() {
+            var self = this;
             console.info(this.form);
+            this.$message({
+                message: '提交成功',
+                type: 'success'
+            });
+            setTimeout(function() {
+                self.$router.push('/images');
+            }, 1000);
         },
         onBack() {
             this.$router.push('/images');
