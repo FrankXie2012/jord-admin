@@ -1,89 +1,134 @@
 <template>
-    <div class="login-wrap">
-        <div class="ms-title">建瓯人大 <small>后台管理系统</small></div>
-        <div class="ms-login">
-            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
-                <el-form-item prop="username">
-                    <el-input v-model="ruleForm.username" placeholder="username"></el-input>
-                </el-form-item>
-                <el-form-item prop="password">
-                    <el-input type="password" placeholder="password" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
-                </el-form-item>
-                <div class="login-btn">
-                    <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
-                </div>
-            </el-form>
-        </div>
+<div class="login-wrap">
+    <div class="ms-title">建瓯人大 <small>后台管理系统</small></div>
+    <div class="ms-login">
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
+            <el-form-item prop="username">
+                <el-input v-model="ruleForm.username" placeholder="用户名"></el-input>
+            </el-form-item>
+            <el-form-item prop="password">
+                <el-input type="password" placeholder="密码" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
+            </el-form-item>
+            <el-form-item prop="validateCode">
+                <el-input v-model="ruleForm.validateCode" placeholder="验证码"></el-input>
+            </el-form-item>
+            <img src="http://www.telegraph.co.uk/content/dam/technology/2017/03/13/recaptcha_1483594a_trans_NvBQzQNjv4BqmRnaWIkzDVpCKltYOKrpmQWy8lblDP8P31dqqF4gWEE.jpg?imwidth=450" alt="验证码" class="code-img">
+            <div class="login-btn">
+                <el-button :type="btnType" :disabled="btnActive" @click="submitForm('ruleForm')">{{btnText}}</el-button>
+            </div>
+        </el-form>
     </div>
+</div>
 </template>
 
 <script>
-    export default {
-        data: function(){
-            return {
-                ruleForm: {
-                    username: '',
-                    password: ''
-                },
-                rules: {
-                    username: [
-                        { required: true, message: '请输入用户名', trigger: 'blur' }
-                    ],
-                    password: [
-                        { required: true, message: '请输入密码', trigger: 'blur' }
-                    ]
-                }
-            }
-        },
-        methods: {
-            submitForm(formName) {
-                const self = this;
-                self.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        localStorage.setItem('ms_username',self.ruleForm.username);
-                        self.$router.push('/basetable');
-                    } else {
-                        console.log('error submit!!');
-                        return false;
-                    }
-                });
+export default {
+    data: function() {
+        return {
+            btnText: '登录',
+            btnType: 'primary',
+            ruleForm: {
+                username: '',
+                password: '',
+                validateCode: ''
+            },
+            rules: {
+                username: [{
+                    required: true,
+                    message: '请输入用户名',
+                    trigger: 'blur'
+                }],
+                password: [{
+                    required: true,
+                    message: '请输入密码',
+                    trigger: 'blur'
+                }],
+                validateCode: [{
+                    required: true,
+                    message: '请输入验证码',
+                    trigger: 'blur'
+                }],
             }
         }
+    },
+    computed: {
+        // 登录按钮禁用控制
+        btnActive: function() {
+            let form = this.ruleForm;
+            if (form.username && form.password && form.validateCode) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    },
+    methods: {
+        submitForm(formName) {
+            const self = this;
+            self.$refs[formName].validate((valid) => {
+                if (valid) {
+                    self.$axios.post('manage/login', self.ruleForm).then((res) => {
+                        var _res = res.data;
+                        if (_res.state === 'success') {
+                            localStorage.setItem('name', _res.data.name);
+                            localStorage.setItem('headIcon', _res.data.headIcon);
+                            localStorage.setItem('role', _res.data.role);
+                            self.$router.push('/newsList');
+                        } else {
+                            self.btnText = _res.msg;
+                            self.btnType = 'danger';
+                        }
+                    });
+                }
+            });
+        }
     }
+}
 </script>
 
 <style scoped>
-    .login-wrap{
-        position: relative;
-        width:100%;
-        height:100%;
-    }
-    .ms-title{
-        position: absolute;
-        top:50%;
-        width:100%;
-        margin-top: -230px;
-        text-align: center;
-        font-size:30px;
-        color: #fff;
+.login-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
 
-    }
-    .ms-login{
-        position: absolute;
-        left:50%;
-        top:50%;
-        width:300px;
-        height:160px;
-        margin:-150px 0 0 -190px;
-        padding:40px;
-        border-radius: 5px;
-        background: #fff;
-    }
-    .login-btn{
-        text-align: center;
-    }
-    .login-btn button{
-        width:100%;
-        height:36px;
-    }
+.ms-title {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    margin-top: -230px;
+    text-align: center;
+    font-size: 30px;
+    color: #fff;
+
+}
+
+.ms-login {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 300px;
+    height: 210px;
+    margin: -160px 0 0 -190px;
+    padding: 40px;
+    border-radius: 5px;
+    background: #fff;
+}
+
+.login-btn {
+    text-align: center;
+}
+
+.login-btn button {
+    width: 100%;
+    height: 36px;
+}
+.code-img {
+    height: 38px;
+    width: 80px;
+    position: absolute;
+    right: 42px;
+    top: 165px;
+}
 </style>

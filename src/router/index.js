@@ -8,15 +8,15 @@ export default new Router({
 		path: '/',
 		redirect: '/login'
 	}, {
-		path: '/basetable',
+		path: '/newsList',
 		component: resolve => require(['../components/common/Home.vue'], resolve),
 		children: [{
 			path: '/',
-			component: resolve => require(['../components/page/BaseTable.vue'],
+			component: resolve => require(['../components/page/NewsList.vue'],
 				resolve)
 		}, {
-			path: '/basetable',
-			component: resolve => require(['../components/page/BaseTable.vue'],
+			path: '/newsList',
+			component: resolve => require(['../components/page/NewsList.vue'],
 				resolve)
 		}, {
 			path: '/vuetable',

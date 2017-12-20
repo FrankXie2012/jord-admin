@@ -1,0 +1,193 @@
+<template>
+<div class="table">
+    <div class="handle-box">
+        <el-select v-model="select_cate" placeholder="筛选板块" class="handle-select">
+            <el-option-group v-for="group in groups" :key="group.label" :label="group.label">
+                <el-option v-for="item in group.cards" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+            </el-option-group>
+        </el-select>
+        <el-input v-model="select_word" placeholder="筛选关键词" class="handle-input" @change="searchWord"></el-input>
+        <el-button type="primary" icon="el-icon-close" @click="clear">清空条件</el-button>
+        <el-button type="primary" icon="el-icon-delete" class="handle-del" @click="delMulti">批量删除</el-button>
+    </div>
+    <el-table :data="tableData" border style="width: 100%" ref="multipleTable" @selection-change="selectChange">
+        <el-table-column type="selection" width="55"></el-table-column>
+        <el-table-column prop="createDate" label="日期" sortable width="150">
+        </el-table-column>
+        <el-table-column prop="title" label="标题">
+        </el-table-column>
+        <el-table-column prop="categoryName" label="所属板块" width="150">
+        </el-table-column>
+        <el-table-column prop="hits" label="点击量">
+        </el-table-column>
+        <el-table-column prop="author" label="作者">
+        </el-table-column>
+        <el-table-column label="操作" width="180">
+            <template scope="scope">
+                <el-button :type="scope.row.isRoll ? '' : 'primary'" size="small"
+                        @click="setRoll(scope.$index, scope.row)">{{scope.row.isRoll ? '取消轮播' : '设为轮播'}}</el-button>
+                <el-button size="small" type="danger"
+                        @click="delOne(scope.$index, scope.row)">删除</el-button>
+            </template>
+        </el-table-column>
+    </el-table>
+    <div class="pagination">
+        <el-pagination @current-change="handleCurrentChange" layout="prev, pager, next" :total="total">
+        </el-pagination>
+    </div>
+</div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            tableData: [],
+            cur_page: 1,
+            multipleSelection: [],
+            select_cate: '',
+            select_word: '',
+            total: 0,
+            groups: [{
+                label: '会议专题',
+                cards: [{
+                    value: '代表大会会议',
+                    label: '代表大会会议'
+                }, {
+                    value: '常委会会议',
+                    label: '常委会会议'
+                }]
+            }, {
+                label: '政务公开',
+                cards: [{
+                    value: '决定决议',
+                    label: '决定决议'
+                }, {
+                    value: '监督公开',
+                    label: '监督公开'
+                }, {
+                    value: '一府两院',
+                    label: '一府两院'
+                }, {
+                    value: '代表工作',
+                    label: '代表工作'
+                }]
+            }, {
+                label: '队伍建设',
+                cards: [{
+                    value: '自身建设',
+                    label: '自身建设'
+                }, {
+                    value: '基层人大',
+                    label: '基层人大'
+                }]
+            }]
+        }
+    },
+    created() {
+        this.getData();
+    },
+    watch: {
+        select_cate() {
+            this.getData();
+        }
+    },
+    methods: {
+        handleCurrentChange(val) {
+            this.cur_page = val;
+            this.getData();
+        },
+        getData() {
+            const self = this;
+            self.$axios.post('manage/article/list', {
+                page: self.cur_page,
+                categoryId: self.select_cate,
+                title: self.select_word
+            }).then((res) => {
+                self.tableData = res.data.list;
+                self.total = res.data.total;
+            });
+        },
+        searchWord() {
+            this.getData();
+        },
+        clear() {
+            this.select_word = '';
+            this.select_cate = '';
+        },
+        formatter(row, column) {
+            return row.address;
+        },
+        filterTag(value, row) {
+            return row.tag === value;
+        },
+        setRoll(index, row) {
+            const self = this;
+            self.$axios.post('manage/article/setRoll', {
+                articleId: row.id,
+                isRoll: row.isRoll
+            }).then((res) => {
+                let _res = res.data;
+                if (_res.state === 'success') {
+                    self.$message(_res.msg);
+                    row.isRoll = !row.isRoll;
+                } else {
+                    self.$message.error(_res.msg);
+                }
+            });
+        },
+        delOne(index, row) {
+            const self = this;
+            self.$axios.post('manage/article/delete', {
+                articleIds: row.id
+            }).then((res) => {
+                let _res = res.data;
+                if (_res.state === 'success') {
+                    self.$message(_res.msg);
+                    self.getData();
+                } else {
+                    self.$message.error(_res.msg);
+                }
+            });
+        },
+        delMulti() {
+            const self = this,
+                length = self.multipleSelection.length;
+            let _articleIds = '';
+            // 获取到所选文章的id
+            _articleIds = self.multipleSelection.map(a => a.id).join(',');
+            self.$axios.post('manage/article/delete', {
+                articleIds: _articleIds
+            }).then((res) => {
+                let _res = res.data;
+                if (_res.state === 'success') {
+                    self.$message('删除了' + length + '条文章');
+                    self.getData();
+                } else {
+                    self.$message.error(_res.msg);
+                }
+            });
+            self.multipleSelection = [];
+        },
+        selectChange(val) {
+            this.multipleSelection = val;
+        }
+    }
+}
+</script>
+
+<style scoped>
+.handle-box {
+    margin-bottom: 20px;
+}
+
+.handle-select {
+    width: 200px;
+}
+
+.handle-input {
+    width: 300px;
+    display: inline-block;
+}
+</style>
