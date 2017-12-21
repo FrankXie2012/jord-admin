@@ -25,7 +25,7 @@ export default {
         return {
             items: [{
                     icon: 'el-icon-menu',
-                    index: 'basetable',
+                    index: 'newsList',
                     title: '文章列表'
                 },
                 {

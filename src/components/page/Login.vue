@@ -1,6 +1,6 @@
 <template>
 <div class="login-wrap">
-    <div class="ms-title">建瓯人大 <small>后台管理系统</small></div>
+    <!-- <div class="ms-title">建瓯人大 <small>后台管理系统</small></div> -->
     <div class="ms-login">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
             <el-form-item prop="username">
@@ -12,7 +12,7 @@
             <el-form-item prop="validateCode">
                 <el-input v-model="ruleForm.validateCode" placeholder="验证码"></el-input>
             </el-form-item>
-            <img src="http://www.telegraph.co.uk/content/dam/technology/2017/03/13/recaptcha_1483594a_trans_NvBQzQNjv4BqmRnaWIkzDVpCKltYOKrpmQWy8lblDP8P31dqqF4gWEE.jpg?imwidth=450" alt="验证码" class="code-img">
+            <img :src="code" @click="refreshCode" alt="验证码" class="code-img">
             <div class="login-btn">
                 <el-button :type="btnType" :disabled="btnActive" @click="submitForm('ruleForm')">{{btnText}}</el-button>
             </div>
@@ -25,6 +25,7 @@
 export default {
     data: function() {
         return {
+            code: 'servlet/validateCodeServlet?' + new Date().getTime(),
             btnText: '登录',
             btnType: 'primary',
             ruleForm: {
@@ -63,6 +64,10 @@ export default {
         }
     },
     methods: {
+        // 刷新验证码
+        refreshCode() {
+            this.code = 'servlet/validateCodeServlet?' + new Date().getTime();
+        },
         submitForm(formName) {
             const self = this;
             self.$refs[formName].validate((valid) => {

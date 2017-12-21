@@ -1,11 +1,11 @@
 <template>
 <div>
     <el-form ref="form" :model="form" label-width="80px" :rules="rules">
-        <el-form-item label="文章名称" prop="name">
-            <el-input v-model="form.name" class="item-width"></el-input>
+        <el-form-item label="文章名称" prop="title">
+            <el-input v-model="form.title" class="item-width"></el-input>
         </el-form-item>
-        <el-form-item label="选择板块" prop="card" class="select">
-            <el-select v-model="form.card" placeholder="请选择" class="item-width">
+        <el-form-item label="选择板块" prop="categoryId" class="select">
+            <el-select v-model="form.categoryId" placeholder="请选择" class="item-width">
                 <el-option-group v-for="group in groups" :key="group.label" :label="group.label">
                     <el-option v-for="item in group.cards" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
@@ -21,9 +21,9 @@
         </el-form-item>
         <el-form-item label="预览效果" :class="{ hidden: isHidden }">
             <el-card class="box-card" :body-style="{ padding: '0px' }">
-                <img src="~assets/news_top.png" class="image">
+                <!-- <img src="~assets/news_top.png" class="image"> -->
                 <div class="article-box" v-html="article"></div>
-                <img src="~assets/news_bottom.png" class="image bottom-img">
+                <!-- <img src="~assets/news_bottom.png" class="image bottom-img"> -->
             </el-card>
         </el-form-item>
         <el-form-item>
@@ -46,15 +46,16 @@ export default {
             article: '',
             isHidden: true,
             form: {
-                card: ''
+                categoryId: '',
+                name: ''
             },
             rules: {
-                name: [{
+                title: [{
                     required: true,
                     message: '请选择输入文章标题',
                     trigger: 'blur'
                 }],
-                card: [{
+                categoryId: [{
                     required: true,
                     message: '请选择所属板块',
                     trigger: 'change'
@@ -115,6 +116,9 @@ export default {
         },
         onSubmit() {
             console.info(this.form);
+            // manage/article/save
+            // author
+            // content
         }
     }
 }
