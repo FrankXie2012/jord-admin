@@ -39,6 +39,16 @@ export default {
                     title: '发布文章'
                 },
                 {
+                    icon: 'el-icon-view',
+                    index: 'newsAudit',
+                    title: '文章审阅'
+                },
+                {
+                    icon: 'el-icon-star-off',
+                    index: 'users',
+                    title: '用户管理'
+                },
+                {
                     icon: 'el-icon-setting',
                     index: 'person',
                     title: '账号信息'

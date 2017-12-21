@@ -4,6 +4,9 @@
         <el-form-item label="文章名称" prop="title">
             <el-input v-model="form.title" class="item-width"></el-input>
         </el-form-item>
+        <el-form-item label="文章作者" prop="author">
+            <el-input v-model="form.author" class="item-width"></el-input>
+        </el-form-item>
         <el-form-item label="选择板块" prop="categoryId" class="select">
             <el-select v-model="form.categoryId" placeholder="请选择" class="item-width">
                 <el-option-group v-for="group in groups" :key="group.label" :label="group.label">
@@ -27,7 +30,7 @@
             </el-card>
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" @click="onSubmit">立即发布</el-button>
+            <el-button :type="btnType" :disabled="btnActive" @click="onSubmit('form')">立即发布</el-button>
         </el-form-item>
     </el-form>
 </div>
@@ -45,14 +48,22 @@ export default {
             fileList: [],
             article: '',
             isHidden: true,
+            btnText: '立即发布',
+            btnType: 'primary',
             form: {
                 categoryId: '',
-                name: ''
+                title: '',
+                author: ''
             },
             rules: {
                 title: [{
                     required: true,
-                    message: '请选择输入文章标题',
+                    message: '请输入文章标题',
+                    trigger: 'blur'
+                }],
+                author: [{
+                    required: true,
+                    message: '请输入作者',
                     trigger: 'blur'
                 }],
                 categoryId: [{
@@ -97,6 +108,17 @@ export default {
             }]
         }
     },
+    computed: {
+        // 登录按钮禁用控制
+        btnActive: function() {
+            let form = this.form;
+            if (form.categoryId && form.title && form.author && this.article) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    },
     methods: {
         getData(file, fileList) {
             var self = this;
@@ -114,11 +136,30 @@ export default {
             };
             reader.readAsArrayBuffer(file.raw);
         },
-        onSubmit() {
-            console.info(this.form);
-            // manage/article/save
-            // author
-            // content
+        onSubmit(formName) {
+            const self = this;
+            self.$refs[formName].validate((valid) => {
+                if (valid) {
+                    let _json = {
+                        title: self.form.title,
+                        author: self.form.author,
+                        categoryId: self.form.categoryId,
+                        content: self.article
+                    };
+                    self.$axios.post('manage/article/save', _json).then((res) => {
+                        var _res = res.data;
+                        if (_res.state === 'success') {
+                            self.$message(_res.msg);
+                            self.form = {};
+                            self.article = '';
+                            self.isHidden = true;
+                        } else {
+                            self.btnText = _res.msg;
+                            self.btnType = 'danger';
+                        }
+                    });
+                }
+            });
         }
     }
 }
