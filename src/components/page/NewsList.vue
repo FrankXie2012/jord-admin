@@ -103,7 +103,8 @@ export default {
             self.$axios.post('manage/article/list', {
                 page: self.cur_page,
                 categoryId: self.select_cate,
-                title: self.select_word
+                title: self.select_word,
+                status: 1 // 审阅发布
             }).then((res) => {
                 self.tableData = res.data.list;
                 self.total = res.data.total;
