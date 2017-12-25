@@ -41,7 +41,7 @@
         </el-table-column>
     </el-table>
     <div class="pagination">
-        <el-pagination @current-change="handleCurrentChange" layout="prev, pager, next" :total="total">
+        <el-pagination @current-change="handleCurrentChange" :page-size="pageSize" layout="prev, pager, next" :total="total">
         </el-pagination>
     </div>
 </div>
@@ -57,6 +57,7 @@ export default {
             select_cate: '',
             select_word: '',
             total: 0,
+            pageSize: 15,
             groups: [{
                 label: '会议专题',
                 cards: [{
@@ -112,6 +113,7 @@ export default {
                 page: self.cur_page,
                 categoryId: self.select_cate,
                 title: self.select_word,
+                size: self.pageSize,
                 status: 2 // 发布待审阅
             }).then((res) => {
                 self.tableData = res.data.list;
