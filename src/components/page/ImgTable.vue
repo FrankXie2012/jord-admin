@@ -8,9 +8,9 @@
             </el-option-group>
         </el-select>
         <el-input v-model="select_word" placeholder="筛选关键词" class="handle-input"></el-input>
-        <el-button type="primary" icon="el-icon-close" @click="clear">清空条件</el-button>
-        <el-button type="primary" icon="el-icon-delete" class="handle-del" @click="delAll">批量删除</el-button>
-        <el-button type="primary" icon="el-icon-edit" class="handle-del" @click="addImgs">新增图片新闻</el-button>
+        <el-button icon="el-icon-close" @click="clear">清空条件</el-button>
+        <el-button type="danger" :disabled="btnDisabled" icon="el-icon-delete" @click="delAll">批量删除</el-button>
+        <el-button type="primary" icon="el-icon-edit" @click="addImgs">新增图片新闻</el-button>
     </div>
     <el-table :data="data" border style="width: 100%" ref="multipleTable" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55"></el-table-column>
@@ -45,6 +45,7 @@ export default {
             tableData: [],
             cur_page: 1,
             multipleSelection: [],
+            btnDisabled: true,
             select_cate: '',
             select_word: '',
             del_list: [],
@@ -104,6 +105,18 @@ export default {
             this.cur_page = val;
             this.getData();
         },
+        clear() {
+            this.select_word = '';
+            this.select_cate = '';
+        },
+        handleSelectionChange(val) {
+            this.multipleSelection = val;
+            if (this.multipleSelection.length > 0) {
+                this.btnDisabled = false;
+            } else {
+                this.btnDisabled = true;
+            }
+        },
         getData() {
             let self = this;
             self.$axios.post('getImgList', {
@@ -112,16 +125,6 @@ export default {
                 self.tableData = res.data.list;
                 self.total = res.data.total;
             });
-        },
-        clear() {
-            this.select_word = '';
-            this.select_cate = '';
-        },
-        formatter(row, column) {
-            return row.address;
-        },
-        filterTag(value, row) {
-            return row.tag === value;
         },
         handleEdit(index, row) {
             this.$message('设置第' + (index + 1) + '行');
@@ -140,9 +143,6 @@ export default {
             }
             self.$message.error('删除了' + str);
             self.multipleSelection = [];
-        },
-        handleSelectionChange(val) {
-            this.multipleSelection = val;
         },
         addImgs() {
             this.$router.push('/addImgs');

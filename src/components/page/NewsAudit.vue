@@ -10,8 +10,8 @@
         </el-select>
         <el-input v-model="select_word" placeholder="筛选关键词" class="handle-input" @change="searchWord"></el-input>
         <el-button icon="el-icon-close" @click="clear">清空条件</el-button>
-        <el-button type="primary" icon="el-icon-circle-check-outline" class="handle-pass" @click="passMulti">批量通过</el-button>
-        <el-button type="danger" icon="el-icon-circle-close-outline" class="handle-deny" @click="denyMulti">批量不通过</el-button>
+        <el-button type="primary" icon="el-icon-circle-check-outline" :disabled="btnDisabled" @click="passMulti">批量通过</el-button>
+        <el-button type="danger" icon="el-icon-circle-close-outline" :disabled="btnDisabled" @click="denyMulti">批量不通过</el-button>
     </div>
     <el-table :data="tableData" border style="width: 100%" ref="multipleTable" @selection-change="selectChange">
         <el-table-column type="selection" width="55"></el-table-column>
@@ -74,6 +74,7 @@ export default {
             tableData: [],
             cur_page: 1,
             multipleSelection: [],
+            btnDisabled: true,
             select_cate: '',
             select_word: '',
             total: 0,
@@ -147,6 +148,11 @@ export default {
         },
         selectChange(val) {
             this.multipleSelection = val;
+            if (this.multipleSelection.length > 0) {
+                this.btnDisabled = false;
+            } else {
+                this.btnDisabled = true;
+            }
         },
         clear() {
             this.select_word = '';
