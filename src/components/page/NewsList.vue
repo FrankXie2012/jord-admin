@@ -8,20 +8,20 @@
             </el-option-group>
         </el-select>
         <el-input v-model="select_word" placeholder="筛选关键词" class="handle-input" @change="searchWord"></el-input>
-        <el-button type="primary" icon="el-icon-close" @click="clear">清空条件</el-button>
-        <el-button type="primary" icon="el-icon-delete" class="handle-del" @click="delMulti">批量删除</el-button>
+        <el-button icon="el-icon-close" @click="clear">清空条件</el-button>
+        <el-button type="danger" icon="el-icon-delete" class="handle-del" @click="delMulti">批量删除</el-button>
     </div>
     <el-table :data="tableData" border style="width: 100%" ref="multipleTable" @selection-change="selectChange">
         <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column prop="createDate" label="日期" sortable width="150">
+        <el-table-column prop="createDate" label="日期" sortable width="120">
         </el-table-column>
         <el-table-column prop="title" label="标题">
         </el-table-column>
-        <el-table-column prop="categoryName" label="所属板块" width="150">
+        <el-table-column prop="categoryName" label="所属板块" width="130">
         </el-table-column>
-        <el-table-column prop="hits" label="点击量">
+        <el-table-column prop="hits" label="点击量" width="100">
         </el-table-column>
-        <el-table-column prop="author" label="作者">
+        <el-table-column prop="author" label="作者" width="100">
         </el-table-column>
         <el-table-column label="操作" width="180">
             <template scope="scope">
@@ -119,12 +119,6 @@ export default {
             this.select_word = '';
             this.select_cate = '';
         },
-        formatter(row, column) {
-            return row.address;
-        },
-        filterTag(value, row) {
-            return row.tag === value;
-        },
         setRoll(index, row) {
             const self = this;
             self.$axios.post('manage/article/setRoll', {
@@ -133,7 +127,10 @@ export default {
             }).then((res) => {
                 let _res = res.data;
                 if (_res.state === 'success') {
-                    self.$message(_res.msg);
+                    self.$message({
+                        type: 'success',
+                        message: _res.msg
+                    });
                     row.isRoll = !row.isRoll;
                 } else {
                     self.$message.error(_res.msg);
@@ -142,17 +139,27 @@ export default {
         },
         delOne(index, row) {
             const self = this;
-            self.$axios.post('manage/article/delete', {
-                articleIds: row.id
-            }).then((res) => {
-                let _res = res.data;
-                if (_res.state === 'success') {
-                    self.$message(_res.msg);
-                    self.getData();
-                } else {
-                    self.$message.error(_res.msg);
+
+            self.$alert('确定删除 "' + row.title + '" ？', '提示', {
+                confirmButtonText: '确定',
+                callback: action => {
+                    self.$axios.post('manage/article/delete', {
+                        articleIds: row.id
+                    }).then((res) => {
+                        let _res = res.data;
+                        if (_res.state === 'success') {
+                            self.$message({
+                                type: 'success',
+                                message: _res.msg
+                            });
+                            self.getData();
+                        } else {
+                            self.$message.error(_res.msg);
+                        }
+                    });
                 }
             });
+
         },
         delMulti() {
             const self = this,
@@ -160,18 +167,31 @@ export default {
             let _articleIds = '';
             // 获取到所选文章的id
             _articleIds = self.multipleSelection.map(a => a.id).join(',');
-            self.$axios.post('manage/article/delete', {
-                articleIds: _articleIds
-            }).then((res) => {
-                let _res = res.data;
-                if (_res.state === 'success') {
-                    self.$message('删除了' + length + '条文章');
-                    self.getData();
-                } else {
-                    self.$message.error(_res.msg);
-                }
-            });
-            self.multipleSelection = [];
+
+            if (length > 0) {
+                self.$alert('确定删除选中的 ' + length + ' 条文章吗？', '提示', {
+                    confirmButtonText: '确定',
+                    callback: action => {
+                        self.$axios.post('manage/article/delete', {
+                            articleIds: _articleIds
+                        }).then((res) => {
+                            let _res = res.data;
+                            if (_res.state === 'success') {
+                                self.$message({
+                                    type: 'success',
+                                    message: _res.msg
+                                });
+                                self.getData();
+                            } else {
+                                self.$message.error(_res.msg);
+                            }
+                        });
+                        self.multipleSelection = [];
+                    }
+                });
+            } else {
+                self.$message.error('未选中文章');
+            }
         },
         selectChange(val) {
             this.multipleSelection = val;
@@ -181,16 +201,4 @@ export default {
 </script>
 
 <style scoped>
-.handle-box {
-    margin-bottom: 20px;
-}
-
-.handle-select {
-    width: 200px;
-}
-
-.handle-input {
-    width: 300px;
-    display: inline-block;
-}
 </style>

@@ -111,3 +111,63 @@ a{text-decoration: none}
 .editor-btn{
     margin-top: 20px;
 }
+
+
+/* 公共样式 */
+.handle-box {
+    margin-bottom: 20px;
+}
+
+.handle-select {
+    width: 200px;
+}
+
+.handle-box .handle-input {
+    width: 300px;
+    display: inline-block;
+}
+
+.box-card {
+    width: 1000px;
+}
+
+.article-box {
+    width: 800px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin: 30px auto;
+}
+
+.article-box h1,
+.article-box h2,
+.article-box h3,
+.article-box h4,
+.article-box h5,
+.article-box h6 {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.article-box img {
+    display: block;
+    margin: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.article-box>p,
+.article-box li {
+    line-height: 30px;
+    font-size: 14px;
+}
+
+.article-box ol li {
+    margin-left: 15px;
+}
+.news-detail {
+    text-align: right;
+}
+
+.margin-auto {
+    margin: 20px auto;
+}

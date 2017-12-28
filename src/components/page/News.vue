@@ -16,23 +16,37 @@
             </el-select>
         </el-form-item>
         <el-form-item label="上传文件">
-            <el-upload class="upload-demo" drag action :on-change="getData" :file-list="fileList">
+            <el-upload class="upload-demo" :before-upload="hintUpload" drag action :on-success="getData" :file-list="fileList">
                 <i class="el-icon-upload"></i>
                 <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 <div class="el-upload__tip" slot="tip">只能上传docx文件，且不超过500kb</div>
             </el-upload>
         </el-form-item>
-        <el-form-item label="预览效果" :class="{ hidden: isHidden }">
-            <el-card class="box-card" :body-style="{ padding: '0px' }">
-                <!-- <img src="~assets/news_top.png" class="image"> -->
-                <div class="article-box" v-html="article"></div>
-                <!-- <img src="~assets/news_bottom.png" class="image bottom-img"> -->
-            </el-card>
-        </el-form-item>
         <el-form-item>
-            <el-button :type="btnType" :disabled="btnActive" @click="onSubmit('form')">立即发布</el-button>
+            <el-button :disabled="previewActive" @click="onPreview">预览文章</el-button>
+            <el-button type="primary" :disabled="btnActive" @click="onSubmit('form')">立即发布</el-button>
         </el-form-item>
     </el-form>
+
+    <el-dialog title="预览文章" :visible.sync="dialogVisible" fullscreen>
+        <el-card class="box-card margin-auto" :body-style="{ padding: '0px' }">
+            <img src="~assets/news_top.png" class="image">
+            <div class="article-box">
+                <div class="news-box">
+                    <h2 class="news-title" v-html="form.title"></h2>
+                    <div class="news-detail">
+                        <span><b>作者：</b><span v-html="form.author"></span></span>
+                        <span><b>更新时间：</b><span>当前时间</span></span>
+                    </div>
+                    <pre class="news-text" v-html="article"></pre>
+                </div>
+            </div>
+            <img src="~assets/news_bottom.png" class="image bottom-img">
+        </el-card>
+        <span slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        </span>
+    </el-dialog>
 </div>
 </template>
 
@@ -47,9 +61,8 @@ export default {
         return {
             fileList: [],
             article: '',
-            isHidden: true,
-            btnText: '立即发布',
-            btnType: 'primary',
+            previewActive: true,
+            dialogVisible: false,
             form: {
                 categoryId: '',
                 title: '',
@@ -120,6 +133,25 @@ export default {
         }
     },
     methods: {
+        hintUpload(file) {
+            const form = this.form;
+            const isDocx = file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+            const isLt = (file.size / 1024 / 1024 < 10);
+            const isFilled = !!form.categoryId && !!form.title && !!form.author;
+            if (!isFilled) {
+                this.$message.error('请先填写标题、作者、板块');
+            }
+            if (!isDocx) {
+                this.$message.error('文件格式不正确');
+            }
+            if (!isLt) {
+                this.$message.error('文件超过大小限制');
+            }
+            return (isDocx && isLt && isFilled);
+        },
+        onPreview() {
+            this.dialogVisible = true;
+        },
         getData(file, fileList) {
             var self = this;
             var reader = new FileReader();
@@ -129,7 +161,7 @@ export default {
                         arrayBuffer: arrayBuffer
                     })
                     .then(function(result) {
-                        self.isHidden = false;
+                        self.previewActive = false;
                         self.article = result.value;
                     })
                     .done();
@@ -149,13 +181,15 @@ export default {
                     self.$axios.post('manage/article/save', _json).then((res) => {
                         var _res = res.data;
                         if (_res.state === 'success') {
-                            self.$message(_res.msg);
+                            self.$message({
+                                type: 'success',
+                                message: _res.msg
+                            });
                             self.form = {};
                             self.article = '';
-                            self.isHidden = true;
+                            self.previewActive = true;
                         } else {
-                            self.btnText = _res.msg;
-                            self.btnType = 'danger';
+                            self.$message.error(_res.msg);
                         }
                     });
                 }
@@ -170,49 +204,11 @@ export default {
     display: none;
 }
 
-.box-card {
-    width: 1000px;
-}
-
 .bottom-img {
     margin-bottom: -15px;
 }
 
 .item-width {
     width: 360px;
-}
-
-.article-box {
-    width: 800px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    margin: 30px auto;
-}
-
-.article-box h1,
-.article-box h2,
-.article-box h3,
-.article-box h4,
-.article-box h5,
-.article-box h6 {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.article-box img {
-    display: block;
-    margin: 10px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.article-box>p,
-.article-box li {
-    line-height: 30px;
-    font-size: 14px;
-}
-
-.article-box ol li {
-    margin-left: 15px;
 }
 </style>
