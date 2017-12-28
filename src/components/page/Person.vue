@@ -1,17 +1,14 @@
 <template>
 <div>
-    <el-tabs v-model="activeName" @tab-click="tabClick" type="border-card">
+    <el-tabs v-model="activeName" type="border-card">
         <el-tab-pane label="修改用户名" name="first">
             <div class="form-box">
                 <el-form ref="form1" :model="form1" :rules="rules1" label-width="80px">
                     <el-form-item label="用户名" prop="name">
                         <el-input v-model="form1.name"></el-input>
                     </el-form-item>
-                    <el-form-item label="密码" prop="pass">
-                        <el-input type="password" v-model="form1.pass" auto-complete="off"></el-input>
-                    </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="submitForm('form1')">提交</el-button>
+                        <el-button type="primary" :disabled="btn1Active" @click="editName('form1')">提交</el-button>
                         <el-button @click="resetForm('form1')">重置</el-button>
                     </el-form-item>
                 </el-form>
@@ -30,7 +27,7 @@
                         <el-input type="password" v-model="form2.repeat" auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="submitForm('form2')">提交</el-button>
+                        <el-button type="primary" :disabled="btn2Active" @click="editPass('form2')">提交</el-button>
                         <el-button @click="resetForm('form2')">重置</el-button>
                     </el-form-item>
                 </el-form>
@@ -42,13 +39,13 @@
 </template>
 
 <script>
+
 export default {
     data: function() {
         return {
             activeName: 'first',
             form1: {
-                name: '',
-                pass: ''
+                name: ''
             },
             rules1: {
                 name: [{
@@ -62,12 +59,7 @@ export default {
                         message: '长度在 3 到 8 个字符',
                         trigger: 'blur'
                     }
-                ],
-                pass: [{
-                    required: true,
-                    message: '请输入密码',
-                    trigger: 'blur'
-                }]
+                ]
             },
             form2: {
                 old: '',
@@ -82,35 +74,92 @@ export default {
                 }],
                 new: [{
                         required: true,
-                        message: '请输入新密码',
+                        message: '必填',
                         trigger: 'blur'
                     },
                     {
-                        min: 3,
+                        min: 6,
                         max: 10,
-                        message: '长度在 6 到 10 个字符',
+                        message: '长度在6到10个字符',
                         trigger: 'blur'
                     }
                 ],
                 repeat: [{
                     required: true,
-                    message: '请重复密码',
+                    message: '必填',
                     trigger: 'blur'
                 }]
             }
         }
     },
-    methods: {
-        tabClick() {
-            console.info(this);
+    computed: {
+        btn1Active: function() {
+            let form = this.form1;
+            if (form.name) {
+                return false;
+            } else {
+                return true;
+            }
         },
-        submitForm(formName) {
-            this.$refs[formName].validate((valid) => {
+        btn2Active: function() {
+            let form = this.form2;
+            if (form.old && form.new && form.repeat) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    },
+    methods: {
+        editName(formName) {
+            const self = this;
+            self.$refs[formName].validate((valid) => {
                 if (valid) {
-                    alert('submit!');
-                } else {
-                    console.log('error submit!!');
-                    return false;
+                    self.$axios.post('manage/user/updateName', self.form1).then((res) => {
+                        var _res = res.data;
+                        if (_res.state === 'success') {
+                            self.$message({
+                                type: 'success',
+                                message: _res.msg
+                            });
+                            self.form1 = {};
+                            self.$refs[formName].resetFields();
+                        } else {
+                            self.$message.error(_res.msg);
+                        }
+                    });
+                }
+            });
+        },
+        editPass(formName) {
+            const self = this;
+            self.$refs[formName].validate((valid) => {
+                if (self.form2.new === this.form2.old) {
+                    self.$message.error('新旧密码必须不同');
+                    return;
+                }
+                if (self.form2.repeat !== this.form2.new) {
+                    self.$message.error('两次密码不一致');
+                    return;
+                }
+                if (valid) {
+                    let _json = {
+                        oldPwd: self.form2.old,
+                        newPwd: self.form2.new
+                    };
+                    self.$axios.post('manage/user/modifyPwd', _json).then((res) => {
+                        var _res = res.data;
+                        if (_res.state === 'success') {
+                            self.$message({
+                                type: 'success',
+                                message: _res.msg
+                            });
+                            self.form2 = {};
+                            self.$refs[formName].resetFields();
+                        } else {
+                            self.$message.error(_res.msg);
+                        }
+                    });
                 }
             });
         },

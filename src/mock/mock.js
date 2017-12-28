@@ -268,3 +268,20 @@ Mock.mock('manage/article/audit', 'post', {
 	state: 'success',
 	data: null
 });
+
+
+// ========================================
+//  账号信息
+//  ========================================
+
+Mock.mock('manage/user/modifyPwd', 'post', {
+	msg: '修改成功',
+	state: 'success',
+	data: null
+});
+
+Mock.mock('manage/user/updateName', 'post', {
+	msg: '修改成功',
+	state: 'success',
+	data: null
+});

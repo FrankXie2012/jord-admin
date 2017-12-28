@@ -188,6 +188,7 @@ export default {
                             self.form = {};
                             self.article = '';
                             self.previewActive = true;
+                            self.$refs[formName].resetFields();
                         } else {
                             self.$message.error(_res.msg);
                         }
