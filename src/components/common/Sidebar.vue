@@ -2,18 +2,18 @@
 <div class="sidebar">
     <el-menu :default-active="onRoutes" class="el-menu-vertical-demo" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" unique-opened router>
         <template v-for="item in items">
-                <template v-if="item.subs">
-                    <el-submenu :index="item.index">
-                        <template slot="title"><i :class="item.icon"></i>{{ item.title }}</template>
-        <el-menu-item v-for="(subItem,i) in item.subs" :key="i" :index="subItem.index">{{ subItem.title }}
-        </el-menu-item>
-        </el-submenu>
-        </template>
-        <template v-else>
-                    <el-menu-item :index="item.index">
-                        <i :class="item.icon"></i>{{ item.title }}
+            <template v-if="item.subs">
+                <el-submenu :index="item.index">
+                    <template slot="title"><i :class="item.icon"></i>{{ item.title }}</template>
+                    <el-menu-item v-for="(subItem,i) in item.subs" :key="i" :index="subItem.index">{{ subItem.title }}
                     </el-menu-item>
-                </template>
+                </el-submenu>
+            </template>
+            <template v-else>
+                <el-menu-item :class="item.class" :index="item.index">
+                    <i :class="item.icon"></i>{{ item.title }}
+                </el-menu-item>
+            </template>
         </template>
     </el-menu>
 </div>
@@ -22,6 +22,7 @@
 <script>
 export default {
     data() {
+        let _role = localStorage.getItem('role');
         return {
             items: [{
                     icon: 'el-icon-menu',
@@ -36,71 +37,27 @@ export default {
                 {
                     icon: 'el-icon-edit',
                     index: 'news',
-                    title: '发布文章'
+                    title: '发布文章',
+                    class: (_role === 'audit' ? 'hidden' : '')
                 },
                 {
                     icon: 'el-icon-view',
                     index: 'newsAudit',
-                    title: '文章审阅'
+                    title: '文章审阅',
+                    class: (_role === 'publish' ? 'hidden' : '')
                 },
                 {
                     icon: 'el-icon-star-off',
                     index: 'users',
-                    title: '用户管理'
+                    title: '用户管理',
+                    class: (_role !== 'admin' ? '' : 'hidden')
                 },
                 {
                     icon: 'el-icon-setting',
                     index: 'person',
-                    title: '账号信息'
+                    title: '账号信息',
+                    class: (_role !== 'admin' ? '' : 'hidden')
                 }
-                // {
-                //     icon: 'el-icon-menu',
-                //     index: '2',
-                //     title: '表格',
-                //     subs: [
-                //         {
-                //             index: 'basetable',
-                //             title: '基础表格'
-                //         },
-                //         {
-                //             index: 'vuetable',
-                //             title: 'Vue表格组件'
-                //         }
-                //     ]
-                // },
-                // {
-                //     icon: 'el-icon-date',
-                //     index: '3',
-                //     title: '表单',
-                //     subs: [
-                //         {
-                //             index: 'baseform',
-                //             title: '基本表单'
-                //         },
-                //         {
-                //             index: 'vueeditor',
-                //             title: '编辑器'
-                //         },
-                //         {
-                //             index: 'markdown',
-                //             title: 'markdown'
-                //         },
-                //         {
-                //             index: 'upload',
-                //             title: '文件上传'
-                //         }
-                //     ]
-                // },
-                // {
-                //     icon: 'el-icon-star-on',
-                //     index: 'basecharts',
-                //     title: '图表'
-                // },
-                // {
-                //     icon: 'el-icon-upload2',
-                //     index: 'drag',
-                //     title: '拖拽'
-                // }
             ]
         }
     },
@@ -113,6 +70,10 @@ export default {
 </script>
 
 <style scoped>
+.hidden {
+    display: none;
+}
+
 .sidebar {
     display: block;
     position: absolute;

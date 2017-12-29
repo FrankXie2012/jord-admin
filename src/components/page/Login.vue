@@ -1,6 +1,6 @@
 <template>
 <div class="login-wrap">
-    <!-- <div class="ms-title">建瓯人大 <small>后台管理系统</small></div> -->
+    <div class="ms-title">建瓯人大 <small>后台管理系统</small></div>
     <div class="ms-login">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
             <el-form-item prop="username">
@@ -14,7 +14,7 @@
             </el-form-item>
             <img :src="code" @click="refreshCode" alt="验证码" class="code-img">
             <div class="login-btn">
-                <el-button :type="btnType" :disabled="btnActive" @click="submitForm('ruleForm')">{{btnText}}</el-button>
+                <el-button type="primary" :disabled="btnActive" @click="submitForm('ruleForm')">登录</el-button>
             </div>
         </el-form>
     </div>
@@ -26,8 +26,6 @@ export default {
     data: function() {
         return {
             code: 'servlet/validateCodeServlet?' + new Date().getTime(),
-            btnText: '登录',
-            btnType: 'primary',
             ruleForm: {
                 username: '',
                 password: '',
@@ -80,8 +78,7 @@ export default {
                             localStorage.setItem('role', _res.data.role);
                             self.$router.push('/newsList');
                         } else {
-                            self.btnText = _res.msg;
-                            self.btnType = 'danger';
+                            self.$message.error(_res.msg);
                         }
                     });
                 }
