@@ -50,13 +50,13 @@ export default {
                     icon: 'el-icon-star-off',
                     index: 'users',
                     title: '用户管理',
-                    class: (_role !== 'admin' ? '' : 'hidden')
+                    class: (_role !== 'admin' ? 'hidden' : '')
                 },
                 {
                     icon: 'el-icon-setting',
                     index: 'person',
                     title: '账号信息',
-                    class: (_role !== 'admin' ? '' : 'hidden')
+                    class: (_role !== 'admin' ? 'hidden' : '')
                 }
             ]
         }
