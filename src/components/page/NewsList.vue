@@ -160,7 +160,6 @@ export default {
                     });
                 }
             });
-
         },
         delMulti() {
             const self = this,
@@ -168,31 +167,26 @@ export default {
             let _articleIds = '';
             // 获取到所选文章的id
             _articleIds = self.multipleSelection.map(a => a.id).join(',');
-
-            if (length > 0) {
-                self.$alert('确定删除选中的 ' + length + ' 条文章吗？', '提示', {
-                    confirmButtonText: '确定',
-                    callback: action => {
-                        self.$axios.post('manage/article/delete', {
-                            articleIds: _articleIds
-                        }).then((res) => {
-                            let _res = res.data;
-                            if (_res.state === 'success') {
-                                self.$message({
-                                    type: 'success',
-                                    message: _res.msg
-                                });
-                                self.getData();
-                            } else {
-                                self.$message.error(_res.msg);
-                            }
-                        });
-                        self.multipleSelection = [];
-                    }
-                });
-            } else {
-                self.$message.error('未选中文章');
-            }
+            self.$alert('确定删除选中的 ' + length + ' 条文章吗？', '提示', {
+                confirmButtonText: '确定',
+                callback: action => {
+                    self.$axios.post('manage/article/delete', {
+                        articleIds: _articleIds
+                    }).then((res) => {
+                        let _res = res.data;
+                        if (_res.state === 'success') {
+                            self.$message({
+                                type: 'success',
+                                message: _res.msg
+                            });
+                            self.getData();
+                        } else {
+                            self.$message.error(_res.msg);
+                        }
+                    });
+                    self.multipleSelection = [];
+                }
+            });
         },
         selectChange(val) {
             this.multipleSelection = val;

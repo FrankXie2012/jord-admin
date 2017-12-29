@@ -342,6 +342,25 @@ Mock.mock('manage/user/resetPwd', 'post', {
 	data: null
 });
 
+Mock.mock('manage/user/updateRole', 'post', {
+	msg: '设置权限成功',
+	state: 'success',
+	data: null
+});
+
+Mock.mock('manage/user/delete', 'post', {
+	msg: '删除用户成功',
+	state: 'success',
+	data: null
+});
+
+Mock.mock('manage/user/save', 'post', {
+	msg: '用户新增成功',
+	state: 'success',
+	data: null
+});
+
+
 // ========================================
 //  账号信息
 //  ========================================

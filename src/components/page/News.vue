@@ -201,14 +201,6 @@ export default {
 </script>
 
 <style>
-.hidden {
-    display: none;
-}
-
-.bottom-img {
-    margin-bottom: -15px;
-}
-
 .item-width {
     width: 360px;
 }
