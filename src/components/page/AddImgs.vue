@@ -35,7 +35,7 @@ export default {
     },
     created() {
         var self = this;
-        self.$axios.post('getImgNews').then((res) => {
+        self.$axios.post('../getImgNews').then((res) => {
             self.fileList = res.data.newsImgs;
             self.form.name = res.data.newsName;
         });

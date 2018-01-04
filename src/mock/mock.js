@@ -4,13 +4,13 @@ import Mock from 'mockjs'; //es6语法引入mock模块
 //  登录页
 //  ========================================
 
-Mock.mock('servlet/validateCodeServlet', 'post', {
+Mock.mock('../servlet/validateCodeServlet', 'post', {
 	msg: '获取验证码成功',
 	state: 'success',
 	data: null
 });
 
-Mock.mock('manage/login', 'post', {
+Mock.mock('../manage/login', 'post', {
 	msg: '登录成功',
 	state: 'success',
 	data: {
@@ -20,7 +20,7 @@ Mock.mock('manage/login', 'post', {
 	}
 });
 
-Mock.mock('manage/logout', 'post', {
+Mock.mock('../manage/logout', 'post', {
 	msg: '登出成功',
 	state: 'success',
 	data: null
@@ -30,7 +30,7 @@ Mock.mock('manage/logout', 'post', {
 //  文章列表
 //  ========================================
 
-Mock.mock('manage/article/list', 'post', {
+Mock.mock('../manage/article/list', 'post', {
 	total: 10,
 	page: 1,
 	list: [{
@@ -126,13 +126,13 @@ Mock.mock('manage/article/list', 'post', {
 	}]
 });
 
-Mock.mock('manage/article/setRoll', 'post', {
+Mock.mock('../manage/article/setRoll', 'post', {
 	msg: '设置成功',
 	state: 'success',
 	data: null
 });
 
-Mock.mock('manage/article/delete', 'post', {
+Mock.mock('../manage/article/delete', 'post', {
 	msg: '删除成功',
 	state: 'success',
 	data: null
@@ -142,7 +142,7 @@ Mock.mock('manage/article/delete', 'post', {
 //  文章发布
 //  ========================================
 
-Mock.mock('manage/article/save', 'post', {
+Mock.mock('../manage/article/save', 'post', {
 	msg: '发布成功',
 	state: 'success',
 	data: null
@@ -152,7 +152,7 @@ Mock.mock('manage/article/save', 'post', {
 //  图片新闻
 //  ========================================
 
-Mock.mock('getImgList', 'post', {
+Mock.mock('../getImgList', 'post', {
 	total: 10,
 	page: 1,
 	list: [{
@@ -224,7 +224,7 @@ Mock.mock('getImgList', 'post', {
 //  ========================================
 
 // 获取图片新闻数据
-Mock.mock('getImgNews', 'post', {
+Mock.mock('../getImgNews', 'post', {
 	newsName: '东游镇人大委员',
 	newsImgs: [{
 		name: '张伟',
@@ -235,7 +235,7 @@ Mock.mock('getImgNews', 'post', {
 	}]
 });
 
-Mock.mock('uploadImgNews', 'post', {
+Mock.mock('../uploadImgNews', 'post', {
 	msg: '上传成功',
 	state: 'success',
 	data: null
@@ -246,7 +246,7 @@ Mock.mock('uploadImgNews', 'post', {
 //  文章审阅
 //  ========================================
 
-Mock.mock('manage/article/view', 'post', {
+Mock.mock('../manage/article/view', 'post', {
 	"state": "success", //应答码
 	"msg": "获取成功", //应答信息
 	"data": {
@@ -263,7 +263,7 @@ Mock.mock('manage/article/view', 'post', {
 	}
 });
 
-Mock.mock('manage/article/audit', 'post', {
+Mock.mock('../manage/article/audit', 'post', {
 	msg: '审阅成功',
 	state: 'success',
 	data: null
@@ -274,7 +274,7 @@ Mock.mock('manage/article/audit', 'post', {
 //  用户管理
 //  ========================================
 
-Mock.mock('manage/user/list', 'post', {
+Mock.mock('../manage/user/list', 'post', {
 	total: 8,
 	page: 1,
 	list: [{
@@ -336,25 +336,25 @@ Mock.mock('manage/user/list', 'post', {
 	}]
 });
 
-Mock.mock('manage/user/resetPwd', 'post', {
+Mock.mock('../manage/user/resetPwd', 'post', {
 	msg: '重置密码成功',
 	state: 'success',
 	data: null
 });
 
-Mock.mock('manage/user/updateRole', 'post', {
+Mock.mock('../manage/user/updateRole', 'post', {
 	msg: '设置权限成功',
 	state: 'success',
 	data: null
 });
 
-Mock.mock('manage/user/delete', 'post', {
+Mock.mock('../manage/user/delete', 'post', {
 	msg: '删除用户成功',
 	state: 'success',
 	data: null
 });
 
-Mock.mock('manage/user/save', 'post', {
+Mock.mock('../manage/user/save', 'post', {
 	msg: '用户新增成功',
 	state: 'success',
 	data: null
@@ -365,13 +365,13 @@ Mock.mock('manage/user/save', 'post', {
 //  账号信息
 //  ========================================
 
-Mock.mock('manage/user/modifyPwd', 'post', {
+Mock.mock('../manage/user/modifyPwd', 'post', {
 	msg: '修改成功',
 	state: 'success',
 	data: null
 });
 
-Mock.mock('manage/user/updateName', 'post', {
+Mock.mock('../manage/user/updateName', 'post', {
 	msg: '修改成功',
 	state: 'success',
 	data: null

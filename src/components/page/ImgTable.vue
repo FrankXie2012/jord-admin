@@ -119,7 +119,7 @@ export default {
         },
         getData() {
             let self = this;
-            self.$axios.post('getImgList', {
+            self.$axios.post('../getImgList', {
                 page: self.cur_page
             }).then((res) => {
                 self.tableData = res.data.list;

@@ -27,7 +27,7 @@
             handleCommand(command) {
                 const self = this;
                 if(command == 'logout'){
-                    self.$axios.post('manage/logout').then((res) => {
+                    self.$axios.post('../manage/logout').then((res) => {
                         let _res = res.data;
                         if (_res.state === 'success') {
                             localStorage.removeItem('name');

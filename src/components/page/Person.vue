@@ -115,7 +115,7 @@ export default {
             const self = this;
             self.$refs[formName].validate((valid) => {
                 if (valid) {
-                    self.$axios.post('manage/user/updateName', self.form1).then((res) => {
+                    self.$axios.post('../manage/user/updateName', self.form1).then((res) => {
                         var _res = res.data;
                         if (_res.state === 'success') {
                             self.$message({
@@ -147,7 +147,7 @@ export default {
                         oldPwd: self.form2.old,
                         newPwd: self.form2.new
                     };
-                    self.$axios.post('manage/user/modifyPwd', _json).then((res) => {
+                    self.$axios.post('../manage/user/modifyPwd', _json).then((res) => {
                         var _res = res.data;
                         if (_res.state === 'success') {
                             self.$message({

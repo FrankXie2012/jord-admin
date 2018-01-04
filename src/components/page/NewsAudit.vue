@@ -84,34 +84,34 @@ export default {
             groups: [{
                 label: '会议专题',
                 cards: [{
-                    value: '代表大会会议',
+                    value: '1222',
                     label: '代表大会会议'
                 }, {
-                    value: '常委会会议',
+                    value: '1221',
                     label: '常委会会议'
                 }]
             }, {
                 label: '政务公开',
                 cards: [{
-                    value: '决定决议',
+                    value: '1211',
                     label: '决定决议'
                 }, {
-                    value: '监督公开',
+                    value: '1214',
                     label: '监督公开'
                 }, {
-                    value: '一府两院',
+                    value: '1215',
                     label: '一府两院'
                 }, {
-                    value: '代表工作',
+                    value: '1213',
                     label: '代表工作'
                 }]
             }, {
                 label: '队伍建设',
                 cards: [{
-                    value: '自身建设',
+                    value: '1231',
                     label: '自身建设'
                 }, {
-                    value: '基层人大',
+                    value: '1232',
                     label: '基层人大'
                 }]
             }]
@@ -132,7 +132,7 @@ export default {
         },
         getData() {
             const self = this;
-            self.$axios.post('manage/article/list', {
+            self.$axios.post('../manage/article/list', {
                 page: self.cur_page,
                 categoryId: self.select_cate,
                 title: self.select_word,
@@ -162,7 +162,7 @@ export default {
         viewNews(index, row) {
             const self = this;
             self.dialogVisible = true;
-            self.$axios.post('manage/article/view', {
+            self.$axios.post('../manage/article/view', {
                 id: row.id
             }).then((res) => {
                 let _res = res.data;
@@ -176,7 +176,7 @@ export default {
         // 通过单选
         passOne(index, row) {
             const self = this;
-            self.$axios.post('manage/article/audit', {
+            self.$axios.post('../manage/article/audit', {
                 articleIds: row.id,
                 isPass: 1
             }).then((res) => {
@@ -205,7 +205,7 @@ export default {
             }).then(({
                 value
             }) => {
-                self.$axios.post('manage/article/audit', {
+                self.$axios.post('../manage/article/audit', {
                     articleIds: row.id,
                     isPass: 0,
                     refuseInfo: value
@@ -235,7 +235,7 @@ export default {
                 self.$alert('确定批量通过选中的 ' + length + ' 条文章吗？', '提示', {
                     confirmButtonText: '确定',
                     callback: action => {
-                        self.$axios.post('manage/article/audit', {
+                        self.$axios.post('../manage/article/audit', {
                             articleIds: _articleIds,
                             isPass: 1
                         }).then((res) => {
@@ -276,7 +276,7 @@ export default {
                 }).then(({
                     value
                 }) => {
-                    self.$axios.post('manage/article/audit', {
+                    self.$axios.post('../manage/article/audit', {
                         articleIds: _articleIds,
                         isPass: 0,
                         refuseInfo: value

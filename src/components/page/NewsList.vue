@@ -54,34 +54,34 @@ export default {
             groups: [{
                 label: '会议专题',
                 cards: [{
-                    value: '代表大会会议',
+                    value: '1222',
                     label: '代表大会会议'
                 }, {
-                    value: '常委会会议',
+                    value: '1221',
                     label: '常委会会议'
                 }]
             }, {
                 label: '政务公开',
                 cards: [{
-                    value: '决定决议',
+                    value: '1211',
                     label: '决定决议'
                 }, {
-                    value: '监督公开',
+                    value: '1214',
                     label: '监督公开'
                 }, {
-                    value: '一府两院',
+                    value: '1215',
                     label: '一府两院'
                 }, {
-                    value: '代表工作',
+                    value: '1213',
                     label: '代表工作'
                 }]
             }, {
                 label: '队伍建设',
                 cards: [{
-                    value: '自身建设',
+                    value: '1231',
                     label: '自身建设'
                 }, {
-                    value: '基层人大',
+                    value: '1232',
                     label: '基层人大'
                 }]
             }]
@@ -102,7 +102,7 @@ export default {
         },
         getData() {
             const self = this;
-            self.$axios.post('manage/article/list', {
+            self.$axios.post('../manage/article/list', {
                 page: self.cur_page,
                 categoryId: self.select_cate,
                 title: self.select_word,
@@ -122,7 +122,7 @@ export default {
         },
         setRoll(index, row) {
             const self = this;
-            self.$axios.post('manage/article/setRoll', {
+            self.$axios.post('../manage/article/setRoll', {
                 articleId: row.id,
                 isRoll: row.isRoll
             }).then((res) => {
@@ -144,7 +144,7 @@ export default {
             self.$alert('确定删除 "' + row.title + '" ？', '提示', {
                 confirmButtonText: '确定',
                 callback: action => {
-                    self.$axios.post('manage/article/delete', {
+                    self.$axios.post('../manage/article/delete', {
                         articleIds: row.id
                     }).then((res) => {
                         let _res = res.data;
@@ -170,7 +170,7 @@ export default {
             self.$alert('确定删除选中的 ' + length + ' 条文章吗？', '提示', {
                 confirmButtonText: '确定',
                 callback: action => {
-                    self.$axios.post('manage/article/delete', {
+                    self.$axios.post('../manage/article/delete', {
                         articleIds: _articleIds
                     }).then((res) => {
                         let _res = res.data;

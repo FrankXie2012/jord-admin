@@ -70,7 +70,7 @@ export default {
             const self = this;
             self.$refs[formName].validate((valid) => {
                 if (valid) {
-                    self.$axios.post('manage/login', self.ruleForm).then((res) => {
+                    self.$axios.post('../manage/login', self.ruleForm).then((res) => {
                         var _res = res.data;
                         if (_res.state === 'success') {
                             localStorage.setItem('name', _res.data.name);

@@ -88,34 +88,34 @@ export default {
             groups: [{
                 label: '会议专题',
                 cards: [{
-                    value: '1_1',
+                    value: '1222',
                     label: '代表大会会议'
                 }, {
-                    value: '1_2',
+                    value: '1221',
                     label: '常委会会议'
                 }]
             }, {
                 label: '政务公开',
                 cards: [{
-                    value: '2_1',
+                    value: '1211',
                     label: '决定决议'
                 }, {
-                    value: '2_2',
+                    value: '1214',
                     label: '监督公开'
                 }, {
-                    value: '2_3',
+                    value: '1215',
                     label: '一府两院'
                 }, {
-                    value: '2_4',
+                    value: '1213',
                     label: '代表工作'
                 }]
             }, {
                 label: '队伍建设',
                 cards: [{
-                    value: '3_1',
+                    value: '1231',
                     label: '自身建设'
                 }, {
-                    value: '3_2',
+                    value: '1232',
                     label: '基层人大'
                 }]
             }]
@@ -178,7 +178,7 @@ export default {
                         categoryId: self.form.categoryId,
                         content: self.article
                     };
-                    self.$axios.post('manage/article/save', _json).then((res) => {
+                    self.$axios.post('../manage/article/save', _json).then((res) => {
                         var _res = res.data;
                         if (_res.state === 'success') {
                             self.$message({

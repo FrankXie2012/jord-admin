@@ -105,7 +105,7 @@ export default {
         },
         getData() {
             const self = this;
-            self.$axios.post('manage/user/list', {
+            self.$axios.post('../manage/user/list', {
                 page: self.cur_page,
                 name: self.select_name,
                 username: self.select_username,
@@ -127,7 +127,7 @@ export default {
                 self.roleDialog = false;
                 return;
             }
-            self.$axios.post('manage/user/updateRole', {
+            self.$axios.post('../manage/user/updateRole', {
                 username: self.curRow.username,
                 role: self.roleRadio
             }).then((res) => {
@@ -148,7 +148,7 @@ export default {
             self.$alert('确定删除用户 "' + row.name + '" ？', '提示', {
                 confirmButtonText: '确定',
                 callback: action => {
-                    self.$axios.post('manage/user/delete', {
+                    self.$axios.post('../manage/user/delete', {
                         ids: row.id
                     }).then((res) => {
                         let _res = res.data;
@@ -172,7 +172,7 @@ export default {
             self.$alert('确定删除选中的 ' + length + ' 位用户吗？', '提示', {
                 confirmButtonText: '确定',
                 callback: action => {
-                    self.$axios.post('manage/user/delete', {
+                    self.$axios.post('../manage/user/delete', {
                         ids: _ids
                     }).then((res) => {
                         let _res = res.data;
@@ -199,7 +199,7 @@ export default {
             this.$alert('重置用户 "' + _row.username + '" 的密码为：123456', '重置密码', {
                 confirmButtonText: '确定',
                 callback: action => {
-                    self.$axios.post('manage/user/resetPwd', {
+                    self.$axios.post('../manage/user/resetPwd', {
                         username: _row.username
                     }).then((res) => {
                         let _res = res.data;
