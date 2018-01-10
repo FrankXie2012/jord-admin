@@ -56,7 +56,6 @@ export default {
                     icon: 'el-icon-setting',
                     index: 'person',
                     title: '账号信息',
-                    class: (_role !== 'admin' ? 'hidden' : '')
                 }
             ]
         }
