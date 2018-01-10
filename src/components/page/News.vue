@@ -15,6 +15,12 @@
                 </el-option-group>
             </el-select>
         </el-form-item>
+        <el-form-item label="封面图片">
+            <el-upload class="avatar-uploader" action="../manage/article/uploadImage" :show-file-list="false" :on-success="imageSuccess" :before-upload="beforeImageUpload">
+                <img v-if="form.image" :src="form.image" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+        </el-form-item>
         <el-form-item label="上传文件">
             <el-upload class="upload-demo" :before-upload="hintUpload" drag action :on-success="getData" :file-list="fileList">
                 <i class="el-icon-upload"></i>
@@ -66,7 +72,8 @@ export default {
             form: {
                 categoryId: '',
                 title: '',
-                author: ''
+                author: '',
+                image: ''
             },
             rules: {
                 title: [{
@@ -133,6 +140,23 @@ export default {
         }
     },
     methods: {
+        imageSuccess(res, file) {
+            // TODO
+            // this.form.image = URL.createObjectURL(file.raw);
+            this.form.image = res.url;
+        },
+        beforeImageUpload(file) {
+            const isJPG = (file.type === 'image/jpeg' || file.type === 'image/png');
+            const isLt2M = file.size / 1024 / 1024 < 2;
+
+            if (!isJPG) {
+                this.$message.error('上传头像图片只能是 JPG/PNG 格式!');
+            }
+            if (!isLt2M) {
+                this.$message.error('上传头像图片大小不能超过 2MB!');
+            }
+            return isJPG && isLt2M;
+        },
         hintUpload(file) {
             const form = this.form;
             const isDocx = file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
@@ -176,7 +200,8 @@ export default {
                         title: self.form.title,
                         author: self.form.author,
                         categoryId: self.form.categoryId,
-                        content: self.article
+                        content: self.article,
+                        image: self.form.image
                     };
                     self.$axios.post('../manage/article/save', _json).then((res) => {
                         var _res = res.data;
@@ -204,4 +229,22 @@ export default {
 .item-width {
     width: 360px;
 }
+
+.avatar {
+    width: 100%;
+    height: 100%;
+}
+
+.avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
 </style>
