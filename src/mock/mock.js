@@ -26,6 +26,16 @@ Mock.mock('../manage/logout', 'post', {
 	data: null
 });
 
+Mock.mock('../manage/checkLogin', 'post', {
+	msg: '获取成功',
+	state: 'success',
+	data: {
+		name: 'Frank Shieh',
+		headIcon: 'path.png',
+		role: 'publish'
+	}
+});
+
 // ========================================
 //  文章列表
 //  ========================================

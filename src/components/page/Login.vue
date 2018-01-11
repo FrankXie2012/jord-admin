@@ -73,9 +73,7 @@ export default {
                     self.$axios.post('../manage/login', self.ruleForm).then((res) => {
                         var _res = res.data;
                         if (_res.state === 'success') {
-                            localStorage.setItem('name', _res.data.name);
-                            localStorage.setItem('headIcon', _res.data.headIcon);
-                            localStorage.setItem('role', _res.data.role);
+                            self.$store.commit('setLogin', _res.data);
                             self.$router.push('/newsList');
                         } else {
                             self.$message.error(_res.msg);

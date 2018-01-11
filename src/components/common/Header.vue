@@ -4,7 +4,7 @@
         <div class="user-info">
             <el-dropdown trigger="click" @command="handleCommand">
                 <span class="el-dropdown-link">
-                    <img class="user-logo" :src="headIcon" @error="errorImg" :class="{hidden: isHidden}">
+                    <!-- <img class="user-logo" :src="headIcon" @error="errorImg" :class="{hidden: isHidden}"> -->
                     {{name}}
                 </span>
                 <el-dropdown-menu slot="dropdown">
@@ -18,9 +18,9 @@
     export default {
         data() {
             return {
-                name: localStorage.getItem('name'),
-                headIcon: localStorage.getItem('headIcon'),
-                isHidden: false
+                name: this.$store.state.name,
+                // headIcon: this.$store.state.headIcon,
+                // isHidden: false
             }
         },
         methods:{
@@ -30,18 +30,17 @@
                     self.$axios.post('../manage/logout').then((res) => {
                         let _res = res.data;
                         if (_res.state === 'success') {
-                            localStorage.removeItem('name');
-                            localStorage.removeItem('headIcon');
-                            localStorage.removeItem('role');
+                            // 清空vuex中保存的用户数据
+                            this.$store.commit('removeLogin');
                             this.$router.push('/login');
                         } else {
                             self.$message.error(_res.msg);
                         }
                     });
                 }
-            },
-            errorImg() {
-                this.isHidden = true;
+            // },
+            // errorImg() {
+            //     this.isHidden = true;
             }
         }
     }

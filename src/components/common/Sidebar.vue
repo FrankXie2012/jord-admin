@@ -22,7 +22,7 @@
 <script>
 export default {
     data() {
-        let _role = localStorage.getItem('role');
+        const _role = this.$store.state.role;
         return {
             items: [{
                     icon: 'el-icon-menu',
