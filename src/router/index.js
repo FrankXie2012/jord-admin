@@ -14,7 +14,7 @@ const routes = [{
 		meta: {
 			requireAuth: true,
 		},
-		component: resolve => require(['../components/page/NewsList.vue'],
+		component: resolve => require(['../components/page/Welcome.vue'],
 			resolve)
 	}, {
 		path: '/newsList',

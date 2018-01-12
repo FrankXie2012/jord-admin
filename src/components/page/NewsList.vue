@@ -82,7 +82,6 @@ export default {
         const _role = this.$store.state.role;
         return {
             tableData: [],
-            cur_page: 1,
             multipleSelection: [],
             isPublish: _role === 'publish' ? true : false,
             btnDisabled: true,
@@ -91,6 +90,7 @@ export default {
             select_status: 1,
             select_cate: '',
             select_word: '',
+            cur_page: 1,
             total: 0,
             pageSize: 15,
             status: [{
@@ -177,6 +177,14 @@ export default {
             this.select_word = '';
             this.select_cate = '';
         },
+        selectChange(val) {
+            this.multipleSelection = val;
+            if (this.multipleSelection.length > 0) {
+                this.btnDisabled = false;
+            } else {
+                this.btnDisabled = true;
+            }
+        },
         // 查看文章
         viewNews(index, row) {
             const self = this;
@@ -231,14 +239,6 @@ export default {
                     });
                 }
             });
-        },
-        selectChange(val) {
-            this.multipleSelection = val;
-            if (this.multipleSelection.length > 0) {
-                this.btnDisabled = false;
-            } else {
-                this.btnDisabled = true;
-            }
         }
     }
 }

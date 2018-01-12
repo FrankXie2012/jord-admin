@@ -5,12 +5,12 @@
             <template v-if="item.subs">
                 <el-submenu :index="item.index">
                     <template slot="title"><i :class="item.icon"></i>{{ item.title }}</template>
-                    <el-menu-item v-for="(subItem,i) in item.subs" :key="i" :index="subItem.index">{{ subItem.title }}
-                    </el-menu-item>
-                </el-submenu>
-            </template>
-            <template v-else>
-                <el-menu-item :class="item.class" :index="item.index">
+        <el-menu-item v-for="(subItem,i) in item.subs" :key="i" :index="subItem.index">{{ subItem.title }}
+        </el-menu-item>
+        </el-submenu>
+        </template>
+        <template v-else>
+                <el-menu-item :index="item.index">
                     <i :class="item.icon"></i>{{ item.title }}
                 </el-menu-item>
             </template>
@@ -22,45 +22,49 @@
 <script>
 export default {
     data() {
-        const _role = this.$store.state.role;
-        return {
-            items: [{
-                    icon: 'el-icon-menu',
-                    index: 'newsList',
-                    title: '文章列表'
-                },
-                {
-                    icon: 'el-icon-picture',
-                    index: 'images',
-                    title: '图片新闻'
-                },
-                {
-                    icon: 'el-icon-edit',
-                    index: 'news',
-                    title: '发布文章',
-                    class: (_role === 'audit' ? 'hidden' : '')
-                },
-                {
-                    icon: 'el-icon-view',
-                    index: 'newsAudit',
-                    title: '文章审阅',
-                    class: (_role === 'publish' ? 'hidden' : '')
-                },
-                {
-                    icon: 'el-icon-star-off',
-                    index: 'users',
-                    title: '用户管理',
-                    class: (_role !== 'admin' ? 'hidden' : '')
-                },
-                {
-                    icon: 'el-icon-setting',
-                    index: 'person',
-                    title: '账号信息',
-                }
-            ]
-        }
+        return {}
     },
     computed: {
+        items() {
+            const _newsList = {
+                icon: 'el-icon-menu',
+                index: 'newsList',
+                title: '文章列表'
+            };
+            const _images = {
+                icon: 'el-icon-picture',
+                index: 'images',
+                title: '图片新闻'
+            };
+            const _news = {
+                icon: 'el-icon-edit',
+                index: 'news',
+                title: '发布文章'
+            };
+            const _newsAudit = {
+                icon: 'el-icon-view',
+                index: 'newsAudit',
+                title: '文章审阅'
+            };
+            const _users = {
+                icon: 'el-icon-star-off',
+                index: 'users',
+                title: '用户管理'
+            };
+            const _person = {
+                icon: 'el-icon-setting',
+                index: 'person',
+                title: '账号信息',
+            };
+            switch (this.$store.state.role) {
+                case 'admin':
+                    return [_newsList, _images, _news, _newsAudit, _users, _person];
+                case 'audit':
+                    return [_newsList, _images, _newsAudit, _person];
+                case 'publish':
+                    return [_newsList, _images, _news, _person];
+            }
+        },
         onRoutes() {
             return this.$route.path.replace('/', '');
         }
@@ -69,10 +73,6 @@ export default {
 </script>
 
 <style scoped>
-.hidden {
-    display: none;
-}
-
 .sidebar {
     display: block;
     position: absolute;

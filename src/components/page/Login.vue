@@ -74,7 +74,7 @@ export default {
                         var _res = res.data;
                         if (_res.state === 'success') {
                             self.$store.commit('setLogin', _res.data);
-                            self.$router.push('/newsList');
+                            self.$router.push('/');
                         } else {
                             self.$message.error(_res.msg);
                         }
