@@ -32,7 +32,7 @@ Mock.mock('../manage/checkLogin', 'post', {
 	data: {
 		name: 'Frank Shieh',
 		headIcon: 'path.png',
-		role: 'publish'
+		role: 'admin'
 	}
 });
 

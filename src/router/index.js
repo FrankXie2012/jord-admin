@@ -22,21 +22,21 @@ const routes = [{
 			requireAuth: true,
 		},
 		component: resolve => require(['../components/page/NewsList.vue'],
-				resolve) // 文章列表
+			resolve) // 文章列表
 	}, {
 		path: '/images',
 		meta: {
 			requireAuth: true,
 		},
 		component: resolve => require(['../components/page/ImgTable.vue'],
-				resolve) // 图片新闻列表
+			resolve) // 图片新闻列表
 	}, {
 		path: '/addImgs',
 		meta: {
 			requireAuth: true,
 		},
 		component: resolve => require(['../components/page/AddImgs.vue'],
-				resolve) // 编辑图片新闻
+			resolve) // 编辑图片新闻
 	}, {
 		path: '/news',
 		meta: {
@@ -49,39 +49,32 @@ const routes = [{
 			requireAuth: true,
 		},
 		component: resolve => require(['../components/page/NewsAudit.vue'],
-				resolve) // 文章审阅
+			resolve) // 文章审阅
 	}, {
 		path: '/users',
 		meta: {
 			requireAuth: true,
 		},
 		component: resolve => require(['../components/page/Users.vue'],
-				resolve) // 用户列表
+			resolve) // 用户列表
 	}, {
 		path: '/addUser',
 		meta: {
 			requireAuth: true,
 		},
 		component: resolve => require(['../components/page/AddUser.vue'],
-				resolve) // 新增用户
+			resolve) // 新增用户
 	}, {
 		path: '/person',
 		meta: {
 			requireAuth: true,
 		},
 		component: resolve => require(['../components/page/Person.vue'],
-				resolve) // 账号信息
+			resolve) // 账号信息
 	}]
 }];
 const router = new Router({
 	routes
 });
-
-// router.start({
-// 	created() {
-// 			Store.actions.checkLogin()
-// 		},
-// 		name: 'mobile'
-// }, 'body');
 
 export default router;
