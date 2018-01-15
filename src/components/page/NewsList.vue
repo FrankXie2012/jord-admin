@@ -15,7 +15,7 @@
             <el-input v-model="select_word" placeholder="筛选关键词" class="handle-input" @change="searchWord"></el-input>
             <el-button icon="el-icon-close" @click="clear">清空条件</el-button>
         </div>
-        <el-table :data="tableData" border style="width: 100%" ref="multipleTable" @selection-change="selectChange">
+        <el-table :data="tableData" border style="width: 100%" ref="multipleTable" stripe @selection-change="selectChange">
             <el-table-column type="selection" width="55"></el-table-column>
             <el-table-column prop="createDate" label="日期" sortable width="120">
             </el-table-column>

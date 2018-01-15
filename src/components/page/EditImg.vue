@@ -1,12 +1,14 @@
 <template>
 <div>
+    <el-alert :title="imageTitle" type="info" :closable="false" center show-icon></el-alert>
+    <br>
     <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="标题" prop="name">
             <el-input v-model="form.name" class="input"></el-input>
         </el-form-item>
         <el-form-item label="图片">
-            <el-upload action="uploadImgNews" multiple list-type="picture-card" :on-preview="preview" :on-remove="handleRemove" :file-list="fileList">
-                <i class="el-icon-plus"></i>
+            <el-upload action="uploadImgNews" class="input" multiple list-type="picture" :on-preview="preview" :on-remove="handleRemove" :file-list="fileList">
+                <el-button size="small" type="primary">点击上传</el-button>
             </el-upload>
         </el-form-item>
         <el-dialog :title="dialogImageName" :visible.sync="dialogVisible" size="tiny">
@@ -30,19 +32,37 @@ export default {
             dialogImageUrl: '',
             dialogVisible: false,
             dialogImageName: '',
-            fileList:  []
+            fileList: []
+        }
+    },
+    computed: {
+        imageTitle: function() {
+            const _imageTitle = this.$store.state.image.title;
+            if (!_imageTitle) {
+                return '新增图片';
+            } else {
+                return '修改 "' + _imageTitle + '" 图片';
+            }
         }
     },
     created() {
-        var self = this;
-        self.$axios.post('../getImgNews').then((res) => {
-            self.fileList = res.data.newsImgs;
-            self.form.name = res.data.newsName;
+        const self = this;
+        const _image = this.$store.state.image;
+        self.$axios.post('../manage/article/view', {
+            id: _image.id
+        }).then((res) => {
+            let _res = res.data;
+            if (_res.state === 'success') {
+                self.fileList = _res.data.content;
+                self.form.name = _res.data.title;
+            } else {
+                self.$message.error(_res.msg);
+            }
         });
     },
     methods: {
         handleRemove(file, fileList) {
-            console.log(file, fileList);
+            this.$message.error('已删除' + file.name);
         },
         preview(file) {
             this.dialogImageUrl = file.url;
@@ -52,6 +72,7 @@ export default {
         onSubmit() {
             var self = this;
             console.info(this.form);
+            this.$store.commit('setImage', '');
             this.$message({
                 message: '提交成功',
                 type: 'success'
@@ -61,6 +82,7 @@ export default {
             }, 1000);
         },
         onBack() {
+            this.$store.commit('setImage', '');
             this.$router.push('/images');
         }
     }

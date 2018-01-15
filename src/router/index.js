@@ -31,11 +31,11 @@ const routes = [{
 		component: resolve => require(['../components/page/ImgTable.vue'],
 			resolve) // 图片新闻列表
 	}, {
-		path: '/addImgs',
+		path: '/editImg',
 		meta: {
 			requireAuth: true,
 		},
-		component: resolve => require(['../components/page/AddImgs.vue'],
+		component: resolve => require(['../components/page/EditImg.vue'],
 			resolve) // 编辑图片新闻
 	}, {
 		path: '/news',

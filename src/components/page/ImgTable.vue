@@ -16,7 +16,7 @@
             <el-button icon="el-icon-close" @click="clear">清空条件</el-button>
             <el-button type="primary" icon="el-icon-edit" @click="addImgs">新增图片新闻</el-button>
         </div>
-        <el-table :data="tableData" border style="width: 100%" ref="multipleTable" @selection-change="selectChange">
+        <el-table :data="tableData" border style="width: 100%" ref="multipleTable" stripe @selection-change="selectChange">
             <el-table-column type="selection" width="55"></el-table-column>
             <el-table-column prop="createDate" label="日期" sortable width="120">
             </el-table-column>
@@ -55,18 +55,29 @@
     </div>
 
     <!-- 查看图片弹窗 -->
-    <!-- TODO -->
     <el-dialog title="查看图片新闻" :visible.sync="dialogVisible" fullscreen>
         <el-card class="box-card margin-auto" :body-style="{ padding: '0px' }">
             <img src="~assets/news_top.png" class="image">
             <div class="article-box">
                 <div class="news-box">
-                    <h2 class="news-title" v-html="images.title"></h2>
+                    <h2 class="news-title" v-html="image.title"></h2>
                     <div class="news-detail">
-                        <span><b>作者：</b><span v-html="images.author"></span></span>
+                        <span><b>作者：</b><span v-html="image.author"></span></span>
                         <span><b>更新时间：</b><span>当前时间</span></span>
                     </div>
-                    <!-- <pre class="news-text" v-html="article.content"></pre> -->
+                    <div class="images-list">
+                        <!-- 单张图片 -->
+                        <div class="full-image" v-if="onlyImage">
+                            <img :src="image.content[0].url" alt="图片">
+                        </div>
+                        <!-- 多张图片 -->
+                        <div class="my-card" v-for="item in image.content" v-else>
+                            <img :src="item.url" alt="图片">
+                            <div class="my-body">
+                                <p>{{item.name}}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <img src="~assets/news_bottom.png" class="image bottom-img">
@@ -83,6 +94,8 @@ export default {
     data() {
         const _role = this.$store.state.role;
         return {
+            onlyImage: false,
+            image: '',
             tableData: [],
             multipleSelection: [],
             isPublish: _role === 'publish' ? true : false,
@@ -109,22 +122,22 @@ export default {
             groups: [{
                 label: '人大概览',
                 cards: [{
-                    value: '1_1',
+                    value: '134',
                     label: '人大简介'
                 }, {
-                    value: '1_2',
+                    value: '133',
                     label: '组织机构'
                 }, {
-                    value: '1_3',
+                    value: '132',
                     label: '组成人员名单'
                 }, {
-                    value: '1_4',
+                    value: '131',
                     label: '代表名单'
                 }]
             }, {
                 label: '图片新闻',
                 cards: [{
-                    value: '2_1',
+                    value: '14',
                     label: '图片新闻'
                 }]
             }]
@@ -177,8 +190,8 @@ export default {
             }
         },
         handleEdit(index, row) {
-            this.$message('设置第' + (index + 1) + '行');
-            this.$router.push('addImgs');
+            this.$store.commit('setImage', row);
+            this.$router.push('/editImg');
         },
         delOne(index, row) {
             const self = this;
@@ -203,18 +216,20 @@ export default {
             });
         },
         addImgs() {
-            this.$router.push('/addImgs');
+            this.$store.commit('setImage', '');
+            this.$router.push('/editImg');
         },
         // 查看图片
         viewImages(index, row) {
             const self = this;
-            self.dialogVisible = true;
             self.$axios.post('../manage/article/view', {
                 id: row.id
             }).then((res) => {
                 let _res = res.data;
                 if (_res.state === 'success') {
-                    self.images = _res.data;
+                    self.dialogVisible = true;
+                    self.image = _res.data;
+                    self.image.content.length > 1 ? self.onlyImage = false : self.onlyImage = true;
                 } else {
                     self.$message.error(_res.msg);
                 }
@@ -240,5 +255,43 @@ export default {
 .handle-input {
     width: 150px;
     display: inline-block;
+}
+
+.images-list {
+    margin: 0 auto;
+}
+
+.full-image img {
+    width: 100%;
+    clear: both;
+    margin: 20px;
+}
+
+.my-card {
+    background: #fff;
+    box-shadow: 3px 3px 3px #ccc;
+    border: 1px solid #ccc;
+    display: inline-block;
+    margin: 23px;
+    text-align: center;
+}
+
+.my-card img {
+    width: 220px;
+    height: 140px;
+    overflow: hidden;
+    margin: 0;
+}
+
+.my-card .my-body {
+    padding: 10px 20px;
+}
+
+.my-card .my-body p {
+    line-height: 24px;
+    width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 </style>

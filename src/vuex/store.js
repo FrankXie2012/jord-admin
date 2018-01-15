@@ -6,7 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
 	state: {
 		name: '',
-		role: ''
+		role: '',
+		image: ''
 	},
 	getters: {
 		isLogin: state => {
@@ -21,6 +22,9 @@ export default new Vuex.Store({
 		removeLogin(state) {
 			state.name = '';
 			state.role = '';
+		},
+		setImage(state, image) {
+			state.image = image;
 		}
 	},
 	actions: {
