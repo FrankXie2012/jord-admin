@@ -40,7 +40,8 @@
                 <template scope="scope">
                     <el-button size="small" type="info"
                     @click="viewImages(scope.$index, scope.row)">查看图片</el-button>
-                    <el-button type="primary" size="small"
+                    <!-- 只有新闻状态为待审核或审核不通过时才可修改 -->
+                    <el-button type="primary" size="small" :class="scope.row.delFlag === 2 || scope.row.delFlag === 3 ? '' : 'hidden'"
                     @click="handleEdit(scope.$index, scope.row)">修改</el-button>
                     <!-- 只有当用户不是发布员 且 状态不是删除 时，才可以删除 -->
                     <el-button size="small" type="danger" :class="isPublish || scope.row.delFlag === 1 ? 'hidden' : ''"
@@ -119,28 +120,6 @@ export default {
                 value: 2,
                 label: '待审核'
             }],
-            groups: [{
-                label: '人大概览',
-                cards: [{
-                    value: '134',
-                    label: '人大简介'
-                }, {
-                    value: '133',
-                    label: '组织机构'
-                }, {
-                    value: '132',
-                    label: '组成人员名单'
-                }, {
-                    value: '131',
-                    label: '代表名单'
-                }]
-            }, {
-                label: '图片新闻',
-                cards: [{
-                    value: '14',
-                    label: '图片新闻'
-                }]
-            }]
         }
     },
     created() {

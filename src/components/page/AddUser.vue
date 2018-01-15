@@ -69,7 +69,6 @@ export default {
             const self = this;
             self.$refs[formName].validate((valid) => {
                 if (valid) {
-                    debugger;
                     self.$axios.post('../manage/user/save', self.form).then((res) => {
                         var _res = res.data;
                         if (_res.state === 'success') {

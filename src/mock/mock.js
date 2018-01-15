@@ -122,7 +122,7 @@ Mock.mock('../manage/article/list', 'post', {
 		"hits": "8766",
 		"isRoll": 1,
 		"author": "张少影",
-		"delFlag": 0
+		"delFlag": 2
 	}, {
 		"id": "0010",
 		"categoryName": "常委会会议",
@@ -131,7 +131,7 @@ Mock.mock('../manage/article/list', 'post', {
 		"hits": "8766",
 		"isRoll": 1,
 		"author": "张少影",
-		"delFlag": 0
+		"delFlag": 3
 	}]
 });
 
@@ -157,28 +157,7 @@ Mock.mock('../manage/article/save', 'post', {
 	data: null
 });
 
-// ========================================
-//  图片新闻
-//  ========================================
-
-
-// ========================================
-//  编辑图片新闻页面
-//  ========================================
-
-// 获取图片新闻数据
-Mock.mock('../getImgNews', 'post', {
-	newsName: '东游镇人大委员',
-	newsImgs: [{
-		name: '张伟',
-		url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1513252328854&di=6100fdb5f75da2a1c85043f3df1dd525&imgtype=0&src=http%3A%2F%2F02.imgmini.eastday.com%2Fmobile%2F20170715%2F20170715114157_fc29b7cd0411843cf7799ec388a642ba_2.jpeg'
-	}, {
-		name: '李梦',
-		url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1513252328854&di=989d3d675b570561a283131a0a01ac70&imgtype=0&src=http%3A%2F%2Fs8.rr.itc.cn%2Fg%2FwapChange%2F20149_28_18%2Fa4npdu937019350305.jpg'
-	}]
-});
-
-Mock.mock('../uploadImgNews', 'post', {
+Mock.mock('../manage/article/uploadImage', 'post', {
 	msg: '上传成功',
 	state: 'success',
 	data: null
@@ -197,29 +176,29 @@ Mock.mock('../manage/article/view', 'post', function(opts) {
 			"state": "success", //应答码
 			"msg": "获取成功", //应答信息
 			"data": {
-				"categoryId": '0001',
+				"categoryId": '131',
 				"title": "建瓯市人大常委会关于批准2016年地方政府债务限额及财政预算调整的议案的决议", //标题
 				"author": "谢静航", //作者
 				"copyFrom": "", //来源
 				"content": [{
-					url: 'https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1513861452&amp;di=ec424527353d6d3c588d784c718d6600&amp;imgtype=jpg&amp;er=1&amp;src=http%3A%2F%2Fimg1.gtimg.com%2Fxian%2Fpics%2Fhv1%2F40%2F39%2F1797%2F116859910.jpg',
-					name: '陈国'
-				}, {
-					url: 'https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1513266795180&amp;di=a6b9d01cc4d0fe13d7e74acc1da69914&amp;imgtype=0&amp;src=http%3A%2F%2Fp3.pccoo.cn%2Fnews%2F20150929%2F2015092908202064568131.png',
-					name: '周本'
-				}, {
-					url: 'https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1513861528&amp;di=82ad9fa84f93738b9095c5faa4a59410&amp;imgtype=jpg&amp;er=1&amp;src=http%3A%2F%2Fwww.nbrd.gov.cn%2Fpicture%2F0%2F1703100126469343369.jpg',
-					name: '诸葛大哥'
-				}, {
-					url: 'https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1513266826083&amp;di=016951e38c43c21c3886718811c85481&amp;imgtype=0&amp;src=http%3A%2F%2Fwww.people.com.cn%2Fh%2Fpic%2F20140307%2F74%2F8640336195950922026.jpg',
-					name: '吕小布'
-				}, {
-					url: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=836058205,4140899107&amp;fm=27&amp;gp=0.jpg',
-					name: '张伟'
-				}, {
-					url: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=634522425,4068006468&amp;fm=27&amp;gp=0.jpg',
-					name: '曹操'
-				}] //正文
+						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516629799&di=562d31c6c1f22c6e55eb2d15a12f06a8&imgtype=jpg&er=1&src=http%3A%2F%2Ftitanimg.titan24.com%2Fbasketball%2F2012%2F02%2F03%2F79ce13908b_1328255896.jpg',
+						name: '陈国'
+					}, {
+						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078987&di=67f696b4f51598a09a8c7498f819b7d6&imgtype=0&src=http%3A%2F%2Fs9.rr.itc.cn%2Fg%2FwapChange%2F20149_28_18%2Fa5fl0j76344374667.jpg',
+						name: '周本'
+					}, {
+						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078987&di=906acd7a3aa9325883663c4fd4d45d15&imgtype=0&src=http%3A%2F%2Fs8.rr.itc.cn%2Fg%2FwapChange%2F20149_28_18%2Fa4hjk876491487667.jpg',
+						name: '诸葛大哥'
+					}, {
+						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078984&di=ac3efaab96416598e434c47de6b4dfdc&imgtype=0&src=http%3A%2F%2Fimgsports.eastday.com%2Fsports%2Fimg%2F201707130411369203.jpeg',
+						name: '吕小布'
+					}, {
+						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035188982&di=df1cb1fca1aabb895fa0ba89f24321fc&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1850180791%2C2870515127%26fm%3D214%26gp%3D0.jpg',
+						name: '张伟'
+					}, {
+						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078982&di=eff0bd0c27b029371079e9551dcfe9f2&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20121002%2FImg354271911.jpg',
+						name: '曹操'
+					}] //正文
 			}
 		};
 	} else if (_param.id === '0009') {
@@ -228,14 +207,15 @@ Mock.mock('../manage/article/view', 'post', function(opts) {
 			"state": "success", //应答码
 			"msg": "获取成功", //应答信息
 			"data": {
-				"categoryId": '0001',
+				"categoryId": '14',
 				"title": "建瓯市人大常委会关于批准2016年地方政府债务限额及财政预算调整的议案的决议", //标题
 				"author": "谢静航", //作者
 				"copyFrom": "", //来源
+				"image": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516629799&di=562d31c6c1f22c6e55eb2d15a12f06a8&imgtype=jpg&er=1&src=http%3A%2F%2Ftitanimg.titan24.com%2Fbasketball%2F2012%2F02%2F03%2F79ce13908b_1328255896.jpg", // 封面图
 				"content": [{
-					url: 'http://image.liuxianan.com/201705/20170522_174552_468_0434.png',
-					name: 'mock.js'
-				}] //正文
+						url: 'http://image.liuxianan.com/201705/20170522_174552_468_0434.png',
+						name: 'mock.js'
+					}] //正文
 			}
 		};
 	} else {

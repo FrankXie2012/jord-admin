@@ -16,13 +16,13 @@
             </el-select>
         </el-form-item>
         <el-form-item label="封面图片">
-            <el-upload class="avatar-uploader" action="../manage/article/uploadImage" :show-file-list="false" :on-success="imageSuccess" :before-upload="beforeImageUpload">
+            <el-upload class="avatar-uploader" action="../manage/article/uploadImage" :show-file-list="false" :on-change="imageSuccess" :before-upload="beforeImageUpload">
                 <img v-if="form.image" :src="form.image" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
         </el-form-item>
         <el-form-item label="上传文件">
-            <el-upload class="upload-demo" :before-upload="hintUpload" drag action :on-success="getData" :file-list="fileList">
+            <el-upload class="upload-demo" :before-upload="hintUpload" drag action :on-change="getData" :file-list="fileList">
                 <i class="el-icon-upload"></i>
                 <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 <div class="el-upload__tip" slot="tip">只能上传docx文件，且不超过500kb</div>
@@ -129,7 +129,7 @@ export default {
         }
     },
     computed: {
-        // 登录按钮禁用控制
+        // 按钮禁用控制
         btnActive: function() {
             let form = this.form;
             if (form.categoryId && form.title && form.author && this.article) {
@@ -140,10 +140,8 @@ export default {
         }
     },
     methods: {
-        imageSuccess(res, file) {
-            // TODO
-            // this.form.image = URL.createObjectURL(file.raw);
-            this.form.image = res.url;
+        imageSuccess(file, fileList) {
+            this.form.image = file.url;
         },
         beforeImageUpload(file) {
             const isJPG = (file.type === 'image/jpeg' || file.type === 'image/png');
@@ -242,9 +240,9 @@ export default {
     height: 178px;
     line-height: 178px;
     text-align: center;
-  }
+}
 
-  .avatar-uploader .el-upload:hover {
+.avatar-uploader .el-upload:hover {
     border-color: #409EFF;
-  }
+}
 </style>
