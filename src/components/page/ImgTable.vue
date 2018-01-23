@@ -66,7 +66,9 @@
                         <span><b>作者：</b><span v-html="image.author"></span></span>
                         <span><b>更新时间：</b><span>当前时间</span></span>
                     </div>
-                    <div class="images-list">
+                    <!-- 旧数据，直接展示 -->
+                    <pre class="article-box" v-html="image.content" v-if="oldData"></pre>
+                    <div class="images-list" v-else>
                         <!-- 单张图片 -->
                         <div class="full-image" v-if="onlyImage">
                             <img :src="image.content[0].url" alt="图片">
@@ -96,6 +98,7 @@ export default {
         const _role = this.$store.state.role;
         return {
             onlyImage: false,
+            oldData: false,
             image: '',
             tableData: [],
             multipleSelection: [],
@@ -120,6 +123,28 @@ export default {
                 value: 2,
                 label: '待审核'
             }],
+            groups: [{
+                label: '人大概览',
+                cards: [{
+                    value: '134',
+                    label: '人大简介'
+                }, {
+                    value: '133',
+                    label: '组织机构'
+                }, {
+                    value: '132',
+                    label: '组成人员名单'
+                }, {
+                    value: '131',
+                    label: '代表名单'
+                }]
+            }, {
+                label: '图片新闻',
+                cards: [{
+                    value: '14',
+                    label: '图片新闻'
+                }]
+            }]
         }
     },
     created() {
@@ -208,7 +233,16 @@ export default {
                 if (_res.state === 'success') {
                     self.dialogVisible = true;
                     self.image = _res.data;
-                    self.image.content.length > 1 ? self.onlyImage = false : self.onlyImage = true;
+                    if (self.image.isNew == 1) {
+                        self.oldData = true;
+                    } else {
+                        self.oldData = false;
+                        if (self.image.content.length > 1) {
+                            self.onlyImage = false;
+                        } else {
+                            self.onlyImage = true;
+                        }
+                    }
                 } else {
                     self.$message.error(_res.msg);
                 }

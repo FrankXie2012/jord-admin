@@ -181,24 +181,24 @@ Mock.mock('../manage/article/view', 'post', function(opts) {
 				"author": "谢静航", //作者
 				"copyFrom": "", //来源
 				"content": [{
-						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516629799&di=562d31c6c1f22c6e55eb2d15a12f06a8&imgtype=jpg&er=1&src=http%3A%2F%2Ftitanimg.titan24.com%2Fbasketball%2F2012%2F02%2F03%2F79ce13908b_1328255896.jpg',
-						name: '陈国'
-					}, {
-						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078987&di=67f696b4f51598a09a8c7498f819b7d6&imgtype=0&src=http%3A%2F%2Fs9.rr.itc.cn%2Fg%2FwapChange%2F20149_28_18%2Fa5fl0j76344374667.jpg',
-						name: '周本'
-					}, {
-						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078987&di=906acd7a3aa9325883663c4fd4d45d15&imgtype=0&src=http%3A%2F%2Fs8.rr.itc.cn%2Fg%2FwapChange%2F20149_28_18%2Fa4hjk876491487667.jpg',
-						name: '诸葛大哥'
-					}, {
-						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078984&di=ac3efaab96416598e434c47de6b4dfdc&imgtype=0&src=http%3A%2F%2Fimgsports.eastday.com%2Fsports%2Fimg%2F201707130411369203.jpeg',
-						name: '吕小布'
-					}, {
-						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035188982&di=df1cb1fca1aabb895fa0ba89f24321fc&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1850180791%2C2870515127%26fm%3D214%26gp%3D0.jpg',
-						name: '张伟'
-					}, {
-						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078982&di=eff0bd0c27b029371079e9551dcfe9f2&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20121002%2FImg354271911.jpg',
-						name: '曹操'
-					}] //正文
+					url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516629799&di=562d31c6c1f22c6e55eb2d15a12f06a8&imgtype=jpg&er=1&src=http%3A%2F%2Ftitanimg.titan24.com%2Fbasketball%2F2012%2F02%2F03%2F79ce13908b_1328255896.jpg',
+					name: '陈国'
+				}, {
+					url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078987&di=67f696b4f51598a09a8c7498f819b7d6&imgtype=0&src=http%3A%2F%2Fs9.rr.itc.cn%2Fg%2FwapChange%2F20149_28_18%2Fa5fl0j76344374667.jpg',
+					name: '周本'
+				}, {
+					url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078987&di=906acd7a3aa9325883663c4fd4d45d15&imgtype=0&src=http%3A%2F%2Fs8.rr.itc.cn%2Fg%2FwapChange%2F20149_28_18%2Fa4hjk876491487667.jpg',
+					name: '诸葛大哥'
+				}, {
+					url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078984&di=ac3efaab96416598e434c47de6b4dfdc&imgtype=0&src=http%3A%2F%2Fimgsports.eastday.com%2Fsports%2Fimg%2F201707130411369203.jpeg',
+					name: '吕小布'
+				}, {
+					url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035188982&di=df1cb1fca1aabb895fa0ba89f24321fc&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1850180791%2C2870515127%26fm%3D214%26gp%3D0.jpg',
+					name: '张伟'
+				}, {
+					url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078982&di=eff0bd0c27b029371079e9551dcfe9f2&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20121002%2FImg354271911.jpg',
+					name: '曹操'
+				}] //正文
 			}
 		};
 	} else if (_param.id === '0009') {
@@ -213,9 +213,9 @@ Mock.mock('../manage/article/view', 'post', function(opts) {
 				"copyFrom": "", //来源
 				"image": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516629799&di=562d31c6c1f22c6e55eb2d15a12f06a8&imgtype=jpg&er=1&src=http%3A%2F%2Ftitanimg.titan24.com%2Fbasketball%2F2012%2F02%2F03%2F79ce13908b_1328255896.jpg", // 封面图
 				"content": [{
-						url: 'http://image.liuxianan.com/201705/20170522_174552_468_0434.png',
-						name: 'mock.js'
-					}] //正文
+					url: 'http://image.liuxianan.com/201705/20170522_174552_468_0434.png',
+					name: 'mock.js'
+				}] //正文
 			}
 		};
 	} else {
@@ -228,6 +228,7 @@ Mock.mock('../manage/article/view', 'post', function(opts) {
 				"title": "建瓯市人大常委会关于批准2016年地方政府债务限额及财政预算调整的议案的决议", //标题
 				"author": "谢静航", //作者
 				"copyFrom": "", //来源
+				"isNew": '1',
 				"content": '<p><a href="/userfiles/201706/2017062317531710.jpg" target="_blank"><img border="0" src="/userfiles/201706/2017062317531710.jpg" width="800" height="600">&nbsp;</a></p>\
 					<p style="TEXT-ALIGN: left; LINE-HEIGHT: 150%; TEXT-INDENT: 28pt; MARGIN: 0cm 0cm 0pt; mso-char-indent-count: 2.0" class="MsoNormal" align="left"><span style="LINE-HEIGHT: 150%; FONT-FAMILY: 仿宋_GB2312; FONT-SIZE: 14pt; mso-hansi-font-family: 仿宋_GB2312; mso-bidi-font-family: 仿宋_GB2312" lang="EN-US">6</span><span style="LINE-HEIGHT: 150%; FONT-FAMILY: 仿宋_GB2312; FONT-SIZE: 14pt; mso-hansi-font-family: 仿宋_GB2312; mso-bidi-font-family: 仿宋_GB2312">月<span lang="EN-US">23</span>日，东游镇<span lang="EN-US">553</span>名考生将走进中考考场参加为期三天的中考。<span lang="EN-US">22</span>日上午，镇人大主席团组织部分人大主席团成员、部分市、镇人大代表实地查看东游中学考点考前准备情况。<span lang="EN-US"><!--?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /--><o:p></o:p></span></span></p>\
 					<p style="TEXT-ALIGN: left; LINE-HEIGHT: 150%; TEXT-INDENT: 28pt; MARGIN: 0cm 0cm 0pt; mso-char-indent-count: 2.0" class="MsoNormal" align="left"><span style="LINE-HEIGHT: 150%; FONT-FAMILY: 仿宋_GB2312; FONT-SIZE: 14pt; mso-hansi-font-family: 仿宋_GB2312; mso-bidi-font-family: 仿宋_GB2312">代表们在考点外查看了街边商铺占道清理情况、道路警示牌设置情况，走进考点对考场清理、布置进行了查看，向考点负责人询问了考务后勤保障等工作准备情况。<span lang="EN-US"><o:p></o:p></span></span></p>\
