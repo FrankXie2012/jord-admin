@@ -16,7 +16,7 @@
             </el-select>
         </el-form-item>
         <el-form-item label="封面图片">
-            <el-upload class="avatar-uploader" action="../manage/article/uploadImage" :show-file-list="false" :on-change="imageSuccess" :before-upload="beforeImageUpload">
+            <el-upload class="avatar-uploader" action="../manage/article/uploadImage" :show-file-list="false" :on-success="imageSuccess" :before-upload="beforeImageUpload">
                 <img v-if="form.image" :src="form.image" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
@@ -140,8 +140,8 @@ export default {
         }
     },
     methods: {
-        imageSuccess(file, fileList) {
-            this.form.image = file.url;
+        imageSuccess(res, file) {
+            this.form.image = file.response.data.url;
         },
         beforeImageUpload(file) {
             const isJPG = (file.type === 'image/jpeg' || file.type === 'image/png');

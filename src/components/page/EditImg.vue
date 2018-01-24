@@ -25,7 +25,7 @@
             </el-upload>
         </el-form-item>
         <el-form-item label="图片">
-            <el-upload action="../manage/article/uploadImage" class="input" multiple list-type="picture" :on-preview="preview" :on-remove="handleRemove" :on-change="getImages" :file-list="fileList">
+            <el-upload action="../manage/article/uploadImage" class="input" multiple list-type="picture" :on-preview="preview" :on-remove="handleRemove" :on-success="getImages" :file-list="fileList">
                 <el-tooltip class="item" effect="dark" content="图片文件名就是图片说明" placement="top">
                     <el-button size="small" type="primary">点击上传</el-button>
                 </el-tooltip>
@@ -163,10 +163,11 @@ export default {
             this.dialogVisible = true;
             this.dialogImageName = file.name;
         },
-        getImages(file, fileList) {
+        getImages(res, file) {
+            debugger
             this.form.content.push({
-                url: fileList.response && fileList.response.data && fileList.response.data.url,
-                name: fileList.name
+                url: file.response && file.response.data && file.response.data.url,
+                name: file.response && file.response.data && file.response.data.name
             });
         },
         onSubmit(formName) {
