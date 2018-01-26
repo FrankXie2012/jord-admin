@@ -233,7 +233,7 @@ export default {
                 if (_res.state === 'success') {
                     self.dialogVisible = true;
                     self.image = _res.data;
-                    if (self.image.isNew == 1) {
+                    if (self.image.isNew != 1) {
                         self.oldData = true;
                     } else {
                         self.oldData = false;
