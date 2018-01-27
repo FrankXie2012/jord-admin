@@ -40,10 +40,10 @@
                 <el-button size="small" type="info"
                         @click="viewNews(scope.$index, scope.row)">查看文章</el-button>
                 <!-- 只有当用户不是发布员 且 文章有封面 且 状态为已发布 时，才可以设置轮播 -->
-                <el-button :type="scope.row.isRoll ? '' : 'primary'" size="small" :class="!isPublish && scope.row.isRoll != 2 && scope.row.delFlag == 0 ? '' : 'hidden'"
-                        @click="setRoll(scope.$index, scope.row)">{{scope.row.isRoll ? '取消轮播' : '设为轮播'}}</el-button>
+                <el-button :type="parseInt(scope.row.isRoll) ? '' : 'primary'" size="small" :class="!isPublish && scope.row.isRoll != 2 && scope.row.delFlag == 0 ? '' : 'hidden'"
+                        @click="setRoll(scope.$index, scope.row)">{{parseInt(scope.row.isRoll) ? '取消轮播' : '设为轮播'}}</el-button>
                 <!-- 只有当用户不是发布员 且 状态不是删除 时，才可以删除 -->
-                <el-button size="small" type="danger" :class="isPublish || scope.row.delFlag === 1 ? 'hidden' : ''"
+                <el-button size="small" type="danger" :class="isPublish || scope.row.delFlag == 1 ? 'hidden' : ''"
                         @click="delOne(scope.$index, scope.row)">删除</el-button>
             </template>
             </el-table-column>

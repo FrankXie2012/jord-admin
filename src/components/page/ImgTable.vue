@@ -138,12 +138,12 @@ export default {
                     value: '131',
                     label: '代表名单'
                 }]
-            }, {
-                label: '图片新闻',
-                cards: [{
-                    value: '14',
-                    label: '图片新闻'
-                }]
+            // }, {
+            //     label: '图片新闻',
+            //     cards: [{
+            //         value: '14',
+            //         label: '图片新闻'
+            //     }]
             }]
         }
     },

@@ -94,7 +94,7 @@ Mock.mock('../manage/article/list', 'post', {
 		"title": "关于吴慧艳等同志职务任免的通知",
 		"createDate": "1994-09-20",
 		"hits": "8766",
-		"isRoll": 1,
+		"isRoll": '1',
 		"author": "张少影",
 		"delFlag": 0
 	}, {
@@ -103,7 +103,7 @@ Mock.mock('../manage/article/list', 'post', {
 		"title": "建瓯市人大常委会关于批准2016年地方政府债务限额及财政预算调整的议案的决议",
 		"createDate": "1980-01-22",
 		"hits": "8766",
-		"isRoll": 0,
+		"isRoll": '0',
 		"delFlag": 0
 	}, {
 		"id": "0008",
@@ -111,7 +111,7 @@ Mock.mock('../manage/article/list', 'post', {
 		"title": "龙村乡人大代表王菊英风采",
 		"createDate": "1985-10-10",
 		"hits": "8766",
-		"isRoll": 2,
+		"isRoll": '2',
 		"author": "张少影",
 		"delFlag": 0
 	}, {
@@ -120,7 +120,7 @@ Mock.mock('../manage/article/list', 'post', {
 		"title": "建瓯市人大常委会关于批准2016年地方政府债务限额及财政预算调整的议案的决议",
 		"createDate": "1975-09-08",
 		"hits": "8766",
-		"isRoll": 1,
+		"isRoll": '1',
 		"author": "张少影",
 		"delFlag": 2
 	}, {
@@ -129,7 +129,7 @@ Mock.mock('../manage/article/list', 'post', {
 		"title": "建瓯市人大常委会关于授予建瓯市国家税务局“人民满意单位”荣誉称号的决定",
 		"createDate": "1970-06-07",
 		"hits": "8766",
-		"isRoll": 1,
+		"isRoll": '1',
 		"author": "张少影",
 		"delFlag": 3
 	}]
@@ -181,24 +181,24 @@ Mock.mock('../manage/article/view', 'post', function(opts) {
 				"author": "谢静航", //作者
 				"copyFrom": "", //来源
 				"content": [{
-					url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516629799&di=562d31c6c1f22c6e55eb2d15a12f06a8&imgtype=jpg&er=1&src=http%3A%2F%2Ftitanimg.titan24.com%2Fbasketball%2F2012%2F02%2F03%2F79ce13908b_1328255896.jpg',
-					name: '陈国'
-				}, {
-					url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078987&di=67f696b4f51598a09a8c7498f819b7d6&imgtype=0&src=http%3A%2F%2Fs9.rr.itc.cn%2Fg%2FwapChange%2F20149_28_18%2Fa5fl0j76344374667.jpg',
-					name: '周本'
-				}, {
-					url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078987&di=906acd7a3aa9325883663c4fd4d45d15&imgtype=0&src=http%3A%2F%2Fs8.rr.itc.cn%2Fg%2FwapChange%2F20149_28_18%2Fa4hjk876491487667.jpg',
-					name: '诸葛大哥'
-				}, {
-					url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078984&di=ac3efaab96416598e434c47de6b4dfdc&imgtype=0&src=http%3A%2F%2Fimgsports.eastday.com%2Fsports%2Fimg%2F201707130411369203.jpeg',
-					name: '吕小布'
-				}, {
-					url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035188982&di=df1cb1fca1aabb895fa0ba89f24321fc&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1850180791%2C2870515127%26fm%3D214%26gp%3D0.jpg',
-					name: '张伟'
-				}, {
-					url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078982&di=eff0bd0c27b029371079e9551dcfe9f2&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20121002%2FImg354271911.jpg',
-					name: '曹操'
-				}] //正文
+						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516629799&di=562d31c6c1f22c6e55eb2d15a12f06a8&imgtype=jpg&er=1&src=http%3A%2F%2Ftitanimg.titan24.com%2Fbasketball%2F2012%2F02%2F03%2F79ce13908b_1328255896.jpg',
+						name: '陈国'
+					}, {
+						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078987&di=67f696b4f51598a09a8c7498f819b7d6&imgtype=0&src=http%3A%2F%2Fs9.rr.itc.cn%2Fg%2FwapChange%2F20149_28_18%2Fa5fl0j76344374667.jpg',
+						name: '周本'
+					}, {
+						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078987&di=906acd7a3aa9325883663c4fd4d45d15&imgtype=0&src=http%3A%2F%2Fs8.rr.itc.cn%2Fg%2FwapChange%2F20149_28_18%2Fa4hjk876491487667.jpg',
+						name: '诸葛大哥'
+					}, {
+						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078984&di=ac3efaab96416598e434c47de6b4dfdc&imgtype=0&src=http%3A%2F%2Fimgsports.eastday.com%2Fsports%2Fimg%2F201707130411369203.jpeg',
+						name: '吕小布'
+					}, {
+						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035188982&di=df1cb1fca1aabb895fa0ba89f24321fc&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1850180791%2C2870515127%26fm%3D214%26gp%3D0.jpg',
+						name: '张伟'
+					}, {
+						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078982&di=eff0bd0c27b029371079e9551dcfe9f2&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20121002%2FImg354271911.jpg',
+						name: '曹操'
+					}] //正文
 			}
 		};
 	} else if (_param.id === '0009') {
@@ -213,9 +213,9 @@ Mock.mock('../manage/article/view', 'post', function(opts) {
 				"copyFrom": "", //来源
 				"image": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516629799&di=562d31c6c1f22c6e55eb2d15a12f06a8&imgtype=jpg&er=1&src=http%3A%2F%2Ftitanimg.titan24.com%2Fbasketball%2F2012%2F02%2F03%2F79ce13908b_1328255896.jpg", // 封面图
 				"content": [{
-					url: 'http://image.liuxianan.com/201705/20170522_174552_468_0434.png',
-					name: 'mock.js'
-				}] //正文
+						url: 'http://image.liuxianan.com/201705/20170522_174552_468_0434.png',
+						name: 'mock.js'
+					}] //正文
 			}
 		};
 	} else {
