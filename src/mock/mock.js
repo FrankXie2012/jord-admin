@@ -181,24 +181,24 @@ Mock.mock('../manage/article/view', 'post', function(opts) {
 				"author": "谢静航", //作者
 				"copyFrom": "", //来源
 				"content": [{
-						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516629799&di=562d31c6c1f22c6e55eb2d15a12f06a8&imgtype=jpg&er=1&src=http%3A%2F%2Ftitanimg.titan24.com%2Fbasketball%2F2012%2F02%2F03%2F79ce13908b_1328255896.jpg',
-						name: '陈国'
-					}, {
-						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078987&di=67f696b4f51598a09a8c7498f819b7d6&imgtype=0&src=http%3A%2F%2Fs9.rr.itc.cn%2Fg%2FwapChange%2F20149_28_18%2Fa5fl0j76344374667.jpg',
-						name: '周本'
-					}, {
-						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078987&di=906acd7a3aa9325883663c4fd4d45d15&imgtype=0&src=http%3A%2F%2Fs8.rr.itc.cn%2Fg%2FwapChange%2F20149_28_18%2Fa4hjk876491487667.jpg',
-						name: '诸葛大哥'
-					}, {
-						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078984&di=ac3efaab96416598e434c47de6b4dfdc&imgtype=0&src=http%3A%2F%2Fimgsports.eastday.com%2Fsports%2Fimg%2F201707130411369203.jpeg',
-						name: '吕小布'
-					}, {
-						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035188982&di=df1cb1fca1aabb895fa0ba89f24321fc&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1850180791%2C2870515127%26fm%3D214%26gp%3D0.jpg',
-						name: '张伟'
-					}, {
-						url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078982&di=eff0bd0c27b029371079e9551dcfe9f2&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20121002%2FImg354271911.jpg',
-						name: '曹操'
-					}] //正文
+					url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516629799&di=562d31c6c1f22c6e55eb2d15a12f06a8&imgtype=jpg&er=1&src=http%3A%2F%2Ftitanimg.titan24.com%2Fbasketball%2F2012%2F02%2F03%2F79ce13908b_1328255896.jpg',
+					name: '陈国'
+				}, {
+					url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078987&di=67f696b4f51598a09a8c7498f819b7d6&imgtype=0&src=http%3A%2F%2Fs9.rr.itc.cn%2Fg%2FwapChange%2F20149_28_18%2Fa5fl0j76344374667.jpg',
+					name: '周本'
+				}, {
+					url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078987&di=906acd7a3aa9325883663c4fd4d45d15&imgtype=0&src=http%3A%2F%2Fs8.rr.itc.cn%2Fg%2FwapChange%2F20149_28_18%2Fa4hjk876491487667.jpg',
+					name: '诸葛大哥'
+				}, {
+					url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078984&di=ac3efaab96416598e434c47de6b4dfdc&imgtype=0&src=http%3A%2F%2Fimgsports.eastday.com%2Fsports%2Fimg%2F201707130411369203.jpeg',
+					name: '吕小布'
+				}, {
+					url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035188982&di=df1cb1fca1aabb895fa0ba89f24321fc&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1850180791%2C2870515127%26fm%3D214%26gp%3D0.jpg',
+					name: '张伟'
+				}, {
+					url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516035078982&di=eff0bd0c27b029371079e9551dcfe9f2&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20121002%2FImg354271911.jpg',
+					name: '曹操'
+				}] //正文
 			}
 		};
 	} else if (_param.id === '0009') {
@@ -213,9 +213,9 @@ Mock.mock('../manage/article/view', 'post', function(opts) {
 				"copyFrom": "", //来源
 				"image": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516629799&di=562d31c6c1f22c6e55eb2d15a12f06a8&imgtype=jpg&er=1&src=http%3A%2F%2Ftitanimg.titan24.com%2Fbasketball%2F2012%2F02%2F03%2F79ce13908b_1328255896.jpg", // 封面图
 				"content": [{
-						url: 'http://image.liuxianan.com/201705/20170522_174552_468_0434.png',
-						name: 'mock.js'
-					}] //正文
+					url: 'http://image.liuxianan.com/201705/20170522_174552_468_0434.png',
+					name: 'mock.js'
+				}] //正文
 			}
 		};
 	} else {
@@ -260,56 +260,64 @@ Mock.mock('../manage/user/list', 'post', {
 		"name": "弗兰克", //昵称/姓名
 		"role": "admin", //角色
 		"lasttime": "2017/12/29", //上传登录时间
-		"desc": "管理员" //其他说明
+		"desc": "管理员", //其他说明
+		"delFlag": "0"
 	}, {
 		"id": "0002", //userid
 		"username": "18650335260", //用户名
 		"name": "杰克", //昵称/姓名
 		"role": "audit", //角色
 		"lasttime": "2017/12/29", //上传登录时间
-		"desc": "审阅员" //其他说明
+		"desc": "审阅员", //其他说明
+		"delFlag": "1"
 	}, {
 		"id": "0003", //userid
 		"username": "18650335260", //用户名
 		"name": "琼斯", //昵称/姓名
 		"role": "publish", //角色
 		"lasttime": "2017/12/29", //上传登录时间
-		"desc": "发布员" //其他说明
+		"desc": "发布员", //其他说明
+		"delFlag": "1"
 	}, {
 		"id": "0004", //userid
 		"username": "18650335260", //用户名
 		"name": "里昂内尔", //昵称/姓名
 		"role": "audit", //角色
 		"lasttime": "2017/12/29", //上传登录时间
-		"desc": "审核员" //其他说明
+		"desc": "审核员", //其他说明
+		"delFlag": "0"
 	}, {
 		"id": "0005", //userid
 		"username": "18650335260", //用户名
 		"name": "克里斯蒂亚诺", //昵称/姓名
 		"role": "publish", //角色
 		"lasttime": "2017/12/29", //上传登录时间
-		"desc": "发布员" //其他说明
+		"desc": "发布员", //其他说明
+		"delFlag": "0"
 	}, {
 		"id": "0006", //userid
 		"username": "18650335260", //用户名
 		"name": "弗兰克", //昵称/姓名
 		"role": "admin", //角色
 		"lasttime": "2017/12/29", //上传登录时间
-		"desc": "管理员" //其他说明
+		"desc": "管理员", //其他说明
+		"delFlag": "0"
 	}, {
 		"id": "0007", //userid
 		"username": "18650335260", //用户名
 		"name": "弗兰克", //昵称/姓名
 		"role": "admin", //角色
 		"lasttime": "2017/12/29", //上传登录时间
-		"desc": "管理员" //其他说明
+		"desc": "管理员", //其他说明
+		"delFlag": "1"
 	}, {
 		"id": "0008", //userid
 		"username": "18650335260", //用户名
 		"name": "弗兰克", //昵称/姓名
 		"role": "admin", //角色
 		"lasttime": "2017/12/29", //上传登录时间
-		"desc": "管理员" //其他说明
+		"desc": "管理员", //其他说明
+		"delFlag": "0"
 	}]
 });
 

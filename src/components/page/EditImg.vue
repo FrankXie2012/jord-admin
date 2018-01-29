@@ -89,12 +89,12 @@ export default {
                     value: '131',
                     label: '代表名单'
                 }]
-            }, {
-                label: '图片新闻',
-                cards: [{
-                    value: '14',
-                    label: '图片新闻'
-                }]
+            // }, {
+            //     label: '图片新闻',
+            //     cards: [{
+            //         value: '14',
+            //         label: '图片新闻'
+            //     }]
             }]
         }
     },
@@ -164,7 +164,6 @@ export default {
             this.dialogImageName = file.name;
         },
         getImages(res, file) {
-            debugger
             this.form.content.push({
                 url: file.response && file.response.data && file.response.data.url,
                 name: file.response && file.response.data && file.response.data.name

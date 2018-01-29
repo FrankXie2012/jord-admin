@@ -156,6 +156,9 @@ export default {
         },
         select_cate() {
             this.getData();
+        },
+        select_word() {
+            this.getData();
         }
     },
     methods: {
@@ -176,9 +179,6 @@ export default {
                 self.tableData = res.data.list;
                 self.total = res.data.total;
             });
-        },
-        searchWord() {
-            this.getData();
         },
         clear() {
             this.select_status = '';

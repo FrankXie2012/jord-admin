@@ -122,6 +122,11 @@ export default {
                                 type: 'success',
                                 message: _res.msg
                             });
+                            // 设置header中名字
+                            self.$store.commit('setLogin', {
+                                name: self.form1.name,
+                                role: self.$store.state.role
+                            });
                             self.form1 = {};
                             self.$refs[formName].resetFields();
                         } else {

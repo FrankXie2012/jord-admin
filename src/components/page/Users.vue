@@ -5,7 +5,7 @@
         <el-input v-model="select_username" placeholder="用户名搜索" class="handle-input" @change="searchUsername"></el-input>
         <el-button icon="el-icon-close" @click="clear">清空条件</el-button>
         <el-button type="primary" icon="el-icon-circle-plus-outline" @click="newUser">人员新增</el-button>
-        <el-button type="danger" icon="el-icon-delete" :disabled="btnDisabled" @click="delMulti">批量删除</el-button>
+        <!-- <el-button type="danger" icon="el-icon-delete" :disabled="btnDisabled" @click="delMulti">批量删除</el-button> -->
         <el-button type="info" icon="el-icon-refresh" :disabled="resetDisabled" @click="resetPwd">重置密码</el-button>
     </div>
     <el-table :data="tableData" border style="width: 100%" ref="multipleTable" @selection-change="selectChange" @row-click="setCurRow">
@@ -29,8 +29,8 @@
             <template scope="scope">
                 <el-button size="small"
                         @click="updateRole(scope.$index, scope.row)">设置权限</el-button>
-                <el-button size="small" type="danger"
-                        @click="delOne(scope.$index, scope.row)">删除</el-button>
+                <el-button size="small" :type="parseInt(scope.row.delFlag) ? '' : 'danger'"
+                        @click="delOne(scope.$index, scope.row)">{{parseInt(scope.row.delFlag) ? '启用' : '注销'}}</el-button>
             </template>
         </el-table-column>
     </el-table>
@@ -71,6 +71,14 @@ export default {
     },
     created() {
         this.getData();
+    },
+    watch: {
+        select_name() {
+            this.getData();
+        },
+        select_username() {
+            this.getData();
+        }
     },
     methods: {
         handleCurrentChange(val) {
@@ -145,7 +153,8 @@ export default {
         },
         delOne(index, row) {
             const self = this;
-            self.$alert('确定删除用户 "' + row.name + '" ？', '提示', {
+            const _hint = parseInt(row.delFlag) ? '启用' : '注销';
+            self.$alert('确定' + _hint + '用户 "' + row.name + '" ？', '提示', {
                 confirmButtonText: '确定',
                 callback: action => {
                     self.$axios.post('../manage/user/delete', {
@@ -165,31 +174,31 @@ export default {
                 }
             });
         },
-        delMulti() {
-            const self = this,
-                length = self.multipleSelection.length;
-            let _ids = self.multipleSelection.map(a => a.id).join(',');
-            self.$alert('确定删除选中的 ' + length + ' 位用户吗？', '提示', {
-                confirmButtonText: '确定',
-                callback: action => {
-                    self.$axios.post('../manage/user/delete', {
-                        ids: _ids
-                    }).then((res) => {
-                        let _res = res.data;
-                        if (_res.state === 'success') {
-                            self.$message({
-                                type: 'success',
-                                message: _res.msg
-                            });
-                            self.getData();
-                        } else {
-                            self.$message.error(_res.msg);
-                        }
-                    });
-                    self.multipleSelection = [];
-                }
-            });
-        },
+        // delMulti() {
+        //     const self = this,
+        //         length = self.multipleSelection.length;
+        //     let _ids = self.multipleSelection.map(a => a.id).join(',');
+        //     self.$alert('确定删除选中的 ' + length + ' 位用户吗？', '提示', {
+        //         confirmButtonText: '确定',
+        //         callback: action => {
+        //             self.$axios.post('../manage/user/delete', {
+        //                 ids: _ids
+        //             }).then((res) => {
+        //                 let _res = res.data;
+        //                 if (_res.state === 'success') {
+        //                     self.$message({
+        //                         type: 'success',
+        //                         message: _res.msg
+        //                     });
+        //                     self.getData();
+        //                 } else {
+        //                     self.$message.error(_res.msg);
+        //                 }
+        //             });
+        //             self.multipleSelection = [];
+        //         }
+        //     });
+        // },
         newUser() {
             this.$router.push('/addUser');
         },

@@ -62,7 +62,7 @@ export default {
                 case 'audit':
                     return [_newsList, _images, _newsAudit, _person];
                 case 'publish':
-                    return [_newsList, _images, _news, _person];
+                    return [_newsList, _news, _person];
             }
         },
         onRoutes() {

@@ -19,6 +19,7 @@
         </el-form-item>
         <el-form-item>
             <el-button type="primary" :disabled="btnActive" @click="onSubmit('form')">立即发布</el-button>
+            <el-button @click="onBack">返回列表</el-button>
         </el-form-item>
     </el-form>
 </div>
@@ -85,6 +86,9 @@ export default {
                     });
                 }
             });
+        },
+        onBack() {
+            this.$router.push('/users');
         }
     }
 }
