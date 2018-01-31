@@ -334,7 +334,7 @@ Mock.mock('../manage/user/updateRole', 'post', {
 });
 
 Mock.mock('../manage/user/delete', 'post', {
-	msg: '删除用户成功',
+	msg: '注销用户成功',
 	state: 'success',
 	data: null
 });

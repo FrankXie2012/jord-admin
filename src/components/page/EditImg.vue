@@ -32,7 +32,7 @@
             </el-upload>
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" :disabled="btnActive" @click="onSubmit('form')">立即发布</el-button>
+            <el-button type="primary" :disabled="btnActive" :loading="isLoading" @click="onSubmit('form')">立即发布</el-button>
             <el-button @click="onBack">返回列表</el-button>
         </el-form-item>
     </el-form>
@@ -53,6 +53,7 @@ export default {
                 image: '',
                 content: []
             },
+            isLoading: false,
             dialogImageUrl: '',
             dialogVisible: false,
             dialogImageName: '',
@@ -171,6 +172,7 @@ export default {
         },
         onSubmit(formName) {
             const self = this;
+            self.isLoading = true;
             self.$refs[formName].validate((valid) => {
                 if (valid) {
                     let _json = {
@@ -190,6 +192,7 @@ export default {
                             self.form = {};
                             self.$refs[formName].resetFields();
                             setTimeout(function(){
+                                self.isLoading = false;
                                 self.$router.push('/images');
                             }, 1000);
                         } else {

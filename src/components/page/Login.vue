@@ -14,7 +14,7 @@
             </el-form-item>
             <img :src="code" @click="refreshCode" alt="验证码" class="code-img">
             <div class="login-btn">
-                <el-button type="primary" :disabled="btnActive" @click="submitForm('ruleForm')">登录</el-button>
+                <el-button type="primary" :disabled="btnActive" :loading="isLoading" @click="submitForm('ruleForm')">登录</el-button>
             </div>
         </el-form>
     </div>
@@ -25,6 +25,7 @@
 export default {
     data: function() {
         return {
+            isLoading: false,
             code: 'servlet/validateCodeServlet?' + new Date().getTime(),
             ruleForm: {
                 username: '',
@@ -68,10 +69,12 @@ export default {
         },
         submitForm(formName) {
             const self = this;
+            self.isLoading = true;
             self.$refs[formName].validate((valid) => {
                 if (valid) {
                     self.$axios.post('../manage/login', self.ruleForm).then((res) => {
-                        var _res = res.data;
+                        let _res = res.data;
+                        self.isLoading = false;
                         if (_res.state === 'success') {
                             self.$store.commit('setLogin', _res.data);
                             self.$router.push('/');

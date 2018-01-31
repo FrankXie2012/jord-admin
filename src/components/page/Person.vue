@@ -8,7 +8,7 @@
                         <el-input v-model="form1.name"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" :disabled="btn1Active" @click="editName('form1')">提交</el-button>
+                        <el-button type="primary" :disabled="btn1Active" :loading="isLoading" @click="editName('form1')">提交</el-button>
                         <el-button @click="resetForm('form1')">重置</el-button>
                     </el-form-item>
                 </el-form>
@@ -27,7 +27,7 @@
                         <el-input type="password" v-model="form2.repeat" auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" :disabled="btn2Active" @click="editPass('form2')">提交</el-button>
+                        <el-button type="primary" :disabled="btn2Active" :loading="isLoading" @click="editPass('form2')">提交</el-button>
                         <el-button @click="resetForm('form2')">重置</el-button>
                     </el-form-item>
                 </el-form>
@@ -43,6 +43,7 @@ export default {
     data: function() {
         return {
             activeName: 'first',
+            isLoading: false,
             form1: {
                 name: ''
             },
@@ -53,9 +54,9 @@ export default {
                         trigger: 'blur'
                     },
                     {
-                        min: 3,
+                        min: 2,
                         max: 8,
-                        message: '长度在 3 到 8 个字符',
+                        message: '长度在 2 到 8 个字符',
                         trigger: 'blur'
                     }
                 ]
@@ -114,6 +115,7 @@ export default {
             const self = this;
             self.$refs[formName].validate((valid) => {
                 if (valid) {
+                    self.isLoading = true;
                     self.$axios.post('../manage/user/updateName', self.form1).then((res) => {
                         var _res = res.data;
                         if (_res.state === 'success') {
@@ -131,6 +133,7 @@ export default {
                         } else {
                             self.$message.error(_res.msg);
                         }
+                        self.isLoading = false;
                     });
                 }
             });
@@ -151,6 +154,7 @@ export default {
                         oldPwd: self.form2.old,
                         newPwd: self.form2.new
                     };
+                    self.isLoading = true;
                     self.$axios.post('../manage/user/modifyPwd', _json).then((res) => {
                         var _res = res.data;
                         if (_res.state === 'success') {
@@ -163,6 +167,7 @@ export default {
                         } else {
                             self.$message.error(_res.msg);
                         }
+                        self.isLoading = false;
                     });
                 }
             });

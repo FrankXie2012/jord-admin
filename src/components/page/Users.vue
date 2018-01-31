@@ -45,7 +45,7 @@
         <el-radio v-model="roleRadio" label="audit">审阅员</el-radio>
         <el-radio v-model="roleRadio" label="publish">发布员</el-radio>
         <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="setRole">确 定</el-button>
+            <el-button type="primary" :loading="isLoading" @click="setRole">确 定</el-button>
         </div>
     </el-dialog>
 </div>
@@ -66,7 +66,8 @@ export default {
             roleRadio: '',
             curRow: {},
             total: 0,
-            pageSize: 10
+            pageSize: 10,
+            isLoading: false
         }
     },
     created() {
@@ -135,6 +136,7 @@ export default {
                 self.roleDialog = false;
                 return;
             }
+            self.isLoading = true;
             self.$axios.post('../manage/user/updateRole', {
                 username: self.curRow.username,
                 role: self.roleRadio
@@ -149,6 +151,7 @@ export default {
                 } else {
                     self.$message.error(_res.msg);
                 }
+                self.isLoading = false;
             });
         },
         delOne(index, row) {

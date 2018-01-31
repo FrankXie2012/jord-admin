@@ -18,7 +18,7 @@
             <el-input v-model="form.desc" class="item-width"></el-input>
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" :disabled="btnActive" @click="onSubmit('form')">立即发布</el-button>
+            <el-button type="primary" :disabled="btnActive" :loading="isLoading" @click="onSubmit('form')">立即发布</el-button>
             <el-button @click="onBack">返回列表</el-button>
         </el-form-item>
     </el-form>
@@ -29,6 +29,7 @@
 export default {
     data: function() {
         return {
+            isLoading: false,
             form: {
                 username: '',
                 name: '',
@@ -68,6 +69,7 @@ export default {
     methods: {
         onSubmit(formName) {
             const self = this;
+            self.isLoading = true;
             self.$refs[formName].validate((valid) => {
                 if (valid) {
                     self.$axios.post('../manage/user/save', self.form).then((res) => {
@@ -83,6 +85,7 @@ export default {
                         } else {
                             self.$message.error(_res.msg);
                         }
+                        self.isLoading = false;
                     });
                 }
             });

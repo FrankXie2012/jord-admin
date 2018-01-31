@@ -30,7 +30,7 @@
         </el-form-item>
         <el-form-item>
             <el-button :disabled="previewActive" @click="onPreview">预览文章</el-button>
-            <el-button type="primary" :disabled="btnActive" @click="onSubmit('form')">立即发布</el-button>
+            <el-button type="primary" :loading="isLoading" :disabled="btnActive" @click="onSubmit('form')">立即发布</el-button>
         </el-form-item>
     </el-form>
 
@@ -69,6 +69,7 @@ export default {
             article: '',
             previewActive: true,
             dialogVisible: false,
+            isLoading: false,
             form: {
                 categoryId: '',
                 title: '',
@@ -192,6 +193,7 @@ export default {
         },
         onSubmit(formName) {
             const self = this;
+            self.isLoading = true;
             self.$refs[formName].validate((valid) => {
                 if (valid) {
                     let _json = {
@@ -215,6 +217,7 @@ export default {
                         } else {
                             self.$message.error(_res.msg);
                         }
+                        self.isLoading = false;
                     });
                 }
             });

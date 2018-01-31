@@ -10,8 +10,8 @@
         </el-select>
         <el-input v-model="select_word" placeholder="筛选关键词" class="handle-input" @change="searchWord"></el-input>
         <el-button icon="el-icon-close" @click="clear">清空条件</el-button>
-        <el-button type="primary" icon="el-icon-circle-check-outline" :disabled="btnDisabled" @click="passMulti">批量通过</el-button>
-        <el-button type="danger" icon="el-icon-circle-close-outline" :disabled="btnDisabled" @click="denyMulti">批量不通过</el-button>
+        <el-button type="primary" icon="el-icon-circle-check-outline" :disabled="btnDisabled" :loading="isLoading" @click="passMulti">批量通过</el-button>
+        <el-button type="danger" icon="el-icon-circle-close-outline" :disabled="btnDisabled" :loading="isLoading" @click="denyMulti">批量不通过</el-button>
     </div>
     <el-table :data="tableData" border style="width: 100%" ref="multipleTable" @selection-change="selectChange">
         <el-table-column type="selection" width="55"></el-table-column>
@@ -33,9 +33,9 @@
         </el-table-column>
         <el-table-column label="操作" width="180">
             <template scope="scope">
-                <el-button type="primary" size="small"
+                <el-button type="primary" size="small" :loading="isLoading"
                         @click="passOne(scope.$index, scope.row)">通过</el-button>
-                <el-button size="small" type="danger"
+                <el-button size="small" type="danger" :loading="isLoading"
                         @click="denyOne(scope.$index, scope.row)">不通过</el-button>
             </template>
         </el-table-column>
@@ -79,6 +79,7 @@ export default {
             select_word: '',
             total: 0,
             pageSize: 15,
+            isLoading: false,
             dialogVisible: false,
             article: '',
             groups: [{
@@ -176,6 +177,7 @@ export default {
         // 通过单选
         passOne(index, row) {
             const self = this;
+            self.isLoading = true;
             self.$axios.post('../manage/article/audit', {
                 articleIds: row.id,
                 isPass: 1
@@ -190,11 +192,13 @@ export default {
                 } else {
                     self.$message.error(_res.msg);
                 }
+                self.isLoading = false;
             });
         },
         // 不通过单选
         denyOne(index, row) {
             const self = this;
+            self.isLoading = true;
             this.$prompt('输入不通过原因', '不通过', {
                 confirmButtonText: '确定',
                 showCancelButton: false,
@@ -220,6 +224,7 @@ export default {
                     } else {
                         self.$message.error(_res.msg);
                     }
+                    self.isLoading = false;
                 });
             });
         },
@@ -232,6 +237,7 @@ export default {
             _articleIds = self.multipleSelection.map(a => a.id).join(',');
 
             if (length > 0) {
+                self.isLoading = true;
                 self.$alert('确定批量通过选中的 ' + length + ' 条文章吗？', '提示', {
                     confirmButtonText: '确定',
                     callback: action => {
@@ -249,6 +255,7 @@ export default {
                             } else {
                                 self.$message.error(_res.msg);
                             }
+                            self.isLoading = false;
                         });
                         self.multipleSelection = [];
                     }
@@ -266,6 +273,7 @@ export default {
             _articleIds = self.multipleSelection.map(a => a.id).join(',');
 
             if (length > 0) {
+                self.isLoading = true;
                 self.$prompt('确定批量不通过选中的 ' + length + ' 条文章吗？请输入原因', '不通过', {
                     confirmButtonText: '确定',
                     showCancelButton: false,
@@ -291,6 +299,7 @@ export default {
                         } else {
                             self.$message.error(_res.msg);
                         }
+                        self.isLoading = false;
                     });
                 });
             } else {
