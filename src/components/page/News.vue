@@ -5,17 +5,24 @@
             <el-input v-model="form.title" class="item-width"></el-input>
         </el-form-item>
         <el-form-item label="文章作者" prop="author">
-            <el-input v-model="form.author" class="item-width"></el-input>
+            <el-select v-model="form.author" filterable placeholder="请选择" class="item-width">
+                <el-option v-for="user in users" :key="user.id" :label="user.name" :value="user.id">
+                </el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="发布日期" prop="publishDate">
+            <el-date-picker v-model="form.publishDate" type="date" class="item-width" :editable="false" placeholder="选择日期">
+            </el-date-picker>
         </el-form-item>
         <el-form-item label="选择板块" prop="categoryId" class="select">
-            <el-select v-model="form.categoryId" placeholder="请选择" class="item-width">
+            <el-select v-model="form.categoryId" placeholder="请选择" class="item-width" @change="changeCate">
                 <el-option-group v-for="group in groups" :key="group.label" :label="group.label">
                     <el-option v-for="item in group.cards" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                 </el-option-group>
             </el-select>
         </el-form-item>
-        <el-form-item label="封面图片">
+        <el-form-item label="封面图片" :class="avatarShow">
             <el-upload class="avatar-uploader" action="../manage/article/uploadImage" :show-file-list="false" :on-success="imageSuccess" :before-upload="beforeImageUpload">
                 <img v-if="form.image" :src="form.image" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -42,7 +49,7 @@
                     <h2 class="news-title" v-html="form.title"></h2>
                     <div class="news-detail">
                         <span><b>作者：</b><span v-html="form.author"></span></span>
-                        <span><b>更新时间：</b><span>当前时间</span></span>
+                        <span><b>更新时间：</b><span v-html="form.publishDate"></span></span>
                     </div>
                     <pre class="news-text" v-html="article"></pre>
                 </div>
@@ -67,11 +74,14 @@ export default {
         return {
             fileList: [],
             article: '',
+            users: [],
             previewActive: true,
             dialogVisible: false,
             isLoading: false,
+            avatarShow: 'hidden',
             form: {
                 categoryId: '',
+                publishDate: '',
                 title: '',
                 author: '',
                 image: ''
@@ -80,6 +90,11 @@ export default {
                 title: [{
                     required: true,
                     message: '请输入文章标题',
+                    trigger: 'blur'
+                }],
+                publishDate: [{
+                    required: true,
+                    message: '请输入发布日期',
                     trigger: 'blur'
                 }],
                 author: [{
@@ -94,6 +109,12 @@ export default {
                 }]
             },
             groups: [{
+                label: '新闻资讯',
+                cards: [{
+                    value: '111',
+                    label: '新闻资讯'
+                }]
+            }, {
                 label: '会议专题',
                 cards: [{
                     value: '1222',
@@ -129,11 +150,17 @@ export default {
             }]
         }
     },
+    created() {
+        const self = this;
+        self.$axios.post('../manage/user/authorList').then((res) => {
+            self.users = res.data.data;
+        });
+    },
     computed: {
         // 按钮禁用控制
         btnActive: function() {
             let form = this.form;
-            if (form.categoryId && form.title && form.author && this.article) {
+            if (form.categoryId && form.title && form.publishDate && form.author && this.article) {
                 return false;
             } else {
                 return true;
@@ -141,6 +168,13 @@ export default {
         }
     },
     methods: {
+        changeCate(cate) {
+            if (cate == 111) {
+                this.avatarShow = '';
+            } else {
+                this.avatarShow = 'hidden';
+            }
+        },
         imageSuccess(res, file) {
             this.form.image = file.response.data.url;
         },
@@ -160,9 +194,9 @@ export default {
             const form = this.form;
             const isDocx = file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
             const isLt = (file.size / 1024 / 1024 < 10);
-            const isFilled = !!form.categoryId && !!form.title && !!form.author;
+            const isFilled = !!form.categoryId && !!form.title && !!form.author && !!form.publishDate;
             if (!isFilled) {
-                this.$message.error('请先填写标题、作者、板块');
+                this.$message.error('请先填写标题、作者、板块、日期');
             }
             if (!isDocx) {
                 this.$message.error('文件格式不正确');
@@ -198,11 +232,13 @@ export default {
                 if (valid) {
                     let _json = {
                         title: self.form.title,
+                        publishDate: self.form.publishDate,
                         author: self.form.author,
                         categoryId: self.form.categoryId,
                         content: self.article,
                         image: self.form.image
                     };
+                    debugger;
                     self.$axios.post('../manage/article/save', _json).then((res) => {
                         var _res = res.data;
                         if (_res.state === 'success') {
@@ -228,7 +264,7 @@ export default {
 
 <style>
 .item-width {
-    width: 360px;
+    width: 360px !important;
 }
 
 .avatar {

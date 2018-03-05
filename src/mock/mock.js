@@ -47,7 +47,7 @@ Mock.mock('../manage/article/list', 'post', {
 		"id": "0001",
 		"categoryName": "代表大会会议",
 		"title": "建瓯市人大常委会关于批准2016年地方政府债务限额及财政预算调整的议案的决议",
-		"createDate": "2017-11-11",
+		"publishDate": "2017-11-11",
 		"hits": "8766",
 		"isRoll": 2,
 		"author": "张少影",
@@ -56,7 +56,7 @@ Mock.mock('../manage/article/list', 'post', {
 		"id": "0002",
 		"categoryName": "常委会会议",
 		"title": "建瓯市人大常委会关于授予建瓯市国家税务局“人民满意单位”荣誉称号的决定",
-		"createDate": "2017-09-24",
+		"publishDate": "2017-09-24",
 		"hits": "8766",
 		"isRoll": 1,
 		"author": "张少影",
@@ -65,7 +65,7 @@ Mock.mock('../manage/article/list', 'post', {
 		"id": "0003",
 		"categoryName": "代表大会会议",
 		"title": "2016年8月29日建瓯市第十五届人大常委会第36次会议通过",
-		"createDate": "2017-08-08",
+		"publishDate": "2017-08-08",
 		"hits": "8766",
 		"isRoll": 1,
 		"author": "张少影",
@@ -74,7 +74,7 @@ Mock.mock('../manage/article/list', 'post', {
 		"id": "0004",
 		"categoryName": "决定决议",
 		"title": "城区殡葬“一条龙”服务点改革情况的调研报告",
-		"createDate": "1978-06-18",
+		"publishDate": "1978-06-18",
 		"hits": "8766",
 		"isRoll": 0,
 		"author": "张少影",
@@ -83,7 +83,7 @@ Mock.mock('../manage/article/list', 'post', {
 		"id": "0005",
 		"categoryName": "代表工作",
 		"title": "建瓯市人大常委会关于批准2016年地方政府债务限额及财政预算调整的议案的决议",
-		"createDate": "1977-07-09",
+		"publishDate": "1977-07-09",
 		"hits": "8766",
 		"isRoll": 1,
 		"author": "张少影",
@@ -92,7 +92,7 @@ Mock.mock('../manage/article/list', 'post', {
 		"id": "0006",
 		"categoryName": "决定决议",
 		"title": "关于吴慧艳等同志职务任免的通知",
-		"createDate": "1994-09-20",
+		"publishDate": "1994-09-20",
 		"hits": "8766",
 		"isRoll": '1',
 		"author": "张少影",
@@ -101,7 +101,7 @@ Mock.mock('../manage/article/list', 'post', {
 		"id": "0007",
 		"categoryName": "监督公开",
 		"title": "建瓯市人大常委会关于批准2016年地方政府债务限额及财政预算调整的议案的决议",
-		"createDate": "1980-01-22",
+		"publishDate": "1980-01-22",
 		"hits": "8766",
 		"isRoll": '0',
 		"delFlag": 0
@@ -109,7 +109,7 @@ Mock.mock('../manage/article/list', 'post', {
 		"id": "0008",
 		"categoryName": "自身建设",
 		"title": "龙村乡人大代表王菊英风采",
-		"createDate": "1985-10-10",
+		"publishDate": "1985-10-10",
 		"hits": "8766",
 		"isRoll": '2',
 		"author": "张少影",
@@ -118,7 +118,7 @@ Mock.mock('../manage/article/list', 'post', {
 		"id": "0009",
 		"categoryName": "代表大会会议",
 		"title": "建瓯市人大常委会关于批准2016年地方政府债务限额及财政预算调整的议案的决议",
-		"createDate": "1975-09-08",
+		"publishDate": "1975-09-08",
 		"hits": "8766",
 		"isRoll": '1',
 		"author": "张少影",
@@ -127,7 +127,7 @@ Mock.mock('../manage/article/list', 'post', {
 		"id": "0010",
 		"categoryName": "常委会会议",
 		"title": "建瓯市人大常委会关于授予建瓯市国家税务局“人民满意单位”荣誉称号的决定",
-		"createDate": "1970-06-07",
+		"publishDate": "1970-06-07",
 		"hits": "8766",
 		"isRoll": '1',
 		"author": "张少影",
@@ -150,6 +150,31 @@ Mock.mock('../manage/article/delete', 'post', {
 // ========================================
 //  文章发布
 //  ========================================
+
+Mock.mock('../manage/user/authorList', 'post', {
+	msg: '获取成功',
+	state: 'success',
+	data: [{
+		id: '0001',
+		name: '张少影'
+	}, {
+		id: '0002',
+		name: '谢静航'
+	}, {
+		id: '0003',
+		name: '蔡晓航'
+	}, {
+		id: '0004',
+		name: '张靓颖'
+	}, {
+		id: '0005',
+		name: '李宇春'
+	}, {
+		id: '0006',
+		name: '周笔畅'
+	}]
+});
+
 
 Mock.mock('../manage/article/save', 'post', {
 	msg: '发布成功',
@@ -229,6 +254,7 @@ Mock.mock('../manage/article/view', 'post', function(opts) {
 				"author": "谢静航", //作者
 				"copyFrom": "", //来源
 				"isNew": '1',
+				"publishDate": '2018-03-05',
 				"content": '<p><a href="/userfiles/201706/2017062317531710.jpg" target="_blank"><img border="0" src="/userfiles/201706/2017062317531710.jpg" width="800" height="600">&nbsp;</a></p>\
 					<p style="TEXT-ALIGN: left; LINE-HEIGHT: 150%; TEXT-INDENT: 28pt; MARGIN: 0cm 0cm 0pt; mso-char-indent-count: 2.0" class="MsoNormal" align="left"><span style="LINE-HEIGHT: 150%; FONT-FAMILY: 仿宋_GB2312; FONT-SIZE: 14pt; mso-hansi-font-family: 仿宋_GB2312; mso-bidi-font-family: 仿宋_GB2312" lang="EN-US">6</span><span style="LINE-HEIGHT: 150%; FONT-FAMILY: 仿宋_GB2312; FONT-SIZE: 14pt; mso-hansi-font-family: 仿宋_GB2312; mso-bidi-font-family: 仿宋_GB2312">月<span lang="EN-US">23</span>日，东游镇<span lang="EN-US">553</span>名考生将走进中考考场参加为期三天的中考。<span lang="EN-US">22</span>日上午，镇人大主席团组织部分人大主席团成员、部分市、镇人大代表实地查看东游中学考点考前准备情况。<span lang="EN-US"><!--?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /--><o:p></o:p></span></span></p>\
 					<p style="TEXT-ALIGN: left; LINE-HEIGHT: 150%; TEXT-INDENT: 28pt; MARGIN: 0cm 0cm 0pt; mso-char-indent-count: 2.0" class="MsoNormal" align="left"><span style="LINE-HEIGHT: 150%; FONT-FAMILY: 仿宋_GB2312; FONT-SIZE: 14pt; mso-hansi-font-family: 仿宋_GB2312; mso-bidi-font-family: 仿宋_GB2312">代表们在考点外查看了街边商铺占道清理情况、道路警示牌设置情况，走进考点对考场清理、布置进行了查看，向考点负责人询问了考务后勤保障等工作准备情况。<span lang="EN-US"><o:p></o:p></span></span></p>\

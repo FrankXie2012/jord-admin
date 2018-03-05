@@ -211,10 +211,6 @@ export default {
 </script>
 
 <style scoped>
-.hidden {
-    display: none;
-}
-
 .input {
     width: 360px;
 }

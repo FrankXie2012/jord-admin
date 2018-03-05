@@ -253,10 +253,6 @@ export default {
 </script>
 
 <style scoped>
-.hidden {
-    display: none;
-}
-
 .handle-box {
     margin-bottom: 20px;
 }

@@ -151,6 +151,10 @@ a {
 
 /* 公共样式 */
 
+.hidden {
+    display: none !important;
+}
+
 .handle-box {
     margin-bottom: 20px;
 }
