@@ -45,7 +45,8 @@ Mock.mock('../manage/article/list', 'post', {
 	page: 1,
 	list: [{
 		"id": "0001",
-		"categoryName": "代表大会会议",
+		"categoryName": "新闻资讯",
+		"categoryId": "111",
 		"title": "建瓯市人大常委会关于批准2016年地方政府债务限额及财政预算调整的议案的决议",
 		"publishDate": "2017-11-11",
 		"hits": "8766",
@@ -55,6 +56,7 @@ Mock.mock('../manage/article/list', 'post', {
 	}, {
 		"id": "0002",
 		"categoryName": "常委会会议",
+		"categoryId": "1222",
 		"title": "建瓯市人大常委会关于授予建瓯市国家税务局“人民满意单位”荣誉称号的决定",
 		"publishDate": "2017-09-24",
 		"hits": "8766",
@@ -64,6 +66,7 @@ Mock.mock('../manage/article/list', 'post', {
 	}, {
 		"id": "0003",
 		"categoryName": "代表大会会议",
+		"categoryId": "1222",
 		"title": "2016年8月29日建瓯市第十五届人大常委会第36次会议通过",
 		"publishDate": "2017-08-08",
 		"hits": "8766",
@@ -73,6 +76,7 @@ Mock.mock('../manage/article/list', 'post', {
 	}, {
 		"id": "0004",
 		"categoryName": "决定决议",
+		"categoryId": "1221",
 		"title": "城区殡葬“一条龙”服务点改革情况的调研报告",
 		"publishDate": "1978-06-18",
 		"hits": "8766",
@@ -81,7 +85,8 @@ Mock.mock('../manage/article/list', 'post', {
 		"delFlag": 3
 	}, {
 		"id": "0005",
-		"categoryName": "代表工作",
+		"categoryName": "新闻资讯",
+		"categoryId": "111",
 		"title": "建瓯市人大常委会关于批准2016年地方政府债务限额及财政预算调整的议案的决议",
 		"publishDate": "1977-07-09",
 		"hits": "8766",
@@ -90,7 +95,8 @@ Mock.mock('../manage/article/list', 'post', {
 		"delFlag": 0
 	}, {
 		"id": "0006",
-		"categoryName": "决定决议",
+		"categoryName": "新闻资讯",
+		"categoryId": "111",
 		"title": "关于吴慧艳等同志职务任免的通知",
 		"publishDate": "1994-09-20",
 		"hits": "8766",
@@ -99,7 +105,8 @@ Mock.mock('../manage/article/list', 'post', {
 		"delFlag": 0
 	}, {
 		"id": "0007",
-		"categoryName": "监督公开",
+		"categoryName": "新闻资讯",
+		"categoryId": "111",
 		"title": "建瓯市人大常委会关于批准2016年地方政府债务限额及财政预算调整的议案的决议",
 		"publishDate": "1980-01-22",
 		"hits": "8766",
@@ -108,6 +115,7 @@ Mock.mock('../manage/article/list', 'post', {
 	}, {
 		"id": "0008",
 		"categoryName": "自身建设",
+		"categoryId": "111",
 		"title": "龙村乡人大代表王菊英风采",
 		"publishDate": "1985-10-10",
 		"hits": "8766",
@@ -117,6 +125,7 @@ Mock.mock('../manage/article/list', 'post', {
 	}, {
 		"id": "0009",
 		"categoryName": "代表大会会议",
+		"categoryId": "111",
 		"title": "建瓯市人大常委会关于批准2016年地方政府债务限额及财政预算调整的议案的决议",
 		"publishDate": "1975-09-08",
 		"hits": "8766",
@@ -126,6 +135,7 @@ Mock.mock('../manage/article/list', 'post', {
 	}, {
 		"id": "0010",
 		"categoryName": "常委会会议",
+		"categoryId": "111",
 		"title": "建瓯市人大常委会关于授予建瓯市国家税务局“人民满意单位”荣誉称号的决定",
 		"publishDate": "1970-06-07",
 		"hits": "8766",

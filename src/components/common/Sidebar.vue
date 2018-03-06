@@ -34,7 +34,7 @@ export default {
             const _images = {
                 icon: 'el-icon-picture',
                 index: 'images',
-                title: '图片新闻'
+                title: '人大概览'
             };
             const _news = {
                 icon: 'el-icon-edit',

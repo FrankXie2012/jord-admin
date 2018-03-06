@@ -6,12 +6,12 @@
         </el-form-item>
         <el-form-item label="文章作者" prop="author">
             <el-select v-model="form.author" filterable placeholder="请选择" class="item-width">
-                <el-option v-for="user in users" :key="user.id" :label="user.name" :value="user.id">
+                <el-option v-for="user in users" :key="user.id" :label="user.name" :value="user.name">
                 </el-option>
             </el-select>
         </el-form-item>
         <el-form-item label="发布日期" prop="publishDate">
-            <el-date-picker v-model="form.publishDate" type="date" class="item-width" :editable="false" placeholder="选择日期">
+            <el-date-picker v-model="form.publishDate" type="date" class="item-width" :editable="false" placeholder="选择日期" value-format="yyyy-MM-dd">
             </el-date-picker>
         </el-form-item>
         <el-form-item label="选择板块" prop="categoryId" class="select">
@@ -48,7 +48,7 @@
                 <div class="news-box">
                     <h2 class="news-title" v-html="form.title"></h2>
                     <div class="news-detail">
-                        <span><b>作者：</b><span v-html="form.author"></span></span>
+                        <span><b>作者：</b><span v-html="form.author"></span></span> &nbsp; &nbsp;
                         <span><b>更新时间：</b><span v-html="form.publishDate"></span></span>
                     </div>
                     <pre class="news-text" v-html="article"></pre>
@@ -152,15 +152,32 @@ export default {
     },
     created() {
         const self = this;
+        let _form = this.form;
+        let _row = this.$store.state.row;
         self.$axios.post('../manage/user/authorList').then((res) => {
             self.users = res.data.data;
         });
+        if (_row) {
+            _form.title = _row.title;
+            _form.author = _row.author;
+            _form.publishDate = _row.publishDate;
+            _form.categoryId = _row.categoryId;
+            self.changeCate(_row.categoryId);
+
+            // 获取文章内容
+            self.$axios.post('../manage/article/view', {
+                id: _row.id
+            }).then((res) => {
+                self.article = res.data.data.content;
+                self.previewActive = false;
+            });
+        }
     },
     computed: {
         // 按钮禁用控制
         btnActive: function() {
-            let form = this.form;
-            if (form.categoryId && form.title && form.publishDate && form.author && this.article) {
+            let _form = this.form;
+            if (_form.categoryId && _form.title && _form.publishDate && _form.author && this.article) {
                 return false;
             } else {
                 return true;

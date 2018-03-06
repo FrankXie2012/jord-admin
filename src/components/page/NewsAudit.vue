@@ -15,7 +15,7 @@
     </div>
     <el-table :data="tableData" border style="width: 100%" ref="multipleTable" @selection-change="selectChange">
         <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column prop="createDate" label="日期" sortable width="120">
+        <el-table-column prop="publishDate" label="日期" sortable width="120">
         </el-table-column>
         <el-table-column prop="title" label="标题">
         </el-table-column>
@@ -53,7 +53,7 @@
                     <h2 class="news-title" v-html="article.title"></h2>
                     <div class="news-detail">
                         <span><b>作者：</b><span v-html="article.author"></span></span>
-                        <span><b>更新时间：</b><span>当前时间</span></span>
+                        <span><b>日期：</b><span v-html="article.publishDate"></span></span>
                     </div>
                     <pre class="news-text" v-html="article.content"></pre>
                 </div>
@@ -83,6 +83,12 @@ export default {
             dialogVisible: false,
             article: '',
             groups: [{
+                label: '新闻资讯',
+                cards: [{
+                    value: '111',
+                    label: '新闻资讯'
+                }]
+            }, {
                 label: '会议专题',
                 cards: [{
                     value: '1222',

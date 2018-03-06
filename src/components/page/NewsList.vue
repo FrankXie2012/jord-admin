@@ -12,11 +12,12 @@
                     </el-option>
                 </el-option-group>
             </el-select>
-            <el-input v-model="select_word" placeholder="筛选关键词" class="handle-input" @change="searchWord"></el-input>
+            <el-input v-model="select_word" placeholder="筛选关键词" class="short-input" @change="searchWord"></el-input>
             <el-button icon="el-icon-close" @click="clear">清空条件</el-button>
+            <el-button type="info" icon="el-icon-view" @click="viewNews">查看文章</el-button>
+            <el-button type="primary" icon="el-icon-edit" @click="editNews">修改文章</el-button>
         </div>
-        <el-table :data="tableData" border style="width: 100%" ref="multipleTable" stripe @selection-change="selectChange">
-            <el-table-column type="selection" width="55"></el-table-column>
+        <el-table :data="tableData" border style="width: 100%" ref="singleTable" highlight-current-row stripe @current-change="currentChange">
             <el-table-column prop="publishDate" label="日期" sortable width="120">
             </el-table-column>
             <el-table-column prop="title" label="标题">
@@ -35,12 +36,10 @@
                     <el-tag size="small" type="warning" v-if="scope.row.delFlag == 3">审核不通过</el-tag>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" :width="isPublish ? 120 : 280">
+            <el-table-column label="操作" :width="isPublish ? 100 : 180">
                 <template scope="scope">
-                <el-button size="small" type="info"
-                        @click="viewNews(scope.$index, scope.row)">查看文章</el-button>
                 <!-- 只有当用户不是发布员 且 文章有封面 且 状态为已发布 时，才可以设置轮播 -->
-                <el-button :type="parseInt(scope.row.isRoll) ? '' : 'primary'" size="small" :class="!isPublish && scope.row.isRoll != 2 && scope.row.delFlag == 0 ? '' : 'hidden'"
+                <el-button :type="parseInt(scope.row.isRoll) ? '' : 'primary'" size="small" :class="!isPublish && scope.row.isRoll != 2 && scope.row.delFlag == 0 && scope.row.categoryId == 111 ? '' : 'hidden'"
                         @click="setRoll(scope.$index, scope.row)">{{parseInt(scope.row.isRoll) ? '取消轮播' : '设为轮播'}}</el-button>
                 <!-- 只有当用户不是发布员 且 状态不是删除 时，才可以删除 -->
                 <el-button size="small" type="danger" :class="isPublish || scope.row.delFlag == 1 ? 'hidden' : ''"
@@ -82,9 +81,8 @@ export default {
         const _role = this.$store.state.role;
         return {
             tableData: [],
-            multipleSelection: [],
+            currentRow: '',
             isPublish: _role === 'publish' ? true : false,
-            btnDisabled: true,
             dialogVisible: false,
             article: '',
             select_status: 1,
@@ -173,6 +171,8 @@ export default {
             }).then((res) => {
                 self.tableData = res.data.list;
                 self.total = res.data.total;
+                // 清空store中存储的文章信息
+                self.$store.commit('setNews', '');
             });
         },
         searchWord() {
@@ -183,20 +183,19 @@ export default {
             this.select_word = '';
             this.select_cate = '';
         },
-        selectChange(val) {
-            this.multipleSelection = val;
-            if (this.multipleSelection.length > 0) {
-                this.btnDisabled = false;
-            } else {
-                this.btnDisabled = true;
-            }
+        currentChange(val) {
+            this.currentRow = val;
         },
         // 查看文章
-        viewNews(index, row) {
+        viewNews() {
             const self = this;
+            if (!self.currentRow) {
+                self.$message.error('请选择文章');
+                return;
+            }
             self.dialogVisible = true;
             self.$axios.post('../manage/article/view', {
-                id: row.id
+                id: self.currentRow.id
             }).then((res) => {
                 let _res = res.data;
                 if (_res.state === 'success') {
@@ -205,6 +204,15 @@ export default {
                     self.$message.error(_res.msg);
                 }
             });
+        },
+        // 修改文章
+        editNews() {
+            if (!this.currentRow) {
+                this.$message.error('请选择文章');
+                return;
+            }
+            this.$store.commit('setNews', this.currentRow);
+            this.$router.push('/news');
         },
         setRoll(index, row) {
             const self = this;
@@ -251,4 +259,7 @@ export default {
 </script>
 
 <style scoped>
+.short-input {
+    width: 200px;
+}
 </style>
