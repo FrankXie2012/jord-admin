@@ -52,7 +52,8 @@ Mock.mock('../manage/article/list', 'post', {
 		"hits": "8766",
 		"isRoll": 2,
 		"author": "张少影",
-		"delFlag": 0
+		"delFlag": 0,
+		"url": "http://y1.ifengimg.com/news_spider/dci_2013/07/035292efbd71a5ffaadcd97e63566ea3.jpg"
 	}, {
 		"id": "0002",
 		"categoryName": "常委会会议",
@@ -188,6 +189,12 @@ Mock.mock('../manage/user/authorList', 'post', {
 
 Mock.mock('../manage/article/save', 'post', {
 	msg: '发布成功',
+	state: 'success',
+	data: null
+});
+
+Mock.mock('../manage/article/update', 'post', {
+	msg: '更新成功',
 	state: 'success',
 	data: null
 });

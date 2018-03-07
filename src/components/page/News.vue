@@ -160,11 +160,13 @@ export default {
         // 修改文章时的数据
         let _row = this.$store.state.row;
         if (_row) {
+            _form.id = _row.id;
             _form.title = _row.title;
             _form.author = _row.author;
             _form.publishDate = _row.publishDate;
             _form.categoryId = _row.categoryId;
             self.changeCate(_row.categoryId);
+            _form.image = _row.url;
 
             // 获取文章内容
             self.$axios.post('../manage/article/view', {
@@ -246,6 +248,7 @@ export default {
         },
         onSubmit(formName) {
             const self = this;
+            let _url = '../manage/article/save';
             self.isLoading = true;
             self.$refs[formName].validate((valid) => {
                 if (valid) {
@@ -257,8 +260,11 @@ export default {
                         content: self.article,
                         image: self.form.image
                     };
-                    debugger;
-                    self.$axios.post('../manage/article/save', _json).then((res) => {
+                    if (this.$store.state.row) {
+                        _json.id = self.form.id;
+                        _url = '../manage/article/update';
+                    }
+                    self.$axios.post(_url, _json).then((res) => {
                         var _res = res.data;
                         if (_res.state === 'success') {
                             self.$message({
@@ -273,6 +279,9 @@ export default {
                             self.$message.error(_res.msg);
                         }
                         self.isLoading = false;
+                        if (this.$store.state.row) {
+                            this.$router.push('/newsList');
+                        }
                     });
                 }
             });
