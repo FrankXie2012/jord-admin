@@ -153,10 +153,12 @@ export default {
     created() {
         const self = this;
         let _form = this.form;
-        let _row = this.$store.state.row;
+        // 获取用户下拉框数据
         self.$axios.post('../manage/user/authorList').then((res) => {
             self.users = res.data.data;
         });
+        // 修改文章时的数据
+        let _row = this.$store.state.row;
         if (_row) {
             _form.title = _row.title;
             _form.author = _row.author;
