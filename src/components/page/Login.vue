@@ -80,6 +80,7 @@ export default {
                             self.$router.push('/');
                         } else {
                             self.$message.error(_res.msg);
+                            self.refreshCode();
                         }
                     });
                 }

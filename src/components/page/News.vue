@@ -71,6 +71,10 @@ export default {
         mammoth
     },
     data: function() {
+        const _today = new Date();
+        const _yyyy = _today.getFullYear();
+        const _mm = _today.getMonth() + 1;
+        const _dd = _today.getDate();
         return {
             fileList: [],
             article: '',
@@ -81,7 +85,7 @@ export default {
             avatarShow: 'hidden',
             form: {
                 categoryId: '',
-                publishDate: '',
+                publishDate: _yyyy + '-' + _mm + '-' + _dd,
                 title: '',
                 author: '',
                 image: ''

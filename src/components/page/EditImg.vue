@@ -7,7 +7,14 @@
             <el-input v-model="form.title" class="input"></el-input>
         </el-form-item>
         <el-form-item label="文章作者" prop="author">
-            <el-input v-model="form.author" class="input"></el-input>
+            <el-select v-model="form.author" class="input" filterable placeholder="请选择">
+                <el-option v-for="user in users" :key="user.id" :label="user.name" :value="user.name">
+                </el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="发布日期" prop="publishDate">
+            <el-date-picker class="input" v-model="form.publishDate" type="date" :editable="false" placeholder="选择日期" value-format="yyyy-MM-dd">
+            </el-date-picker>
         </el-form-item>
         <el-form-item label="选择板块" prop="categoryId" class="select">
             <el-select v-model="form.categoryId" :value="form.categoryId" placeholder="请选择" class="input">
@@ -45,14 +52,20 @@
 <script>
 export default {
     data: function() {
+        const _today = new Date();
+        const _yyyy = _today.getFullYear();
+        const _mm = _today.getMonth() + 1;
+        const _dd = _today.getDate();
         return {
             form: {
                 categoryId: '',
                 title: '',
                 author: '',
+                publishDate: _yyyy + '-' + _mm + '-' + _dd,
                 image: '',
                 content: []
             },
+            users: [],
             isLoading: false,
             dialogImageUrl: '',
             dialogVisible: false,
@@ -67,6 +80,11 @@ export default {
                 author: [{
                     required: true,
                     message: '请输入作者',
+                    trigger: 'blur'
+                }],
+                publishDate: [{
+                    required: true,
+                    message: '请输入发布日期',
                     trigger: 'blur'
                 }],
                 categoryId: [{
@@ -111,7 +129,7 @@ export default {
         // 按钮禁用控制
         btnActive: function() {
             let form = this.form;
-            if (form.categoryId && form.title && form.author && form.content.length > 0) {
+            if (form.categoryId && form.title && form.author && form.publishDate && form.content.length > 0) {
                 return false;
             } else {
                 return true;
@@ -131,6 +149,7 @@ export default {
                     self.form.content = _res.data.content;
                     self.form.title = _res.data.title;
                     self.form.author = _res.data.author;
+                    self.form.publishDate = _res.data.publishDate;
                     self.form.categoryId = _res.data.categoryId;
                     if (_res.data.image) self.form.image = _res.data.image;
                 } else {
@@ -138,6 +157,10 @@ export default {
                 }
             });
         }
+        // 获取用户下拉框数据
+        self.$axios.post('../manage/user/authorList').then((res) => {
+            self.users = res.data.data;
+        });
     },
     methods: {
         imageSuccess(file, fileList) {
@@ -178,10 +201,12 @@ export default {
                     let _json = {
                         title: self.form.title,
                         author: self.form.author,
+                        publishDate: self.form.publishDate,
                         categoryId: self.form.categoryId,
                         content: self.form.content,
                         image: self.form.image
                     };
+                    debugger;
                     self.$axios.post('../manage/article/save', _json).then((res) => {
                         var _res = res.data;
                         if (_res.state === 'success') {

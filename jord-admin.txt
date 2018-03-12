@@ -26,3 +26,8 @@ jord：
 1.图册展示建瓯风光
 2.首页轮播，图片显示不全
 3.图片新闻-单张图片样式添加
+
+
+1.注释app中mock
+2.manifest文件中 _webpack_require_.p = './' 改为 '/'
+3.7文件中 servlet/validateCodeServlet 改为 /servlet/validateCodeServlet

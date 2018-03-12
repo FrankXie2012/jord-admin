@@ -138,7 +138,7 @@ export default {
             }
             self.isLoading = true;
             self.$axios.post('../manage/user/updateRole', {
-                username: self.curRow.username,
+                id: self.curRow.id,
                 role: self.roleRadio
             }).then((res) => {
                 let _res = res.data;

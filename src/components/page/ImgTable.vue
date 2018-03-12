@@ -18,7 +18,7 @@
         </div>
         <el-table :data="tableData" border style="width: 100%" ref="multipleTable" stripe @selection-change="selectChange">
             <el-table-column type="selection" width="55"></el-table-column>
-            <el-table-column prop="createDate" label="日期" sortable width="120">
+            <el-table-column prop="publishDate" label="日期" sortable width="120">
             </el-table-column>
             <el-table-column prop="title" label="标题">
             </el-table-column>

@@ -18,7 +18,7 @@
             <el-input v-model="form.desc" class="item-width"></el-input>
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" :disabled="btnActive" :loading="isLoading" @click="onSubmit('form')">立即发布</el-button>
+            <el-button type="primary" :disabled="btnActive" :loading="isLoading" @click="onSubmit('form')">新增人员</el-button>
             <el-button @click="onBack">返回列表</el-button>
         </el-form-item>
     </el-form>
