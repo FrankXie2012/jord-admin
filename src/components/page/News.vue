@@ -4,16 +4,8 @@
         <el-form-item label="文章名称" prop="title">
             <el-input v-model="form.title" class="item-width"></el-input>
         </el-form-item>
-        <el-form-item label="文章作者" prop="author">
-            <el-select v-model="form.author" filterable placeholder="请选择" class="item-width">
-                <el-option v-for="user in users" :key="user.id" :label="user.name" :value="user.name">
-                </el-option>
-            </el-select>
-        </el-form-item>
-        <el-form-item label="发布日期" prop="publishDate">
-            <el-date-picker v-model="form.publishDate" type="date" class="item-width" :editable="false" placeholder="选择日期" value-format="yyyy-MM-dd">
-            </el-date-picker>
-        </el-form-item>
+        <!-- 用户下拉框和日期选择控件 -->
+        <user-date @cauthor="getAuthor" @cdate="getDate" :prop-author="form.author" :prop-date="form.publishDate"></user-date>
         <el-form-item label="选择板块" prop="categoryId" class="select">
             <el-select v-model="form.categoryId" placeholder="请选择" class="item-width" @change="changeCate">
                 <el-option-group v-for="group in groups" :key="group.label" :label="group.label">
@@ -36,7 +28,7 @@
             </el-upload>
         </el-form-item>
         <el-form-item>
-            <el-button :disabled="previewActive" @click="onPreview">预览文章</el-button>
+            <el-button :disabled="disablePreview" @click="onPreview">预览文章</el-button>
             <el-button type="primary" :loading="isLoading" :disabled="btnActive" @click="onSubmit('form')">立即发布</el-button>
         </el-form-item>
     </el-form>
@@ -65,27 +57,24 @@
 
 <script>
 import mammoth from 'mammoth/mammoth.browser'
+import userDate from '../common/UserDate.vue'
 
 export default {
     components: {
-        mammoth
+        mammoth,
+        userDate
     },
     data: function() {
-        const _today = new Date();
-        const _yyyy = _today.getFullYear();
-        const _mm = _today.getMonth() + 1;
-        const _dd = _today.getDate();
         return {
             fileList: [],
             article: '',
-            users: [],
-            previewActive: true,
+            disablePreview: true,
             dialogVisible: false,
             isLoading: false,
             avatarShow: 'hidden',
             form: {
                 categoryId: '',
-                publishDate: _yyyy + '-' + _mm + '-' + _dd,
+                publishDate: '',
                 title: '',
                 author: '',
                 image: ''
@@ -94,16 +83,6 @@ export default {
                 title: [{
                     required: true,
                     message: '请输入文章标题',
-                    trigger: 'blur'
-                }],
-                publishDate: [{
-                    required: true,
-                    message: '请输入发布日期',
-                    trigger: 'blur'
-                }],
-                author: [{
-                    required: true,
-                    message: '请输入作者',
                     trigger: 'blur'
                 }],
                 categoryId: [{
@@ -155,12 +134,7 @@ export default {
         }
     },
     created() {
-        const self = this;
         let _form = this.form;
-        // 获取用户下拉框数据
-        self.$axios.post('../manage/user/authorList').then((res) => {
-            self.users = res.data.data;
-        });
         // 修改文章时的数据
         let _row = this.$store.state.row;
         if (_row) {
@@ -169,15 +143,15 @@ export default {
             _form.author = _row.author;
             _form.publishDate = _row.publishDate;
             _form.categoryId = _row.categoryId;
-            self.changeCate(_row.categoryId);
+            this.changeCate(_row.categoryId);
             _form.image = _row.url;
 
             // 获取文章内容
-            self.$axios.post('../manage/article/view', {
+            this.$axios.post('../manage/article/view', {
                 id: _row.id
             }).then((res) => {
-                self.article = res.data.data.content;
-                self.previewActive = false;
+                this.article = res.data.data.content;
+                this.disablePreview = false;
             });
         }
     },
@@ -193,6 +167,12 @@ export default {
         }
     },
     methods: {
+        getAuthor(res) {
+            this.form.author = res;
+        },
+        getDate(res) {
+            this.form.publishDate = res;
+        },
         changeCate(cate) {
             if (cate == 111) {
                 this.avatarShow = '';
@@ -216,18 +196,21 @@ export default {
             return isJPG && isLt2M;
         },
         hintUpload(file) {
-            const form = this.form;
+            const _form = this.form;
             const isDocx = file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
             const isLt = (file.size / 1024 / 1024 < 10);
-            const isFilled = !!form.categoryId && !!form.title && !!form.author && !!form.publishDate;
+            const isFilled = !!_form.categoryId && !!_form.title && !!_form.author && !!_form.publishDate;
             if (!isFilled) {
                 this.$message.error('请先填写标题、作者、板块、日期');
+                return false;
             }
             if (!isDocx) {
                 this.$message.error('文件格式不正确');
+                return false;
             }
             if (!isLt) {
                 this.$message.error('文件超过大小限制');
+                return false;
             }
             return (isDocx && isLt && isFilled);
         },
@@ -243,7 +226,7 @@ export default {
                         arrayBuffer: arrayBuffer
                     })
                     .then(function(result) {
-                        self.previewActive = false;
+                        self.disablePreview = false;
                         self.article = result.value;
                     })
                     .done();
@@ -277,7 +260,7 @@ export default {
                             });
                             self.form = {};
                             self.article = '';
-                            self.previewActive = true;
+                            self.disablePreview = true;
                             self.$refs[formName].resetFields();
                         } else {
                             self.$message.error(_res.msg);

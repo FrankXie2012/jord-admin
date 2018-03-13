@@ -148,6 +148,7 @@ export default {
                         type: 'success',
                         message: _res.msg
                     });
+                    self.getData();
                 } else {
                     self.$message.error(_res.msg);
                 }

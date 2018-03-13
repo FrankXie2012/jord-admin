@@ -16,8 +16,7 @@
             <el-button icon="el-icon-close" @click="clear">清空条件</el-button>
             <el-button type="primary" icon="el-icon-edit" @click="addImgs">新增图片新闻</el-button>
         </div>
-        <el-table :data="tableData" border style="width: 100%" ref="multipleTable" stripe @selection-change="selectChange">
-            <el-table-column type="selection" width="55"></el-table-column>
+        <el-table :data="tableData" border style="width: 100%" ref="singleTable" highlight-current-row stripe>
             <el-table-column prop="publishDate" label="日期" sortable width="120">
             </el-table-column>
             <el-table-column prop="title" label="标题">
@@ -101,7 +100,6 @@ export default {
             oldData: false,
             image: '',
             tableData: [],
-            multipleSelection: [],
             isPublish: _role === 'publish' ? true : false,
             btnDisabled: true,
             dialogVisible: false,
@@ -178,6 +176,7 @@ export default {
             }).then((res) => {
                 self.tableData = res.data.list;
                 self.total = res.data.total;
+                self.$store.commit('setNews', '');
             });
         },
         clear() {
@@ -185,16 +184,8 @@ export default {
             this.select_word = '';
             this.select_cate = '';
         },
-        selectChange(val) {
-            this.multipleSelection = val;
-            if (this.multipleSelection.length > 0) {
-                this.btnDisabled = false;
-            } else {
-                this.btnDisabled = true;
-            }
-        },
         handleEdit(index, row) {
-            this.$store.commit('setImage', row);
+            this.$store.commit('setNews', row);
             this.$router.push('/editImg');
         },
         delOne(index, row) {
@@ -220,7 +211,7 @@ export default {
             });
         },
         addImgs() {
-            this.$store.commit('setImage', '');
+            this.$store.commit('setNews', '');
             this.$router.push('/editImg');
         },
         // 查看图片

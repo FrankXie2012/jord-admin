@@ -6,16 +6,8 @@
         <el-form-item label="新闻标题" prop="title">
             <el-input v-model="form.title" class="input"></el-input>
         </el-form-item>
-        <el-form-item label="文章作者" prop="author">
-            <el-select v-model="form.author" class="input" filterable placeholder="请选择">
-                <el-option v-for="user in users" :key="user.id" :label="user.name" :value="user.name">
-                </el-option>
-            </el-select>
-        </el-form-item>
-        <el-form-item label="发布日期" prop="publishDate">
-            <el-date-picker class="input" v-model="form.publishDate" type="date" :editable="false" placeholder="选择日期" value-format="yyyy-MM-dd">
-            </el-date-picker>
-        </el-form-item>
+        <!-- 用户下拉框和日期选择控件 -->
+        <user-date @cauthor="getAuthor" @cdate="getDate" :prop-author="form.author" :prop-date="form.publishDate"></user-date>
         <el-form-item label="选择板块" prop="categoryId" class="select">
             <el-select v-model="form.categoryId" :value="form.categoryId" placeholder="请选择" class="input">
                 <el-option-group v-for="group in groups" :key="group.label" :label="group.label">
@@ -50,22 +42,22 @@
 </template>
 
 <script>
+import userDate from '../common/UserDate.vue';
 export default {
+    components: {
+        userDate
+    },
     data: function() {
-        const _today = new Date();
-        const _yyyy = _today.getFullYear();
-        const _mm = _today.getMonth() + 1;
-        const _dd = _today.getDate();
         return {
             form: {
+                id: '',
                 categoryId: '',
                 title: '',
                 author: '',
-                publishDate: _yyyy + '-' + _mm + '-' + _dd,
+                publishDate: '',
                 image: '',
                 content: []
             },
-            users: [],
             isLoading: false,
             dialogImageUrl: '',
             dialogVisible: false,
@@ -75,16 +67,6 @@ export default {
                 title: [{
                     required: true,
                     message: '请输入文章标题',
-                    trigger: 'blur'
-                }],
-                author: [{
-                    required: true,
-                    message: '请输入作者',
-                    trigger: 'blur'
-                }],
-                publishDate: [{
-                    required: true,
-                    message: '请输入发布日期',
                     trigger: 'blur'
                 }],
                 categoryId: [{
@@ -138,31 +120,36 @@ export default {
     },
     created() {
         const self = this;
-        const _image = this.$store.state.image;
-        if (_image) {
+        const _row = this.$store.state.row;
+        let _form = this.form;
+        if (_row) {
+            _form.id = _row.id;
+            _form.title = _row.title;
+            _form.author = _row.author;
+            _form.publishDate = _row.publishDate;
+            _form.categoryId = _row.categoryId;
+
             self.$axios.post('../manage/article/view', {
-                id: _image.id
+                id: _form.id
             }).then((res) => {
                 let _res = res.data;
                 if (_res.state === 'success') {
                     self.fileList = _res.data.content;
-                    self.form.content = _res.data.content;
-                    self.form.title = _res.data.title;
-                    self.form.author = _res.data.author;
-                    self.form.publishDate = _res.data.publishDate;
-                    self.form.categoryId = _res.data.categoryId;
-                    if (_res.data.image) self.form.image = _res.data.image;
+                    _form.content = _res.data.content;
+                    if (_res.data.image) _form.image = _res.data.image;
                 } else {
                     self.$message.error(_res.msg);
                 }
             });
         }
-        // 获取用户下拉框数据
-        self.$axios.post('../manage/user/authorList').then((res) => {
-            self.users = res.data.data;
-        });
     },
     methods: {
+        getAuthor(res) {
+            this.form.author = res;
+        },
+        getDate(res) {
+            this.form.publishDate = res;
+        },
         imageSuccess(file, fileList) {
             this.form.image = file.url;
         },
@@ -206,7 +193,6 @@ export default {
                         content: self.form.content,
                         image: self.form.image
                     };
-                    debugger;
                     self.$axios.post('../manage/article/save', _json).then((res) => {
                         var _res = res.data;
                         if (_res.state === 'success') {
@@ -228,7 +214,7 @@ export default {
             });
         },
         onBack() {
-            this.$store.commit('setImage', '');
+            this.$store.commit('setNews', '');
             this.$router.push('/images');
         }
     }

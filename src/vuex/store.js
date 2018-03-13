@@ -23,9 +23,6 @@ export default new Vuex.Store({
 			state.name = '';
 			state.role = '';
 		},
-		setImage(state, image) {
-			state.image = image;
-		},
 		setNews(state, row) {
 			state.row = row;
 		}

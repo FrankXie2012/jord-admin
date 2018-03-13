@@ -226,7 +226,7 @@ export default {
                         type: 'success',
                         message: _res.msg
                     });
-                    row.isRoll = !row.isRoll;
+                    parseInt(row.isRoll) === 0 ? row.isRoll = 1 : row.isRoll = 0;
                 } else {
                     self.$message.error(_res.msg);
                 }

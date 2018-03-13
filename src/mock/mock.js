@@ -170,7 +170,7 @@ Mock.mock('../manage/user/authorList', 'post', {
 		name: '张少影'
 	}, {
 		id: '0002',
-		name: '谢静航'
+		name: 'Frank Shieh'
 	}, {
 		id: '0003',
 		name: '蔡晓航'
