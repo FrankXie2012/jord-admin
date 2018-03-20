@@ -134,26 +134,7 @@ export default {
         }
     },
     created() {
-        let _form = this.form;
-        // 修改文章时的数据
-        let _row = this.$store.state.row;
-        if (_row) {
-            _form.id = _row.id;
-            _form.title = _row.title;
-            _form.author = _row.author;
-            _form.publishDate = _row.publishDate;
-            _form.categoryId = _row.categoryId;
-            this.changeCate(_row.categoryId);
-            _form.image = _row.url;
-
-            // 获取文章内容
-            this.$axios.post('../manage/article/view', {
-                id: _row.id
-            }).then((res) => {
-                this.article = res.data.data.content;
-                this.disablePreview = false;
-            });
-        }
+        this.initPage();
     },
     computed: {
         // 按钮禁用控制
@@ -167,6 +148,33 @@ export default {
         }
     },
     methods: {
+        initPage() {
+            let _form = this.form;
+            // 修改文章时的数据
+            let _row = this.$store.state.row;
+            _form = {};
+            this.article = '';
+            this.fileList = [];
+            this.disablePreview = true;
+            this.$refs['form'].resetFields();
+            if (_row) {
+                _form.id = _row.id;
+                _form.title = _row.title;
+                _form.author = _row.author;
+                _form.publishDate = _row.publishDate;
+                _form.categoryId = _row.categoryId;
+                this.changeCate(_row.categoryId);
+                _form.image = _row.url;
+
+                // 获取文章内容
+                this.$axios.post('../manage/article/view', {
+                    id: _row.id
+                }).then((res) => {
+                    this.article = res.data.data.content;
+                    this.disablePreview = false;
+                });
+            }
+        },
         getAuthor(res) {
             this.form.author = res;
         },
@@ -258,10 +266,7 @@ export default {
                                 type: 'success',
                                 message: _res.msg
                             });
-                            self.form = {};
-                            self.article = '';
-                            self.disablePreview = true;
-                            self.$refs[formName].resetFields();
+                            self.initPage();
                         } else {
                             self.$message.error(_res.msg);
                         }
