@@ -27,13 +27,16 @@ export default {
         }
     },
     created: function() {
-        this.$axios.post('../manage/user/authorList').then((res) => {
-            this.users = res.data.data;
-        });
-        this.$emit('cauthor', this.author);
-        this.$emit('cdate', this.publishDate);
+        this.init();
     },
     methods: {
+        init: function() {
+            this.$axios.post('../manage/user/authorList').then((res) => {
+                this.users = res.data.data;
+            });
+            this.$emit('cauthor', this.author);
+            this.$emit('cdate', this.publishDate);
+        },
         changeAuthor: function() {
             this.$emit('cauthor', this.author);
         },

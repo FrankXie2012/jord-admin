@@ -5,7 +5,7 @@
             <el-input v-model="form.title" class="item-width"></el-input>
         </el-form-item>
         <!-- 用户下拉框和日期选择控件 -->
-        <user-date @cauthor="getAuthor" @cdate="getDate" :prop-author="form.author" :prop-date="form.publishDate"></user-date>
+        <user-date ref="userDate" @cauthor="getAuthor" @cdate="getDate" :prop-author="form.author" :prop-date="form.publishDate"></user-date>
         <el-form-item label="选择板块" prop="categoryId" class="select">
             <el-select v-model="form.categoryId" placeholder="请选择" class="item-width" @change="changeCate">
                 <el-option-group v-for="group in groups" :key="group.label" :label="group.label">
@@ -149,14 +149,10 @@ export default {
     },
     methods: {
         initPage() {
+            const self = this;
             let _form = this.form;
             // 修改文章时的数据
             let _row = this.$store.state.row;
-            _form = {};
-            this.article = '';
-            this.fileList = [];
-            this.disablePreview = true;
-            this.$refs['form'].resetFields();
             if (_row) {
                 _form.id = _row.id;
                 _form.title = _row.title;
@@ -170,16 +166,29 @@ export default {
                 this.$axios.post('../manage/article/view', {
                     id: _row.id
                 }).then((res) => {
-                    this.article = res.data.data.content;
-                    this.disablePreview = false;
+                    self.article = res.data.data.content;
+                    self.disablePreview = false;
                 });
             }
         },
+        clearPage() {
+            const self = this;
+            this.form = {};
+            this.article = '';
+            this.fileList = [];
+            this.disablePreview = true;
+            this.avatarShow = 'hidden';
+            this.$refs['form'].clearValidate();
+        },
         getAuthor(res) {
-            this.form.author = res;
+            if (!this.form.author) {
+                this.form.author = res;
+            }
         },
         getDate(res) {
-            this.form.publishDate = res;
+            if (!this.form.publishDate) {
+                this.form.publishDate = res;
+            }
         },
         changeCate(cate) {
             if (cate == 111) {
@@ -266,7 +275,7 @@ export default {
                                 type: 'success',
                                 message: _res.msg
                             });
-                            self.initPage();
+                            self.clearPage();
                         } else {
                             self.$message.error(_res.msg);
                         }
