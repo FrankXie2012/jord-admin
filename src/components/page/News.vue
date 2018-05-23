@@ -190,17 +190,13 @@ export default {
 			this.$refs['userDate'].init();
 		},
 		getAuthor(res) {
-			if (!this.form.author) {
-				this.form.author = res;
-			}
+			this.form.author = res;
 		},
 		getDate(res) {
-			if (!this.form.publishDate) {
-				this.form.publishDate = res;
-			}
+			this.form.publishDate = res;
 		},
 		changeCate(cate) {
-			if (cate == 111) {
+			if (cate == 811) {
 				this.avatarShow = '';
 			} else {
 				this.avatarShow = 'hidden';
@@ -277,6 +273,7 @@ export default {
 						_json.id = self.form.id;
 						_url = '../manage/article/update';
 					}
+					debugger;
 					self.$axios.post(_url, _json).then((res) => {
 						var _res = res.data;
 						if (_res.state === 'success') {
