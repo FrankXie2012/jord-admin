@@ -158,6 +158,13 @@ Mock.mock('../manage/article/delete', 'post', {
 	data: null
 });
 
+Mock.mock('../manage/article/setHits', 'post', {
+	msg: '设置成功',
+	state: 'success',
+	data: null
+});
+
+
 // ========================================
 //  文章发布
 //  ========================================
