@@ -58,7 +58,10 @@
 			</el-table-column>
 			<el-table-column prop="hits"
 			    label="点击量"
-			    width="70">
+			    width="80">
+				<template slot-scope="scope">
+                    <span>{{scope.row.hits}}</span> <i class="el-icon-edit edit-icon" @click="setHits(scope.$index, scope.row)"></i></el-button>
+                </template>
 			</el-table-column>
 			<el-table-column prop="author"
 			    label="作者"
@@ -163,6 +166,13 @@ export default {
 		},
 		select_cate() {
 			this.getData();
+		},
+		hits(val) {
+			if (!val) {
+				this.hitsDisabled = true;
+			} else {
+				this.hitsDisabled = false;
+			}
 		}
 	},
 	methods: {
@@ -264,6 +274,34 @@ export default {
 					});
 				}
 			});
+		},
+		validateHits(val) {
+			if (!val || Number.isInteger(val)) {
+				return '请输入数字';
+			}
+		},
+		setHits(index, row) {
+			this.$prompt('请输入点击量', '设置点击量', {
+				inputValidator: this.validateHits
+			}).then(({
+				value
+			}) => {
+				this.$axios.post('../manage/article/setHits', {
+					articleId: row.id,
+					hits: value
+				}).then((res) => {
+					let _res = res.data;
+					if (_res.state === 'success') {
+						this.$message({
+							type: 'success',
+							message: _res.msg
+						});
+						this.getData();
+					} else {
+						this.$message.error(_res.msg);
+					}
+				});
+			});
 		}
 	}
 }
@@ -272,5 +310,13 @@ export default {
 <style scoped>
 .short-input {
 	width: 200px;
+}
+
+.edit-icon {
+	cursor: pointer;
+}
+
+.edit-icon:hover {
+	color: #409eff;
 }
 </style>
