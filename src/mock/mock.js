@@ -411,3 +411,38 @@ Mock.mock('../manage/user/updateName', 'post', {
 	state: 'success',
 	data: null
 });
+
+
+// ========================================
+//  友情链接
+//  ========================================
+
+Mock.mock('../manage/link/list', 'post', {
+    list: [{
+		linkId: '0001',
+		title: '中国人大',
+		url: 'www.zgrd.gov.cn',
+		order: '1'
+	}, {
+	    linkId: '0002',
+	    title: '福州人大',
+	    url: 'www.fzrd.gov.cn',
+	    order: '2'
+	}, {
+	    linkId: '0003',
+	    title: '南平市人大',
+	    url: 'www.npsrd.gov.cn',
+	    order: '3'
+	}, {
+	    linkId: '0004',
+	    title: '建瓯市人大',
+	    url: 'www.josrd.gov.cn',
+	    order: '4'
+	}]
+});
+
+Mock.mock('../manage/link/save', 'post', {
+    msg: '修改成功',
+    state: 'success',
+    data: null
+});

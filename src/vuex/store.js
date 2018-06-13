@@ -25,6 +25,9 @@ export default new Vuex.Store({
 		},
 		setNews(state, row) {
 			state.row = row;
+		},
+		setLink(state, row) {
+			state.row = row;
 		}
 	},
 	actions: {

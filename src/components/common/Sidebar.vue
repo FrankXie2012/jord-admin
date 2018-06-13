@@ -46,6 +46,11 @@ export default {
                 index: 'newsAudit',
                 title: '文章审阅'
             };
+            const _links = {
+                icon: 'el-icon-more',
+                index: 'links',
+                title: '友情链接'
+            };
             const _users = {
                 icon: 'el-icon-star-off',
                 index: 'users',
@@ -58,7 +63,7 @@ export default {
             };
             switch (this.$store.state.role) {
                 case 'admin':
-                    return [_newsList, _images, _news, _newsAudit, _users, _person];
+                    return [_newsList, _images, _news, _newsAudit, _links, _users, _person];
                 case 'audit':
                     return [_newsList, _images, _newsAudit, _person];
                 case 'publish':

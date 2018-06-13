@@ -51,6 +51,20 @@ const routes = [{
 		component: resolve => require(['../components/page/NewsAudit.vue'],
 			resolve) // 文章审阅
 	}, {
+		path: '/links',
+		meta: {
+			requireAuth: true,
+		},
+		component: resolve => require(['../components/page/Links.vue'],
+			resolve) // 友情链接
+	}, {
+	    path: '/addLink',
+	    meta: {
+	        requireAuth: true,
+	    },
+	    component: resolve => require(['../components/page/AddLink.vue'],
+	        resolve) // 编辑友情链接
+	}, {
 		path: '/users',
 		meta: {
 			requireAuth: true,
