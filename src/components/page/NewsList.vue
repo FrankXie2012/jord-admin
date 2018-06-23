@@ -80,7 +80,7 @@
 			    :width="isPublish ? 100 : 180">
 				<template scope="scope">
                 <!-- 只有当用户不是发布员 且 文章有封面 且 状态为已发布 时，才可以设置轮播 -->
-                <el-button :type="parseInt(scope.row.isRoll) ? '' : 'primary'" size="small" :class="!isPublish && scope.row.isRoll != 2 && scope.row.delFlag == 0 && scope.row.categoryId == 111 ? '' : 'hidden'"
+                <el-button :type="parseInt(scope.row.isRoll) ? '' : 'primary'" size="small" :class="!isPublish && scope.row.isRoll != 2 && scope.row.delFlag == 0 && scope.row.categoryId == 811 ? '' : 'hidden'"
                         @click="setRoll(scope.$index, scope.row)">{{parseInt(scope.row.isRoll) ? '取消轮播' : '设为轮播'}}</el-button>
                 <!-- 只有当用户不是发布员 且 状态不是删除 时，才可以删除 -->
                 <el-button size="small" type="danger" :class="isPublish || scope.row.delFlag == 1 ? 'hidden' : ''"

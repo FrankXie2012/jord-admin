@@ -58,11 +58,11 @@ const routes = [{
 		component: resolve => require(['../components/page/Links.vue'],
 			resolve) // 友情链接
 	}, {
-	    path: '/addLink',
+	    path: '/editLink',
 	    meta: {
 	        requireAuth: true,
 	    },
-	    component: resolve => require(['../components/page/AddLink.vue'],
+	    component: resolve => require(['../components/page/EditLink.vue'],
 	        resolve) // 编辑友情链接
 	}, {
 		path: '/users',

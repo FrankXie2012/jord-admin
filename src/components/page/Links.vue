@@ -1,13 +1,13 @@
 <!-- 文章审核 -->
 <template>
 <div>
-    <div class="handle-box">
-		<el-button type="primary"
-		    icon="el-icon-circle-plus-outline"
-            :disabled="addActive"
-		    @click="addLink">新增友情链接</el-button>
-	</div>
-	<el-table :data="tableData"
+	<el-alert
+		title="若内容为空，该友情链接不显示"
+		:closable="false"
+		type="info">
+	</el-alert>
+	<br>
+  	<el-table :data="tableData"
 	    border
 	    style="width: 100%"
 	    ref="linksTable">
@@ -61,12 +61,9 @@ export default {
                 self.count = res.data.list.length;
 			});
         },
-        addLink() {
-            this.$router.push('/addLink');
-        },
         editLink(index, row) {
             this.$store.commit('setLink', row);
-			this.$router.push('/addLink');
+			this.$router.push('/editLink');
         }
 	}
 }

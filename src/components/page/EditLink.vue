@@ -18,7 +18,7 @@
             </el-select>
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" :disabled="btnActive" :loading="isLoading" @click="onSubmit('form')">确定</el-button>
+            <el-button type="primary" :loading="isLoading" @click="onSubmit('form')">确定</el-button>
             <el-button @click="onBack">返回列表</el-button>
         </el-form-item>
     </el-form>
@@ -56,32 +56,11 @@ export default {
                 label: '6'
             }],
             rules: {
-                title: [{
-                    required: true,
-                    message: '必填',
-                    trigger: 'blur'
-                }],
-                url: [{
-                    required: true,
-                    message: '必填',
-                    trigger: 'blur'
-                }],
                 order: [{
                     required: true,
                     message: '必填',
                     trigger: 'blur'
                 }]
-            }
-        }
-    },
-    computed: {
-        // 登录按钮禁用控制
-        btnActive: function() {
-            let form = this.form;
-            if (form.title && form.url && form.order) {
-                return false;
-            } else {
-                return true;
             }
         }
     },
@@ -119,6 +98,8 @@ export default {
                         }
                         self.isLoading = false;
                     });
+                } else {
+                    self.isLoading = false;
                 }
             });
         },
